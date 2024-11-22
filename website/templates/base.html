@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/static/img/new_logo_small.png">
+    <link href="/static/css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/blockspotlight/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <title>{% block title %}Blockspotlight.com{% endblock %}</title>
+</head>
+<body >
+  
+    <nav class="navbar navbar-expand-lg grey-bottom-border">
+      <div >
+        <div class="col">
+          <a class="navbar-brand logo-band" href="/">
+            <img src="/static/img/logo_small_wide.png" alt="Blockspotlight.com"></img>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid" style="padding: 20px;">
+        <div class="baner-creme pb-0 pt-0">
+
+          <div class="container justify-content-center" style="text-align: center;">
+              <img src="/static/img/small_grey_btc.png" width="80"></img>
+          </div>
+        </div>
+        <div class="text-center mb-2">
+          <small class="faded-text small-text">Last processed blocks</small>
+        </div>
+      
+        <div class="card-group mb-5">
+
+          {% for i in blocks %}
+              <div  class="card card_animated_dark mined-block text-dark p-4 m-2 {% if i[7] == 1 %} d-block highlighted-block pulse-div {% endif %} {% if i[7] in [2,3] %} d-none d-md-block {% endif %} {% if i[7] in [4,5] %} d-none d-lg-block {% endif %} {% if i[7] >= 6  %} d-none d-xxl-block {% endif %}" >
+                  <a class="card-title link-secondary link-underline-dark link-underline link-underline-opacity-0 block_url"  href="https://mempool.space/block/{{i[1]}}" target="_blank">
+                      <i class="bi bi-box-fill"></i> <br/>{{i[0]}} 
+                  </a>
+                  <p class="card-text ">
+                      
+                      <span class="main-text ">{{ moment(i[2]).format('LLL') }}</span>
+                      <br/>
+                      <small class="muted-text ">{{ moment(i[2]).fromNow() }}</small>
+                      </br/>
+                      <small class="muted-text ">
+                      {{'{:,}'.format(i[5])}} TRX • Avg. Fee {{i[6]}} BTC
+                      </small>
+                  </p>
+              </div>
+          
+          {%endfor%}
+          </div>
+    
+      <div>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link {% if content_type == 'dashboard' %}active{% endif %}" aria-current="page" href="/dashboard?type=dashboard"><i class="bi bi-speedometer2"></i>DASHBOARD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if content_type == 'addresses' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet"></i>ADDRESSES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if content_type == 'mining' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i>MINING</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-distribute-vertical"></i>DISTRIBUTION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-graph-up"></i>ONCHAIN CHARTS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+  {% block content %} {% endblock %}
+
+  <div class="baner-creme pb-5 pt-4">
+    
+    <div class="container justify-content-center" style="text-align: center;">
+        <img src="/static/img/small_grey_btc.png" width="80"></img>
+    </div>
+</div>
+  {{ moment.include_moment() }}
+
+</body>
+</html>

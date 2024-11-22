@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | Blockspotlight.com{% endblock %}
+
+{% block content %}
+
+
+<div class="">
+    <div class="container-fluid" style="padding: 40px;">
+        
+        <div class="standard-chart-panel">
+            <div style="padding: 40px;">
+                <h3><i class="bi bi-graph-up"></i>{{ title }}</h3>
+                
+                <div id='graph'></div>
+
+
+
+                <script type='text/javascript'>
+                    var graphs = {{graph | safe}};
+                    Plotly.plot('graph',graphs,{});
+                </script>
+            </div>
+            
+            <div class="p-3 p-md-5 pt-5">
+        
+                {% if description_label %}
+                {% include "description/" + description_label + ".html" %}
+                {% endif %}
+                
+            </div>
+
+        </div>
+        
+        
+    </div>
+</div>
+
+{% endblock %}

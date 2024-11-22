@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | Blockspotlight.com{% endblock %}
+
+{% block content %}
+
+
+<div style="padding: 0px 20px;">
+    <div style="padding-left: 7px;">
+      <ul class="nav nav-pills">
+        {% if content_type == 'addresses' %}
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=counts"><i class="bi bi-body-text"></i>Number of Addresses Holding X BTC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i>Balance of Addresses Holding X BTC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i>Activity of Addresses Holding X BTC</a>
+        </li>
+        </li>
+        {% endif %}
+        {% if content_type == 'mining' %}
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'rewards' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=rewards"><i class="bi bi-body-text"></i>Miners Revenue</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'volumes' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=volumes"><i class="bi bi-piggy-bank"></i>Blocks and Transactions Volumes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'transfervolume' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=transfervolume"><i class="bi bi-activity"></i>Transfer Volume</a>
+        </li>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-start">
+      {% for i in charts%}
+      {% if i.type == 'stats' %}
+      <div class="p-2 bd-highlight align-self-stretch dashboard-info-panel"  >
+        <div class="card p-4 pb-3 dashboard-list h-100" style="border: 0px; background-color: #16171a !important;">
+            <h5 style="text-align: left;" class="mb-4"><i class="bi bi-list-columns"></i> Distribution of BTC</h5>
+            {% for j in i.statobj %}
+            <div class="row">
+                
+                <div class="col-9 text-begin dashboard-element-label">{{i.statobj[j]['title']}}</br>{{i.statobj[j]['desc']}}</div>
+                <div class="col text-end dashboard-element-value" >{{i.statobj[j]['current_percentage']}}%</br><span class="change_{{i.statobj[j]['change']}}"> {% if i.statobj[j]['change'] == 'plus' %}+{% endif%}{{i.statobj[j]['diff']}}%</span></div>
+            </div>
+            {%endfor%}
+            <div class="text-end mt-3" style="height: 100%;">
+                <a class="link-secondary link-underline-light link-underline link-underline-opacity-0" href="/addressbands?metric=distribution" style="bottom: 0px; font-size: 14px;">
+                    Open chart <i class="bi bi-graph-up"></i>
+                </a>
+            </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if i.type == 'chart' %}
+      <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 w-50">
+          <div class="card p-4 pb-3" style="border: 0px; background-color: #16171a !important;">
+              <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
+              <div id='{{i.id}}' class='chart mb-3' style="padding-top: 0px;"></div>
+              <div class="text-end mt-3">
+                  <a class="link-secondary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;">Explore full chart <i class="bi bi-graph-up"></i></a>
+              </div>
+          </div>
+      </div>
+      {% endif %}
+      {%endfor%}
+    </div>
+
+    {% for i in charts%}
+    <script type='text/javascript'>
+        var graphs = {{ i.chart | safe }};
+        Plotly.plot('{{ i.id }}',graphs,{});
+    </script>
+    {%endfor%}
+</div>
+
+{% endblock %}
