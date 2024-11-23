@@ -13,25 +13,49 @@
 <body >
   
     <nav class="navbar navbar-expand-lg grey-bottom-border">
-      <div >
-        <div class="col">
-          <a class="navbar-brand logo-band" href="/">
-            <img src="/static/img/logo_small_wide.png" alt="Blockspotlight.com"></img>
-          </a>
+
+      <div class="container-fluid">
+        <div class="d-flex w-100">
+          <div class="me-auto">
+            <a class="navbar-brand logo-band" href="/">
+              <img src="/static/img/logo_small_wide.png" alt="Blockspotlight.com"></img>
+            </a>
+          </div>
+        
+          
+          <!-- Right Aligned Element -->
+          <div class="ms-auto">
+            <a class="navbar-brand" href="#">About</a>
+          </div>
         </div>
+
       </div>
+
+    </nav>
+
+    <nav class="navbar navbar-expand-lg">
+
+      <div class="container-fluid" style="margin-top: 20px;">
+        <div class="d-flex w-100">
+          <div class="me-auto">
+            <div class="btc_bg">
+              <div class="small-dark-label" style="line-height: 13px;">Bitcoin price</div>
+              <div id="btc-price"><i class="bi bi-currency-dollar"></i><span id="btc-price-value"></span></div>
+            </div>
+          </div>
+
+          <!-- Right Aligned Element -->
+          
+          <div class="mx-auto">
+            
+          </div>
+        </div>
+
+      </div>
+
     </nav>
 
     <div class="container-fluid" style="padding: 20px;">
-        <div class="baner-creme pb-0 pt-0">
-
-          <div class="container justify-content-center" style="text-align: center;">
-              <img src="/static/img/small_grey_btc.png" width="80"></img>
-          </div>
-        </div>
-        <div class="text-center mb-2">
-          <small class="faded-text small-text">Last processed blocks</small>
-        </div>
       
         <div class="card-group mb-5">
 
@@ -67,16 +91,87 @@
             <a class="nav-link {% if content_type == 'mining' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i>MINING</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-distribute-vertical"></i>DISTRIBUTION</a>
+            <a class="nav-link {% if content_type == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-bag-check"></i>SUPPLY</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-graph-up"></i>ONCHAIN CHARTS</a>
+            <a class="nav-link {% if content_type == 'onchain' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-columns-gap"></i>ONCHAIN CHARTS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
+            <a class="nav-link " aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
           </li>
         </ul>
       </div>
+  </div>
+  <div style="padding: 0px 20px;">
+    <div style="padding-left: 7px;">
+      <ul class="nav nav-pills">
+        {% if content_type == 'addresses' %}
+        <li>
+          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=counts"><i class="bi bi-body-text"></i>Number of Addresses Holding X BTC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i>Balance of Addresses Holding X BTC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i>Activity of Addresses Holding X BTC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'distribution' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=distribution"><i class="bi bi-signpost-split"></i>Distribution Across Address Types</a>
+        </li>
+        {% endif %}
+        {% if content_type == 'mining' %}
+        <li>
+          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'rewards' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=rewards"><i class="bi bi-body-text"></i>Miners Revenue</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'volumes' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=volumes"><i class="bi bi-piggy-bank"></i>Blocks and Transactions Volumes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'transfervolume' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=transfervolume"><i class="bi bi-activity"></i>Transfer Volume</a>
+        </li>
+        {% endif %}
+        {% if content_type == 'onchain' %}
+        <li>
+          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'sopr' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=sopr"><i class="bi bi-body-text"></i>Spent Output Profit Ratio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=supply"><i class="bi bi-piggy-bank"></i>STH/LTH Supply</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'realizedprice' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=realizedprice"><i class="bi bi-activity"></i>Realized Price</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'profitloss' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=profitloss"><i class="bi bi-activity"></i>Addresses in Profit/Loss</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=other"><i class="bi bi-activity"></i>Other Indicators</a>
+        </li>
+        {% endif %}
+        {% if content_type == 'institutions' %}
+        <li>
+          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-body-text"></i>ETFs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-piggy-bank"></i>Exchanges</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=other"><i class="bi bi-activity"></i>Other</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
 
   {% block content %} {% endblock %}
@@ -89,5 +184,34 @@
 </div>
   {{ moment.include_moment() }}
 
+  <script>
+    const btcPriceDiv = document.getElementById('btc-price-value');
+
+    async function fetchBitcoinPrice() {
+      try {
+        const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
+        const data = await response.json();
+        const price = parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); // Format to 2 decimal places
+        btcPriceDiv.textContent = `${price}`;
+      } catch (error) {
+        console.error('Error fetching Bitcoin price:', error);
+        btcPriceDiv.textContent = 'Error fetching price';
+      }
+    }
+
+    // Fetch the price every 10 seconds
+    setInterval(fetchBitcoinPrice, 20000);
+    fetchBitcoinPrice(); // Initial fetch on page load
+  </script>
+  <footer class="pt-2 pb-5">
+    <div style="font-size: 35px; color: var(--bs-faded-text-color); text-align: center;" class="pb-5">
+      Make Smarter Decisions </br>About Bitcoin
+      <br/>
+      <a class="" class="text-align: center;" href="/">
+        <img src="/static/img/logo_small_wide.png"  style="height: 30px;" alt="Blockspotlight.com"></img>
+      </a>
+    </div>
+    
+  </footer>
 </body>
 </html>

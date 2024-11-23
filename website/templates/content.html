@@ -4,54 +4,60 @@
 {% block content %}
 
 
-<div style="padding: 0px 20px;">
-    <div style="padding-left: 7px;">
-      <ul class="nav nav-pills">
-        {% if content_type == 'addresses' %}
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=counts"><i class="bi bi-body-text"></i>Number of Addresses Holding X BTC</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i>Balance of Addresses Holding X BTC</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i>Activity of Addresses Holding X BTC</a>
-        </li>
-        </li>
-        {% endif %}
-        {% if content_type == 'mining' %}
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'rewards' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=rewards"><i class="bi bi-body-text"></i>Miners Revenue</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'volumes' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=volumes"><i class="bi bi-piggy-bank"></i>Blocks and Transactions Volumes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-light {% if metric == 'transfervolume' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=transfervolume"><i class="bi bi-activity"></i>Transfer Volume</a>
-        </li>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+<div style="padding: 10px 20px 0px 20px">
 
     <div class="d-flex flex-wrap align-items-start">
       {% for i in charts%}
       {% if i.type == 'stats' %}
-      <div class="p-2 bd-highlight align-self-stretch dashboard-info-panel"  >
+      <div class="p-2 bd-highlight align-self-stretch dashboard-info-panel">
         <div class="card p-4 pb-3 dashboard-list h-100" style="border: 0px; background-color: #16171a !important;">
-            <h5 style="text-align: left;" class="mb-4"><i class="bi bi-list-columns"></i> Distribution of BTC</h5>
-            {% for j in i.statobj %}
-            <div class="row">
-                
-                <div class="col-9 text-begin dashboard-element-label">{{i.statobj[j]['title']}}</br>{{i.statobj[j]['desc']}}</div>
-                <div class="col text-end dashboard-element-value" >{{i.statobj[j]['current_percentage']}}%</br><span class="change_{{i.statobj[j]['change']}}"> {% if i.statobj[j]['change'] == 'plus' %}+{% endif%}{{i.statobj[j]['diff']}}%</span></div>
-            </div>
-            {%endfor%}
-            <div class="text-end mt-3" style="height: 100%;">
-                <a class="link-secondary link-underline-light link-underline link-underline-opacity-0" href="/addressbands?metric=distribution" style="bottom: 0px; font-size: 14px;">
-                    Open chart <i class="bi bi-graph-up"></i>
-                </a>
-            </div>
+            <h5 style="text-align: left;" class="mb-4"><i class="bi bi-list-columns" style="margin-right: 5px;"></i>{{i.name}}</h5>
+            <table class="table stats-table" style="margin-top: 20px;">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col dashboard-element-label">Now</th>
+                  <th scope="col dashboard-element-label">-30 Days</th>
+                  <th scope="col dashboard-element-label">-60 Days</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for j in i.statobj %}
+              <tr>
+                <td class="main-stat-name">{{j['indicator_name']}}</td>
+                <td class="main-stat-values">
+                  {% if j['change_0'] == "+"  %}
+                  <i class="bi bi-arrow-up-short change_plus"></i>
+                  {% endif  %}
+                  {% if j['change_0'] == "-"  %}
+                  <i class="bi bi-arrow-down-short change_minus"></i>
+                  {% endif  %}
+                  {{j['day_0']}}
+                </td>
+                <td class="main-stat-values">
+                  {% if j['change_30'] == "+"  %}
+                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{j['day_30']}}</span>
+                  {% endif  %}
+                  {% if j['change_30'] == "-"  %}
+                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{j['day_30']}}</span>
+                  {% endif  %}
+                  {% if j['change_30'] == "="  %} {{j['day_30']}} {% endif  %}
+
+                </td>
+                <td class="main-stat-values">
+                  {% if j['change_60'] == "+"  %}
+                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{j['day_60']}}</span>
+                  {% endif  %}
+                  {% if j['change_60'] == "-"  %}
+                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{j['day_60']}}</span>
+                  {% endif  %}
+                  {% if j['change_60'] == "="  %} {{j['day_60']}} {% endif  %}
+                </td>
+              </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+            
         </div>
       </div>
       {% endif %}
@@ -59,9 +65,68 @@
       <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 w-50">
           <div class="card p-4 pb-3" style="border: 0px; background-color: #16171a !important;">
               <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
+              <div>
+                  <div class="col-md" style="text-align: right;">
+                    {% if i.stats  %}
+                        <ul class="list-group list-group-horizontal price-diff-module price-diff-module-small">
+                            <li class="list-group-item ms-auto " style="background-color: transparent; border: none;">
+                                <div class="price-diff-header">Now</div>
+                                <div class="price-diff-value">
+                                    {% if i.stats['today']['diff'] == "+"  %}
+                                    <i class="bi bi-arrow-up-short change_plus"></i>
+                                    {% endif  %}
+                                    {% if i.stats['today']['diff'] == "-"  %}
+                                    <i class="bi bi-arrow-down-short change_minus"></i>
+                                    {% endif  %}
+                                    {{i.stats['today']['value']}}
+                                </div>
+                            </li>
+                            <li class="list-group-item" style="background-color: transparent; border: none;">
+                                <div class="price-diff-header">-30 Days</div>
+                                
+                                {% if i.stats['30']['diff'] == "+"  %}
+                                <div class="price-diff-value change_plus">
+                                    <i class="bi bi-arrow-up-short"></i>{{i.stats['30']['value']}}
+                                </div>
+                                {% endif  %}
+                                {% if i.stats['30']['diff'] == "-"  %}
+                                <div class="price-diff-value change_minus">
+                                    <i class="bi bi-arrow-down-short"></i>{{i.stats['30']['value']}}
+                                </div>
+                                {% endif  %}
+                                {% if i.stats['30']['diff'] == "="  %}
+                                <div class="price-diff-value">
+                                    {{i.stats['30']['value']}}
+                                </div>
+                                {% endif  %}
+                                
+                            </li>
+                            <li class="list-group-item" style="background-color: transparent; border: none;">
+                                <div class="price-diff-header">-60 Days</div>
+
+                                {% if i.stats['60']['diff'] == "+"  %}
+                                <div class="price-diff-value change_plus">
+                                    <i class="bi bi-arrow-up-short"></i>{{i.stats['60']['value']}}
+                                </div>
+                                {% endif  %}
+                                {% if i.stats['60']['diff'] == "-"  %}
+                                <div class="price-diff-value change_minus">
+                                    <i class="bi bi-arrow-down-short"></i>{{i.stats['60']['value']}}
+                                </div>
+                                {% endif  %}
+                                {% if i.stats['60']['diff'] == "="  %}
+                                <div class="price-diff-value">
+                                    {{i.stats['60']['value']}}
+                                </div>
+                                {% endif  %}
+                            </li>
+                        </ul>
+                    {% endif  %}
+                </div>
+              </div>
               <div id='{{i.id}}' class='chart mb-3' style="padding-top: 0px;"></div>
               <div class="text-end mt-3">
-                  <a class="link-secondary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;">Explore full chart <i class="bi bi-graph-up"></i></a>
+                  <a class="link-primary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;">Explore full chart <i class="bi bi-graph-up"></i></a>
               </div>
           </div>
       </div>

@@ -5,12 +5,96 @@
 
 
 <div class="">
-    <div class="container-fluid" style="padding: 40px;">
+    <div class="container-fluid" style="padding: 20px 40px;">
         
         <div class="standard-chart-panel">
             <div style="padding: 40px;">
                 <h3><i class="bi bi-graph-up"></i>{{ title }}</h3>
                 
+                {% if precision_selector_enabled  or currency_selector_enabled %}
+                <div class="row pb-2 pt-5 mb-1 mt-1">
+                    <div class="col-md">
+                        {% if precision_selector_enabled  %}
+                        <a class="btn btn-dark btn-sm {% if precision == 'normal' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=normal" role="button">Normal</a>
+                        <a class="btn btn-dark btn-sm {% if precision == '7dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=7dma" role="button">7DMA</a>
+                        <a class="btn btn-dark btn-sm {% if precision == '21dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=21dma" role="button">21DMA</a>
+                            {% if label in ['cdd','sacdd'] %}
+                            <a class="btn btn-dark btn-sm {% if precision == '30dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=30dma" role="button">30DMA</a>
+                            <a class="btn btn-dark btn-sm {% if precision == '90dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=90dma" role="button">90DMA</a>
+                            {% endif  %}
+                        {% endif  %}            
+                        {% if precision_selector_enabled and currency_selector_enabled  %}
+                        <i class="bi bi-three-dots-vertical"></i>
+                        {% endif  %}
+    
+                        {% if currency_selector_enabled  %}
+                        <a class="btn btn-dark btn-sm {% if currency == 'btc' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=btc" role="button">BTC</a>
+                        <a class="btn btn-dark btn-sm {% if currency == 'usd' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=usd" role="button">USD</a>
+                        {% endif  %}
+                    </div>
+                    <div class="col-md" style="text-align: right;">
+                        {% if stats  %}
+                            <ul class="list-group list-group-horizontal price-diff-module">
+                                <li class="list-group-item ms-auto" style="background-color: transparent; border: none;">
+                                    <div class="price-diff-header">Now</div>
+                                    <div class="price-diff-value">
+                                        {% if stats['today']['diff'] == "+"  %}
+                                        <i class="bi bi-arrow-up-short change_plus"></i>
+                                        {% endif  %}
+                                        {% if stats['today']['diff'] == "-"  %}
+                                        <i class="bi bi-arrow-down-short change_minus"></i>
+                                        {% endif  %}
+                                        {{stats['today']['value']}}
+                                    </div>
+                                    
+                                </li>
+                                <li class="list-group-item" style="background-color: transparent; border: none;">
+                                    <div class="price-diff-header">-30 Days</div>
+                                    
+                                    {% if stats['30']['diff'] == "+"  %}
+                                    <div class="price-diff-value change_plus">
+                                        <i class="bi bi-arrow-up-short"></i>{{stats['30']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                    {% if stats['30']['diff'] == "-"  %}
+                                    <div class="price-diff-value change_minus">
+                                        <i class="bi bi-arrow-down-short"></i>{{stats['30']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                    {% if stats['30']['diff'] == "="  %}
+                                    <div class="price-diff-value">
+                                        {{stats['30']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                    
+                                </li>
+                                <li class="list-group-item" style="background-color: transparent; border: none;">
+                                    <div class="price-diff-header">-60 Days</div> 
+
+                                    {% if stats['60']['diff'] == "+"  %}
+                                    <div class="price-diff-value change_plus">
+                                        <i class="bi bi-arrow-up-short"></i>{{stats['60']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                    {% if stats['60']['diff'] == "-"  %}
+                                    <div class="price-diff-value change_minus">
+                                        <i class="bi bi-arrow-down-short"></i>{{stats['60']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                    {% if stats['60']['diff'] == "="  %}
+                                    <div class="price-diff-value">
+                                        {{stats['60']['value']}}
+                                    </div>
+                                    {% endif  %}
+                                </li>
+                            </ul>
+                        {% endif  %}
+                    </div>
+                    
+                    
+                </div> 
+                {% endif  %}
+
                 <div id='graph'></div>
 
 

@@ -20,25 +20,28 @@ def get_string_as_date(str):
 
 
 def get_price_chart_desc(primary_label: str, primary_value_description: str, primary_val_unit: str):
-    return '<br><b>' + primary_label + '</b></br>Day: %{x|%Y-%m-%d}<br>' + primary_value_description + ': %{y:,.2f} ' + primary_val_unit + '<extra></extra>'
+    return '<br><b>' + primary_label + '</b></br>Day: %{x|%Y-%m-%d}<br>' + primary_value_description + ': %{y:,.2f} ' + primary_val_unit +'<extra></extra>'
 
 def get_value_chart_desc(primary_label: DataFrame, secondary_value_description: str, seconday_val_unit: str, currency: str):
 
+    
     if currency.upper() == 'BTC':
         prec = ': %{y:,.8f} '
     elif currency == '%':
         prec = ': %{y:,.4f} '
     else:
-        prec = ': %{y:,.2f} '
+        prec = currency + ': %{y:,.2f} '
 
     return '<br><b>' + primary_label + '</b></br>Day: %{x|%Y-%m-%d}<br>' + secondary_value_description + prec + seconday_val_unit + '<extra></extra>'
 
 
-def get_range(chart_range) -> dict:
-    return {
-        "legend": True,
-        "scales": dict(
-                        rangeselector=dict(
+def get_range(chart_range, show_full = True) -> dict:
+
+    if show_full:
+        rs = dict(
+                            bgcolor="#212529",  # Background color
+                            activecolor="#57585a",  # Active button color
+                            font=dict(color="white"),
                             buttons=list([
                                 dict(count=1,
                                     label="1m",
@@ -62,10 +65,20 @@ def get_range(chart_range) -> dict:
                                     stepmode="backward"),
                                 dict(step="all")
                             ])
-                        ),
-                        rangeslider=dict(
-                            visible=True
-                        ),
+                        )
+    else:
+        rs = None
+
+    return {
+        "legend": False if show_full == False else True,
+        "scales": dict(
+                        rangeselector=rs,
+                        rangeslider=dict(visible=False if show_full == False else True, thickness=0.1, bgcolor="#191a1d"),
+                        showgrid=False if show_full == False else True,
+                        tickfont=dict(
+                                        color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                    ),
+                        gridcolor="#1e1f22",
                         rangeslider_thickness = 0.06,
                         type="date",
                         fixedrange=False,
@@ -74,16 +87,16 @@ def get_range(chart_range) -> dict:
     } 
 
 
-def get_chart_params(chart_type: str, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit) -> dict:
+def get_chart_params(chart_type: str, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full = False) -> dict:
     if chart_type == 'log':
         ctick=1
-        frange=[-1.2, max(primaryDF[primary_val_label])*0.8/10000]
-        srange=[-1.2, max(primaryDF[primary_val_label])*0.8/10000]
+        frange=[min(primaryDF[primary_val_label])*1.13/10000, max(primaryDF[primary_val_label])*0.5/10000]
+        srange=[min(primaryDF[primary_val_label])*1.13/10000, max(primaryDF[primary_val_label])*0.5/10000]
         #crange=None
     else:
         ctick=None
         frange=None
-        srange=None
+        srange=[min(secondaryDF[seconday_val_label]), max(secondaryDF[seconday_val_label])] if show_full == False else None
 
         if seconday_val_unit == '%':
             ctick=10
@@ -95,12 +108,12 @@ def get_chart_params(chart_type: str, primaryDF, secondaryDF, primary_val_label,
 def get_main_chart():
     return make_subplots(specs=[[{"secondary_y": True}]])
 
-def add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, is_secondary = False):
+def add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, is_secondary = False, price_color = PRICE_CHART_PROPERTIES['COLOR']):
     fig.add_trace(
                         go.Scattergl(x = primaryDF['day'], 
                                      y = primaryDF[primary_val_label], 
                                      name = primary_label,
-                                     line = dict(color=PRICE_CHART_PROPERTIES['COLOR']),
+                                     line = dict(color=price_color),
                                      line_width = PRICE_CHART_PROPERTIES['LINE_WEIGHT'],
                                      hovertemplate = get_price_chart_desc(primary_label, primary_value_description, primary_val_unit),
                                      hoverlabel=dict(
@@ -226,17 +239,24 @@ def get_daily_chart(primaryDF: DataFrame,
                     show_full: bool,
                     secondary_type: str):
 
+        
         fill_label = "FILL" if fillunder else "LINE"
-        currency = currency.upper() if currency != None and currency != "" else "BTC"
-        chart_range = get_range(range) if show_full else {'legend': False, 'scales': None}
-        chart_params = get_chart_params(secondary_type, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit)
+        currency = currency.upper() if currency != None and currency != "" else ""
+        chart_range = get_range(range, show_full) 
+        chart_params = get_chart_params(secondary_type, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full)
 
+        
 
         fig = get_main_chart()
         fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit)
         fig = add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, secondary_value_description, seconday_val_unit, currency, fill_label)
         fig = add_image_to_chart(fig)
         fig = add_cross_pointer_to_chart(fig)
+
+
+        
+
+        #chart_params = {'ctick': 1, 'srange': [4, 7.949131939431674], 'frange': [4, 7.949131939431674]}
 
         if show_full:
             fig = add_halvings_to_chart(fig, primaryDF)
@@ -248,18 +268,11 @@ def get_daily_chart(primaryDF: DataFrame,
             paper_bgcolor='#16171a',
             height=height,
             width=width,
+            dragmode=False if show_full == False else "zoom",
             showlegend=chart_range['legend'],
             legend=dict(yanchor="bottom", y=-0.25, xanchor="center", x=0.46, orientation="h"),
             margin=dict(l=0, r=0, t=40, b=10),
-            xaxis=dict(
-                rangeslider=dict(visible=False if show_full == False else True, thickness=0.1, bgcolor="#191a1d"),
-                #chart_range['scales']
-                showgrid=False if show_full == False else True,
-                tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
-                            ),
-                gridcolor="#1e1f22"
-            ),
+            xaxis=chart_range['scales'],
             yaxis=dict( #price
                             title=primary_label,
                             titlefont=dict(
@@ -272,7 +285,7 @@ def get_daily_chart(primaryDF: DataFrame,
                             type="log",
                             dtick = 0.1 if show_full == False else 1,
                             tickformat="$,f",
-                            fixedrange = False if show_full == False else True,
+                            fixedrange = False ,
                             range=chart_params['frange'],
                             gridcolor="#1e1f22"
                         ),
@@ -286,7 +299,7 @@ def get_daily_chart(primaryDF: DataFrame,
                             ),
                             type=secondary_type,
                             showgrid=True,
-                            fixedrange = False if show_full == False else True,
+                            fixedrange = False ,
                             dtick = chart_params['ctick'],
                             range=chart_params['srange'],
                             gridcolor="#1e1f22"
@@ -306,7 +319,7 @@ def get_special_comparison_chart(primaryDF,
                                  secondary_chart_name,
                                  fill):
 
-        chart_range = get_range(None)
+        chart_range = get_range(None, True) 
         fig = get_main_chart()
 
     
@@ -328,7 +341,7 @@ def get_special_comparison_chart(primaryDF,
         
           
 
-        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, True)
+        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, True, '#000')
         fig = add_cross_pointer_to_chart(fig)   
         fig = add_halvings_to_chart(fig, primaryDF)
 
@@ -336,9 +349,12 @@ def get_special_comparison_chart(primaryDF,
             font_family=PROPERTY_CHART_DEFAULT_FONT,
             template=PROPERTY_CHART_DEFAULT_STYLE,
             height=PROPERTY_CHART_DEFAULT_HEIGHT,
+            plot_bgcolor='#16171a',
+            paper_bgcolor='#16171a',
             showlegend=chart_range['legend'],
             legend=dict(yanchor="bottom", y=-0.30, xanchor="center", x=0.46, orientation="h"),
             margin=dict(l=0, r=0, t=50, b=10),
+            xaxis=chart_range['scales'],
             yaxis=dict(
                             title=secondary_chart_name,
                             titlefont=dict(
@@ -348,7 +364,8 @@ def get_special_comparison_chart(primaryDF,
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
                             range=[0,100],
-                            fixedrange=False
+                            fixedrange=False,
+                            gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
                             title=primary_label,
@@ -361,9 +378,9 @@ def get_special_comparison_chart(primaryDF,
                             showgrid=True,
                             type="log",
                             dtick = 1,
-                            fixedrange=False
-                        ),
-            xaxis=chart_range['scales']
+                            fixedrange=False,
+                            gridcolor="#1e1f22"
+                        )
                        
             
         ) 
@@ -386,11 +403,12 @@ def get_sopr_chart(primaryDF: DataFrame,
                    show_full: bool):
 
 
-        chart_range = get_range(None) if show_full else {'legend': False, 'scales': None}
+        chart_range = get_range(None, show_full) 
         
         fig = get_main_chart()
         fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, False)
-        fig = add_halvings_to_chart(fig, primaryDF)
+        if show_full:
+            fig = add_halvings_to_chart(fig, primaryDF)
         fig = add_image_to_chart(fig)
         fig = add_cross_pointer_to_chart(fig)
        
@@ -471,11 +489,13 @@ def get_sopr_chart(primaryDF: DataFrame,
                             ),secondary_y=True
                             )   
 
-
+            
 
         fig.update_layout(
-            font_family="Arial",
-            template="simple_white",
+            font_family=PROPERTY_CHART_DEFAULT_FONT,
+            template=PROPERTY_CHART_DEFAULT_STYLE,
+            plot_bgcolor='#16171a',
+            paper_bgcolor='#16171a',
             height=height,
             showlegend=False,
             legend=dict(yanchor="bottom", y=-0.25, xanchor="center", x=0.46, orientation="h"),
@@ -492,7 +512,8 @@ def get_sopr_chart(primaryDF: DataFrame,
                             showgrid=False,
                             type="log",
                             dtick = 1,
-                            fixedrange = False
+                            fixedrange = False,
+                            gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
                             title=secondary_label,
@@ -504,12 +525,13 @@ def get_sopr_chart(primaryDF: DataFrame,
                             ),
                             fixedrange = False,
                             showgrid=True,
-                            range=[min(valsList)*0.98, max(valsList)*1.02]
+                            range=[min(valsList)*0.98, max(valsList)*1.02],
+                            gridcolor="#1e1f22"
                         )
         )
         
 
-        fig.add_hline(y=1, line_width=1,  line_color="black", line_dash="dash", secondary_y=True, opacity=1)
+        fig.add_hline(y=1, line_width=1,  line_color="#57585a", line_dash="dash", secondary_y=True, opacity=1)
 
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -534,7 +556,7 @@ def get_nupl_chart(primaryDF,
 
         fill_label = "FILL" if fillunder else "LINE"
         currency = currency.upper() if currency != None and currency != "" else "BTC"
-        chart_range = get_range(range) if show_full else {'legend': False, 'scales': None}
+        chart_range = get_range(range, show_full) 
         chart_params = get_chart_params(secondary_chart_type, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit)
 
 
@@ -546,11 +568,13 @@ def get_nupl_chart(primaryDF,
         fig = add_cross_pointer_to_chart(fig)
     
         fig.update_layout(
-            font_family="Arial",
-            template="simple_white",
-            height=height,
+            font_family=PROPERTY_CHART_DEFAULT_FONT,
+            template=PROPERTY_CHART_DEFAULT_STYLE,
+            plot_bgcolor='#16171a',
+            paper_bgcolor='#16171a',
             width=width,
-            showlegend=chart_range['legend'],
+            height=height,
+            showlegend=False,
             legend=dict(yanchor="bottom", y=-0.25, xanchor="center", x=0.46, orientation="h"),
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
@@ -566,7 +590,8 @@ def get_nupl_chart(primaryDF,
                             type="log",
                             dtick = 1,
                             fixedrange = False,
-                            range=chart_params['frange']
+                            range=chart_params['frange'],
+                            gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
                             title=secondary_label,
@@ -578,24 +603,23 @@ def get_nupl_chart(primaryDF,
                             ),
                             type=secondary_chart_type,
                             fixedrange = False,
+                            showgrid=False,
                             dtick = chart_params['ctick'],
-                            range=chart_params['srange']
+                            range=chart_params['srange'],
+                            gridcolor="#1e1f22"
                         )
         )
         
         
 
-        fig.add_hrect(y0=76, y1=100, line_width=0, line_dash="dash", line_color="black", fillcolor="#ff5f46", opacity=0.2, secondary_y=True)
-        fig.add_hline(y=76, line_width=1, line_dash="dot", line_color="#C68484", secondary_y=True, opacity=0.5)
+        fig.add_hrect(y0=7.6, y1=100, line_width=0, line_dash="dash", line_color="black", fillcolor="#d12004", opacity=0.2, secondary_y=True)
+        fig.add_hline(y=7.6, line_width=1, line_dash="solid", line_color="#d12004", secondary_y=True, opacity=0.2)
 
-        fig.add_hrect(y0=51, y1=75.99, line_width=0, line_dash="dash", line_color="black", fillcolor="#f3b229", opacity=0.2, secondary_y=True)
-        fig.add_hline(y=51, line_width=1, line_dash="dot", line_color="#f3b229", secondary_y=True, opacity=0.5)
+        fig.add_hrect(y0=5.1, y1=75.99, line_width=0, line_dash="dash", line_color="black", fillcolor="#fa8b41", opacity=0.07, secondary_y=True)
+        fig.add_hline(y=5.1, line_width=1, line_dash="solid", line_color="#fa8b41", secondary_y=True, opacity=0.2)
 
-        fig.add_hrect(y0=25, y1=50.99, line_width=0, line_dash="dash", line_color="black", fillcolor="#ffd772", opacity=0.1, secondary_y=True)
-        fig.add_hline(y=25, line_width=1, line_dash="dot", line_color="#ffc005", secondary_y=True, opacity=0.5)
-
-        fig.add_hrect(y0=-170, y1=0, line_width=0, line_dash="dash", line_color="#000000", fillcolor="#0D6E6E", opacity=0.2, secondary_y=True)
-        fig.add_hline(y=0, line_width=1, line_dash="dot", line_color="#0D6E6E", secondary_y=True, opacity=0.5)
+        fig.add_hrect(y0=-17.0, y1=0, line_width=0, line_dash="dash", line_color="#000000", fillcolor="#569468", opacity=0.07, secondary_y=True)
+        fig.add_hline(y=0, line_width=1, line_dash="solid", line_color="#569468", secondary_y=True, opacity=0.2)
 
 
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -615,7 +639,7 @@ def get_mvrv_chart(primaryDF,
                    show_full = True):
 
 
-        chart_range = get_range(None) if show_full else {'legend': False, 'scales': None}
+        chart_range = get_range(None, show_full) 
         currency = "BTC"
         fill_label = "LINE"
 
@@ -629,8 +653,10 @@ def get_mvrv_chart(primaryDF,
 
         
         fig.update_layout(
-            font_family="Arial",
-            template="simple_white",
+            font_family=PROPERTY_CHART_DEFAULT_FONT,
+            template=PROPERTY_CHART_DEFAULT_STYLE,
+            plot_bgcolor='#16171a',
+            paper_bgcolor='#16171a',
             height=height,
             width=width,
             showlegend=chart_range['legend'],
@@ -648,7 +674,8 @@ def get_mvrv_chart(primaryDF,
                             showgrid=False,
                             type="log",
                             dtick = 1,
-                            fixedrange = False
+                            fixedrange = False,
+                            gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
                             title="MVRV Z-Score",
@@ -659,13 +686,15 @@ def get_mvrv_chart(primaryDF,
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
                             showgrid=True,
-                            fixedrange = False
+                            fixedrange = False,
+                            gridcolor="#1e1f22"
                         )
         )
         
 
-        fig.add_hrect(y0=11, y1=18, line_width=0, line_dash="dash", line_color="black", fillcolor="#ff5f46", opacity=0.1, secondary_y=True)
-        fig.add_hrect(y0=-0.4, y1=0.7, line_width=0, line_dash="dash", line_color="#000000", fillcolor="#0D6E6E", opacity=0.1, secondary_y=True)
+        fig.add_hrect(y0=11, y1=18, line_width=0, line_dash="dash", line_color="black", fillcolor="#d12004", opacity=0.07, secondary_y=True)
+        fig.add_hrect(y0=-0.4, y1=0.7, line_width=0, line_dash="dash", line_color="#000000", fillcolor="#569468", opacity=0.07, secondary_y=True)
+        
         fig.add_hline(y=11, line_width=1,  line_color="#C68484", secondary_y=True, opacity=0.5)
         fig.add_hline(y=0.7, line_width=1,  line_color="#50727B", secondary_y=True, opacity=0.5)
         fig.add_hline(y=-0.4, line_width=1,  line_color="#50727B", secondary_y=True, opacity=0.5)

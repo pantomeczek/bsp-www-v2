@@ -6,6 +6,39 @@ import pandas as pd
 from pandas.core.frame import DataFrame 
 from datetime import timedelta, datetime
 
+def get_change_sign(current_val, past_val):
+     if current_val == past_val:
+          return "="
+     elif current_val > past_val:
+          return "-"
+     else:
+          return "+"
+
+def get_stats_from_df(df):
+
+     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+     thirty_days_ago = today - timedelta(days=30)
+     sixty_days_ago = today - timedelta(days=60)
+
+     today_value = df.loc[df['day'] == today, 'calculated_value']
+     thirty_days_value = df.loc[df['day'] == thirty_days_ago, 'calculated_value']
+     sixty_days_value = df.loc[df['day'] == sixty_days_ago, 'calculated_value']
+
+     return {
+              "today": {
+                         "value": round(today_value.iloc[0],2) if not today_value.empty else None,
+                         "diff": get_change_sign(round(thirty_days_value.iloc[0],2), round(today_value.iloc[0],2))
+                       }, 
+                 "30": {
+                         "value": round(thirty_days_value.iloc[0],2) if not thirty_days_value.empty else None,
+                         "diff": get_change_sign(round(today_value.iloc[0],2), round(thirty_days_value.iloc[0],2))
+                       }, 
+                 "60": {
+                         "value": round(sixty_days_value.iloc[0],2) if not sixty_days_value.empty else None,
+                         "diff": get_change_sign(round(today_value.iloc[0],2), round(sixty_days_value.iloc[0],2))
+                       }
+             }
+
 def get_df_from_query(query, columns, conn = None) -> DataFrame:
  
      cn = PostgresConn() if conn == None else conn
@@ -13,6 +46,7 @@ def get_df_from_query(query, columns, conn = None) -> DataFrame:
      session = cn.get_cursor_to_pg()       
      session.execute(query)
      result = session.fetchall()
+
      resultDF = pd.DataFrame(result, columns=columns)
 
      if conn == None:
@@ -80,13 +114,13 @@ def get_standard_price_chart(indicator_name: str,
                              indicator_value_unit: str, 
                              filled: bool = False, 
                              chart_date_from: str = PROPERTY_CHARTS_DEFAULT_VALID_FROM, 
-                             chart_currency: str = PROPERTY_BTC_CODE, 
+                             chart_currency: str = "", 
                              limited_range: bool = False, 
                              chart_height: int = 900, 
                              chart_width: int = None, 
                              show_all_tools: bool = True,
                              secondary_chart_type: str = None):
-
+     
      cn = PostgresConn() 
      
      priceDF = get_df_from_query(f"select day, calculated_value as value \
@@ -129,8 +163,11 @@ def get_standard_price_chart(indicator_name: str,
                                       show_all_tools,
                                       secondary_chart_type)
        
-          
-     return graph
+
+
+     
+
+     return {"chart": graph, "stats":get_stats_from_df(holdingsDF)}
 
 
 def get_special_address_price_chart():
@@ -146,11 +183,13 @@ def get_special_address_price_chart():
      humpbacksDF = get_df_from_query(f"select day, calculated_value from general_indicator where indicator_name='humpbacks_percentage' and day >= to_date('{PROPERTY_CHARTS_DEFAULT_VALID_FROM}', 'YYYY-MM-DD')  order by day asc", ['day','calculated_value'], cn)
      cn.close_connection()
 
+     #rgba(226, 133, 113,.55)
+
      listDF = {
                "plankton": {
                     "df": planktonDF,
                     "name": "Plankton (less then 0.01)",
-                    "color": "#a94c68",
+                    "color": "rgba(169, 76, 104,.55)",
                     "label": "% of total supply - Plankton",
                     "description": "Value",
                     "unit": "%"
@@ -158,7 +197,7 @@ def get_special_address_price_chart():
                "shrimps": {
                     "df": shrimpsDF,
                     "name": "Shrimps (0.01 to 1)",
-                    "color": "#e28571",
+                    "color": "rgba(226, 133, 113,.55)",
                     "label": "% of total supply - Shrimps",
                     "description": "Value",
                     "unit": "%"
@@ -166,7 +205,7 @@ def get_special_address_price_chart():
                "crabs": {
                     "df": crabsDF,
                     "name": "Crabs (1 to 10)",
-                    "color": "#f8cc92",
+                    "color": "rgba(248, 204, 146,.55)",
                     "label": "% of total supply - Crabs",
                     "description": "Value",
                     "unit": "%"
@@ -174,7 +213,7 @@ def get_special_address_price_chart():
                "fish": {
                     "df": fishDF,
                     "name": "Fish (10 to 100)",
-                    "color": "#aad6b8",
+                    "color": "rgba(170, 214, 184, .55)",
                     "label": "% of total supply - Fish",
                     "description": "Value",
                     "unit": "%"
@@ -182,7 +221,7 @@ def get_special_address_price_chart():
                "sharks": {
                     "df": sharksDF,
                     "name": "Sharks (100 to 1,000)",
-                    "color": "#85bcbe",
+                    "color": "rgba(133, 188, 190, .55)",
                     "label": "% of total supply - Sharks",
                     "description": "Value",
                     "unit": "%"
@@ -190,7 +229,7 @@ def get_special_address_price_chart():
                "whales": {
                     "df": whalesDF,
                     "name": "Whales (1,000 to 10,000)",
-                    "color": "#6d97c3",
+                    "color": "rgba(109, 151, 195, .55)",
                     "label": "% of total supply - Whales",
                     "description": "Value",
                     "unit": "%"
@@ -198,7 +237,7 @@ def get_special_address_price_chart():
                "humpbacks": {
                     "df": humpbacksDF,
                     "name": "Humpbacks (more then 10,000)",
-                    "color": "#7c75b2",
+                    "color": "rgba(124, 117, 178, .55)",
                     "label": "% of total supply - Humpbacks",
                     "description": "Value",
                     "unit": "%"
@@ -216,7 +255,7 @@ def get_special_address_price_chart():
                                                   'Coins Distribution (% of total supply)',
                                                   None)
 
-     return graph
+     return {"chart": graph, "stats":None}
 
 def get_nupl_chart( indicator, 
                     label, 
@@ -233,7 +272,7 @@ def get_nupl_chart( indicator,
 
      cn = PostgresConn() 
      priceDF = get_df_from_query(f"select day, calculated_value as value from general_indicator where indicator_name = 'bitcoin_price' and day >= to_date('{date_from}', 'YYYY-MM-DD') order by day asc", ['day','value'], cn)
-     holdingsDF = get_df_from_query(f"select day, calculated_value from general_indicator where indicator_name='{indicator}' and day >= to_date('{date_from}', 'YYYY-MM-DD')  order by day asc", ['day','calculated_value'], cn)
+     holdingsDF = get_df_from_query(f"select day, calculated_value/10 from general_indicator where indicator_name='{indicator}' and day >= to_date('{date_from}', 'YYYY-MM-DD')  order by day asc", ['day','calculated_value'], cn)
 
      chart_range = get_range(priceDF, holdingsDF) if limited_range else None   
      holdingsDF  = get_values_in_usd(priceDF, holdingsDF) if chart_currency.upper() == PROPERTY_USD_CODE else holdingsDF
@@ -258,7 +297,7 @@ def get_nupl_chart( indicator,
                                      secondary_chart_type)
        
           
-     return graph
+     return {"chart": graph, "stats":get_stats_from_df(holdingsDF)}
 
 def get_mvrv_chart(date_from = '2010-08-01', width = None, height = 800, show_full = True):
 
@@ -283,7 +322,7 @@ def get_mvrv_chart(date_from = '2010-08-01', width = None, height = 800, show_fu
                                      show_full)
        
           
-     return graph
+     return {"chart": graph, "stats":None}
 
 
 def get_sopr_chart(indicator, label, metric_label, metric_unit, date_from = PROPERTY_CHARTS_DEFAULT_VALID_FROM, height = PROPERTY_CHART_DEFAULT_HEIGHT, show_full = True):
@@ -321,7 +360,7 @@ def get_sopr_chart(indicator, label, metric_label, metric_unit, date_from = PROP
                                         show_full)
     
           
-     return graph
+     return {"chart": graph, "stats":get_stats_from_df(holdingsDF)}
 
 
 def get_profit_vs_loss_chart():
@@ -386,6 +425,57 @@ def get_profit_vs_loss_chart():
      return graph
 
 
+def get_activity_stats():
+     sql_query = """
+WITH v_days AS (
+    SELECT 0 AS days
+    UNION ALL 
+    SELECT 30 AS days
+    UNION ALL
+    SELECT 60 AS days
+),
+v_indicators as
+(
+   select 'plankton_activity' as indicator_name, 'Plankton' indicator_label
+   union all
+   select 'shrimps_activity' as indicator_name, 'Shrimps' indicator_label
+   union all
+   select 'crabs_activity' as indicator_name, 'Crabs' indicator_label
+   union all
+   select 'fish_activity' as indicator_name, 'Fish' indicator_label
+   union all
+   select 'sharks_activity' as indicator_name, 'Sharks' indicator_label
+   union all
+   select 'whales_activity' as indicator_name, 'Whales' indicator_label
+   union all
+   select 'humpbacks_activity' as indicator_name, 'Humpbacks' indicator_label
+)
+SELECT 
+    vi.indicator_label as indicator_name,
+    SUM(CASE WHEN d.days = 0 THEN i.calculated_value ELSE 0 END) AS day_0,
+    SUM(CASE WHEN d.days = 30 THEN i.calculated_value ELSE 0 END) AS day_30,
+    SUM(CASE WHEN d.days = 60 THEN i.calculated_value ELSE 0 END) AS day_60
+FROM general_indicator AS i
+JOIN v_indicators vi
+  ON i.indicator_name = vi.indicator_name
+JOIN v_days AS d
+ON i.day = current_date - d.days
+GROUP BY vi.indicator_label
+     """
+
+     cn = PostgresConn() 
+     sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0", "day_30", "day_60"], cn)
+     cn.close_connection()     
+     
+     dct = sqlDf.to_dict(orient='records')
+
+     for inner_dict in dct:
+          inner_dict["change_30"] = get_change_sign(inner_dict['day_0'], inner_dict['day_30'])
+          inner_dict["change_60"] = get_change_sign(inner_dict['day_0'], inner_dict['day_60'])
+          inner_dict["change_0"] = get_change_sign(inner_dict['day_30'], inner_dict['day_0'])
+     
+
+     return dct         
 
 def get_addresses_perc_details(days_back):
 

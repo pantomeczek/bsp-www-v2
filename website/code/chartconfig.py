@@ -230,7 +230,7 @@ class Chartconfig:
                                                         "sharks": {
                                                                         "label": "Balance on addresses holding between 100 and 1,000 BTC (Sharks)",
                                                                         "value_label": "Balance",
-                                                                        "value_unit": "₿",
+                                                                        "value_unit": "BTC",
                                                                         "default_precision": "7dma",
                                                                         "default_currency": "btc",
                                                                         "precision_selector": True,
@@ -285,7 +285,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "normal",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -302,7 +302,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -319,7 +319,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -336,7 +336,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -353,7 +353,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -370,7 +370,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -387,7 +387,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -404,7 +404,7 @@ class Chartconfig:
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "7dma",
-                                                                        "default_currency": "btc",
+                                                                        "default_currency": "",
                                                                         "precision_selector": True,
                                                                         "currency_selector": False,
                                                                         "fillunder": False,
@@ -418,16 +418,14 @@ class Chartconfig:
                                                                     }           
                                                     },
                                     "distribution": {
-                                                        "label": "Number of addresses holding more then 10,000 BTC (Humpbacks)",
+                                                        "label": "Distribution Across Address Types",
                                                         "default_precision": "normal",
                                                         "precision_selector": False,
                                                         "currency_selector": False,
                                                         "default_currency": "",
                                                         "chart_date_from": "2010-07-01",
                                                         "widget_active": True,
-                                                        "indicators": {
-                                                                            "normal": "humpbacks_count"
-                                                                        }
+                                                        "indicators": {}
                                                         
                                                     }
                             },
@@ -620,6 +618,7 @@ class Chartconfig:
                                                                     "currency_selector": True,
                                                                     "fillunder": True,
                                                                     "chart_date_from": "2010-01-01",
+                                                                    "widget_active": True,
                                                                     "indicators": {
                                                                                     "normal": "supply_issuance",
                                                                                     "7dma":   "supply_issuance_7dma",
@@ -636,6 +635,7 @@ class Chartconfig:
                                                                     "currency_selector": True,
                                                                     "fillunder": False,
                                                                     "chart_date_from": "2010-01-01",
+                                                                    "widget_active": True,
                                                                     "indicators": {
                                                                                     "normal": "supply_circulating_supply",
                                                                                     "7dma":   "supply_circulating_supply_7dma",
@@ -652,6 +652,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-09-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "supply_daily_inflation",
                                                                                 "7dma":   "supply_daily_inflation_7dma",
@@ -668,6 +669,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-09-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "supply_annual_inflation",
                                                                                 "7dma":   "supply_annual_inflation_7dma",
@@ -675,7 +677,8 @@ class Chartconfig:
                                                                             }  
                                                             }
                             },
-                  "tracker":{
+                "institutions":{
+                                "exchanges":{
                                                         "mtgox":{
                                                                     "label": "Mt. Gox Trustee",
                                                                     "value_label": "Balance",
@@ -686,141 +689,14 @@ class Chartconfig:
                                                                     "currency_selector": True,
                                                                     "fillunder": True,
                                                                     "chart_date_from": "2010-07-01",
+                                                                    "widget_active": True,
                                                                     "indicators": {
                                                                                     "normal": "wallettracker_mtgox",
                                                                                     "7dma":   "wallettracker_mtgox_7dma",
                                                                                     "21dma":  "wallettracker_mtgox_21dma"
                                                                                 }  
                                                                 },
-                                                        "tesla":{
-                                                                    "label": "Balance of BTC on Tesla Addresses",
-                                                                    "value_label": "Balance",
-                                                                    "value_unit": "BTC",
-                                                                    "default_precision": "normal",
-                                                                    "default_currency": "btc",
-                                                                    "precision_selector": True,
-                                                                    "currency_selector": True,
-                                                                    "fillunder": True,
-                                                                    "chart_date_from": "2010-07-01",
-                                                                    "indicators": {
-                                                                                    "normal": "wallettracker_tesla",
-                                                                                    "7dma":   "wallettracker_tesla_7dma",
-                                                                                    "21dma":  "wallettracker_tesla_21dma"
-                                                                                }  
-                                                                },
-                                                    "blackrock":{
-                                                                "label": "Balance of BTC on iShares Bitcoin Trust (IBIT) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_blackrock",
-                                                                                "7dma":   "wallettracker_blackrock_7dma",
-                                                                                "21dma":  "wallettracker_blackrock_21dma"
-                                                                            }  
-                                                            },
-                                                  "fidelity":{
-                                                                "label": "Balance of BTC on Fidelity Wise Origin Bitcoin Fund (FBTC) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_fidelitycustody",
-                                                                                "7dma":   "wallettracker_fidelitycustody_7dma",
-                                                                                "21dma":  "wallettracker_fidelitycustody_21dma"
-                                                                            }  
-                                                            },
-                                                  "bitwise":{
-                                                                "label": "Balance of BTC on Bitwise Bitcoin Fund (BITB) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_bitwise",
-                                                                                "7dma":   "wallettracker_bitwise_7dma",
-                                                                                "21dma":  "wallettracker_bitwise_21dma"
-                                                                            }  
-                                                            },
-                                                  "ark":{
-                                                                "label": "Balance of BTC on 21Shares Bitcoin ETP (ARKB) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_arkinvest",
-                                                                                "7dma":   "wallettracker_arkinvest_7dma",
-                                                                                "21dma":  "wallettracker_arkinvest_21dma"
-                                                                            }  
-                                                            },
-                                                "wisdomtree":{
-                                                                "label": "Balance of BTC on WisdomTree Bitcoin Fund (BTCW) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_wisdomtree",
-                                                                                "7dma":   "wallettracker_wisdomtree_7dma",
-                                                                                "21dma":  "wallettracker_wisdomtree_21dma"
-                                                                            }  
-                                                            },
-                                                "vaneck":{
-                                                                "label": "Balance of BTC on VanEck Bitcoin Trust (HODL) Addresses",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_vaneck",
-                                                                                "7dma":   "wallettracker_vaneck_7dma",
-                                                                                "21dma":  "wallettracker_vaneck_21dma"
-                                                                            }  
-                                                            },
-                                               "totaletf":{
-                                                                "label": "Bitcoin Holdings in Spot ETFs",
-                                                                "value_label": "Balance",
-                                                                "value_unit": "BTC",
-                                                                "default_precision": "21dma",
-                                                                "default_currency": "btc",
-                                                                "precision_selector": True,
-                                                                "currency_selector": True,
-                                                                "fillunder": True,
-                                                                "chart_date_from": "2010-07-01",
-                                                                "indicators": {
-                                                                                "normal": "wallettracker_totaletf_total_balance",
-                                                                                "7dma":   "wallettracker_totaletf_total_balance_7dma",
-                                                                                "21dma":  "wallettracker_totaletf_total_balance_21dma"
-                                                                            }  
-                                                            },
-                                                "coinbase":{
+                                                     "coinbase":{
                                                                 "label": "Balance of BTC on Coinbase Exchange",
                                                                 "value_label": "Balance",
                                                                 "value_unit": "BTC",
@@ -830,6 +706,7 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_coinbase",
                                                                                 "7dma":   "wallettracker_coinbase_7dma",
@@ -846,6 +723,7 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_gemini",
                                                                                 "7dma":   "wallettracker_gemini_7dma",
@@ -862,6 +740,7 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_kraken",
                                                                                 "7dma":   "wallettracker_kraken_7dma",
@@ -878,6 +757,7 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_binance",
                                                                                 "7dma":   "wallettracker_binance_7dma",
@@ -894,12 +774,153 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": False,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_bitstamp",
                                                                                 "7dma":   "wallettracker_bitstamp_7dma",
                                                                                 "21dma":  "wallettracker_bitstamp_21dma"
                                                                             }  
+                                                            }
+                                    },
+                        "etfs":{
+                                                    "blackrock":{
+                                                                "label": "Balance of BTC on iShares Bitcoin Trust (IBIT) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_blackrock",
+                                                                                "7dma":   "wallettracker_blackrock_7dma",
+                                                                                "21dma":  "wallettracker_blackrock_21dma"
+                                                                            }  
                                                             },
+                                                  "fidelity":{
+                                                                "label": "Balance of BTC on Fidelity Wise Origin Bitcoin Fund (FBTC) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_fidelitycustody",
+                                                                                "7dma":   "wallettracker_fidelitycustody_7dma",
+                                                                                "21dma":  "wallettracker_fidelitycustody_21dma"
+                                                                            }  
+                                                            },
+                                                  "bitwise":{
+                                                                "label": "Balance of BTC on Bitwise Bitcoin Fund (BITB) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_bitwise",
+                                                                                "7dma":   "wallettracker_bitwise_7dma",
+                                                                                "21dma":  "wallettracker_bitwise_21dma"
+                                                                            }  
+                                                            },
+                                                  "ark":{
+                                                                "label": "Balance of BTC on 21Shares Bitcoin ETP (ARKB) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_arkinvest",
+                                                                                "7dma":   "wallettracker_arkinvest_7dma",
+                                                                                "21dma":  "wallettracker_arkinvest_21dma"
+                                                                            }  
+                                                            },
+                                                "wisdomtree":{
+                                                                "label": "Balance of BTC on WisdomTree Bitcoin Fund (BTCW) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_wisdomtree",
+                                                                                "7dma":   "wallettracker_wisdomtree_7dma",
+                                                                                "21dma":  "wallettracker_wisdomtree_21dma"
+                                                                            }  
+                                                            },
+                                                   "vaneck":{
+                                                                "label": "Balance of BTC on VanEck Bitcoin Trust (HODL) Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_vaneck",
+                                                                                "7dma":   "wallettracker_vaneck_7dma",
+                                                                                "21dma":  "wallettracker_vaneck_21dma"
+                                                                            }  
+                                                            },
+                                                 "totaletf":{
+                                                                "label": "Bitcoin Holdings in Spot ETFs",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "21dma",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_totaletf_total_balance",
+                                                                                "7dma":   "wallettracker_totaletf_total_balance_7dma",
+                                                                                "21dma":  "wallettracker_totaletf_total_balance_21dma"
+                                                                            }  
+                                                            }
+                    },
+                    "other":{
+                                                "tesla":{
+                                                                "label": "Balance of BTC on Tesla Addresses",
+                                                                "value_label": "Balance",
+                                                                "value_unit": "BTC",
+                                                                "default_precision": "normal",
+                                                                "default_currency": "btc",
+                                                                "precision_selector": True,
+                                                                "currency_selector": True,
+                                                                "fillunder": True,
+                                                                "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "wallettracker_tesla",
+                                                                                "7dma":   "wallettracker_tesla_7dma",
+                                                                                "21dma":  "wallettracker_tesla_21dma"
+                                                                              }  
+                                                                },                                                                                                            
                                                   "satoshi":{
                                                                 "label": "Balance of BTC on Satoshi Nakamoto's Addresses",
                                                                 "value_label": "Balance",
@@ -910,14 +931,18 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_satoshinakamoto",
                                                                                 "7dma":   "wallettracker_satoshinakamoto_7dma",
                                                                                 "21dma":  "wallettracker_satoshinakamoto_21dma"
                                                                             }  
                                                             }
-                            },
-               "indicators":{
+                    }
+                },
+               "onchain":{
+
+                    "sopr":{
                                                     "sopr":{
                                                                 "label": "Spent Output Profit Ratio (SOPR)",
                                                                 "value_label": "SOPR",
@@ -928,6 +953,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "sopr_value",
                                                                                 "7dma":   "sopr_value_7dma",
@@ -944,6 +970,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "sth_sopr_value",
                                                                                 "7dma":   "sth_sopr_value_7dma",
@@ -960,12 +987,15 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "lth_sopr_value",
                                                                                 "7dma":   "lth_sopr_value_7dma",
                                                                                 "21dma":  "lth_sopr_value_21dma"
                                                                             }  
                                                             },
+                    },
+                    "realizedprice": {
                                             "realizedprice":{
                                                                 "label": "Realized Price",
                                                                 "value_label": "RP",
@@ -977,6 +1007,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_price",
                                                                                 "7dma":   "realized_price_7dma",
@@ -994,6 +1025,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_sth_price",
                                                                                 "7dma":   "realized_sth_price_7dma",
@@ -1011,12 +1043,15 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_lth_price",
                                                                                 "7dma":   "realized_lth_price_7dma",
                                                                                 "21dma":  "realized_lth_price_21dma"
                                                                             }  
-                                                            },
+                                                            }
+                    },
+                    "supply": {
                                                "sth_supply":{
                                                                 "label": "Supply - Short Term Hodler",
                                                                 "value_label": "STH Supply",
@@ -1027,6 +1062,7 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-05-30",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "sth_balance",
                                                                                 "7dma":   "sth_balance_7dma",
@@ -1043,12 +1079,15 @@ class Chartconfig:
                                                                 "currency_selector": True,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-05-30",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "lth_balance",
                                                                                 "7dma":   "lth_balance_7dma",
                                                                                 "21dma":  "lth_balance_21dma"
                                                                             }  
-                                                            },
+                                                            }
+                    },
+                    "profitloss": {
                                       "addresses_in_profit":{
                                                                 "label": "Percentage of Addresses in Profit",
                                                                 "value_label": "% of addresses in profit",
@@ -1059,6 +1098,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "perc_of_addr_in_profit",
                                                                                 "7dma":   "perc_of_addr_in_profit_7dma",
@@ -1075,6 +1115,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "perc_of_addr_in_loss",
                                                                                 "7dma":   "perc_of_addr_in_loss_7dma",
@@ -1083,16 +1124,24 @@ class Chartconfig:
                                                             },
                              "addresses_in_profit_vs_loss": {
                                                                 "label": "Percentage of Addresses in Profit vs Loss",
+                                                                "value_label": "% of addresses in profit vs % of addresses in loss",
+                                                                "value_unit": "%",
                                                                 "default_precision": "normal",
                                                                 "precision_selector": False,
                                                                 "currency_selector": False,
+                                                                "fillunder": False,
                                                                 "default_currency": "",
                                                                 "chart_date_from": "2010-07-01",
+                                                                "widget_active": False,
                                                                 "indicators": {
-                                                                                    "normal": ""
+                                                                                    "normal": "",
+                                                                                    "7dma": "",
+                                                                                    "21dma": ""
                                                                                 }
                                                                 
-                                                            },
+                                                            }
+                    },
+                    "other": {
                                                       "cdd":{
                                                                 "label": "Coin Days Destroyed (CDD)",
                                                                 "value_label": "CDD",
@@ -1103,6 +1152,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "cdd",
                                                                                 "7dma":   "cdd_7dma",
@@ -1121,6 +1171,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "adj_cdd",
                                                                                 "7dma":   "adj_cdd_7dma",
@@ -1139,6 +1190,7 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "nupl",
                                                                                 "7dma":   "nupl_7dma",
@@ -1155,17 +1207,34 @@ class Chartconfig:
                                                                 "currency_selector": False,
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
                                                                 "indicators": {
                                                                                 "normal": "unrealized_profit_loss",
                                                                                 "7dma":   "unrealized_profit_loss_7dma",
                                                                                 "21dma":  "unrealized_profit_loss_21dma"
                                                                             }  
+                                                            },
+                                                    "mvrvz":{
+                                                                "label": "MVRV Z-Score",
+                                                                "value_label": "MVRV Z-Score",
+                                                                "value_unit": "",
+                                                                "default_precision": "normal",
+                                                                "default_currency": "",
+                                                                "precision_selector": False,
+                                                                "currency_selector": False,
+                                                                "fillunder": False,
+                                                                "chart_date_from": "2010-11-01",
+                                                                "widget_active": True,
+                                                                "indicators": {
+                                                                                "normal": "mvrvz_value"
+                                                                              }  
                                                             }
-                            },
+                            }
                 
 
                 
-             }
+                }
+    }
 
     
     def __init__(self, category, metric, submetric, precision, currency):

@@ -19,7 +19,22 @@ PRICE_CHART_PROPERTIES = {
                             "LINE_WEIGHT": 1.3
 }
 
-VALUE_CHART_PROPERTIES = {
+VALUE_CHART_PROPERTIES = {     
+                            "": {
+                                    "LINE": {
+                                                "line": "#fa8b41",
+                                                "fill": None,
+                                                "weight": 2.2,
+                                                "fill_mode": None
+                                    },
+                                    "FILL": {
+                                                "line": "#fa8b41",
+                                                "fill": "rgba(255, 183, 135,.15)",
+                                                "weight": 1.6,
+                                                "fill_mode": "tozeroy"
+                                    }
+                                    
+                            },
                             "BTC": {
                                     "LINE": {
                                                 "line": "#fa8b41",
@@ -37,14 +52,14 @@ VALUE_CHART_PROPERTIES = {
                             },
                             "USD": {
                                     "LINE": {
-                                                "line": "#70b349",
+                                                "line": "#0d579b",
                                                 "fill": None,
                                                 "weight": 2.2,
                                                 "fill_mode": None
                                     },
                                     "FILL": {
-                                                "line": "#70b349",
-                                                "fill": "rgba(112, 179, 73,.10)",
+                                                "line": "#0d579b",
+                                                "fill": "rgba(1, 113, 217,.10)",
                                                 "weight": 1.6,
                                                 "fill_mode": "tozeroy"
                                     }
