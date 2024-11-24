@@ -106,13 +106,22 @@ p, a, div, span {
 .small-white-label {
   color: var(--bs-muted-text-color);
   font-size: 13px;
+  line-height: 13px; padding-left: 5px;
 }
 
 .bitcoin-price-value {
   line-height: 13px; padding-left: 5px;
 }
 
+a.mobile-button {
+  font-size: 20px !important;
+  padding: 0px 5px !important;
+}
 
+a.mobile-button.active {
+  font-size: 20px !important;
+  padding: 0px 5px !important;
+}
 
 .btc_bg {
   padding-left: 80px;

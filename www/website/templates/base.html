@@ -49,33 +49,33 @@
           <div class="mx-auto px-2">
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Market Cap</div>
-              <div class="small-white-label bitcoin-meta-value" id="market-cap-usd" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="market-cap-usd" ></div>
             </div>
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Blocks</div>
-              <div class="small-white-label bitcoin-meta-value" id="btc-block-height" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="btc-block-height" ></div>
             </div>
           </div>
 
           <div class="mx-auto px-2 d-none d-md-block">
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Blocks per 24h</div>
-              <div class="small-white-label bitcoin-meta-value" id="blocks-per-24" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="blocks-per-24" ></div>
             </div>
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Transactions per 24h</div>
-              <div class="small-white-label bitcoin-meta-value" id="transactions-per-24" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="transactions-per-24" ></div>
             </div>
           </div>
 
           <div class="mx-auto px-2 d-none d-md-block">
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Difficulty</div>
-              <div class="small-white-label bitcoin-meta-value" id="bitcoin-difficulty" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="bitcoin-difficulty" ></div>
             </div>
             <div class="py-1">
               <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Mempool transactions</div>
-              <div class="small-white-label bitcoin-meta-value" id="mempool-transactions" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+              <div class="small-white-label bitcoin-meta-value" id="mempool-transactions"></div>
             </div>
           </div>
           
@@ -116,7 +116,7 @@
             <a class="nav-link {% if content_type == 'dashboard' %}active{% endif %}" aria-current="page" href="/dashboard?type=dashboard"><i class="bi bi-speedometer2"></i>DASHBOARD</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'dashboard' %}active{% endif %}" aria-current="page" href="/dashboard?type=dashboard"><i class="bi bi-speedometer2"></i></a>
+            <a class="nav-link {% if content_type == 'dashboard' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=dashboard"><i class="bi bi-speedometer2"></i></a>
           </li>
 
 
@@ -124,7 +124,7 @@
             <a class="nav-link {% if content_type == 'addresses' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet"></i>ADDRESSES</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'addresses' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet"></i></a>
+            <a class="nav-link {% if content_type == 'addresses' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet"></i></a>
           </li>
 
 
@@ -132,28 +132,28 @@
             <a class="nav-link {% if content_type == 'mining' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i>MINING</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'mining' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i></a>
+            <a class="nav-link {% if content_type == 'mining' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
             <a class="nav-link {% if content_type == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-bag-check"></i>SUPPLY</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-bag-check"></i></a>
+            <a class="nav-link {% if content_type == 'supply' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-bag-check"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
             <a class="nav-link {% if content_type == 'onchain' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-columns-gap"></i>ONCHAIN CHARTS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'onchain' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-columns-gap"></i></a>
+            <a class="nav-link {% if content_type == 'onchain' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-columns-gap"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
             <a class="nav-link " aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link " aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i></a>
+            <a class="nav-link " aria-current="page" href="/dashboard?type=institutions mobile-button"><i class="bi bi-buildings"></i></a>
           </li>
 
         </ul>
