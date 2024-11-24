@@ -334,6 +334,10 @@ p, a, div, span {
     .navbar-nav .open .dropdown-menu .dropdown-header {
       color: #fff;
     }
+
+    .price-diff-module .price-diff-value {
+      font-size: 10px !important;
+    }
   }
 
   @media (max-width: 992px) {

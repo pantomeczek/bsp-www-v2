@@ -4,13 +4,13 @@
 {% block content %}
 
 
-<div style="padding: 10px 20px 0px 20px">
+<div class="p-1 p-lg-4">
 
     <div class="d-flex flex-wrap align-items-start">
       {% for i in charts%}
       {% if i.type == 'stats' %}
       <div class="p-2 bd-highlight align-self-stretch dashboard-info-panel">
-        <div class="card p-4 pb-3 dashboard-list h-100" style="border: 0px; background-color: #16171a !important;">
+        <div class="card p-3 p-md-4 pb-3 dashboard-list h-100" style="border: 0px; background-color: #16171a !important;">
             <h5 style="text-align: left;" class="mb-4"><i class="bi bi-list-columns" style="margin-right: 5px;"></i>{{i.name}}</h5>
             <table class="table stats-table" style="margin-top: 20px;">
               <thead>
@@ -63,7 +63,7 @@
       {% endif %}
       {% if i.type in ['chart', 'piechart'] %}
       <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 w-50" style="{% if i.type == 'piechart' %} max-width: 750px; {% endif %}">
-          <div class="card p-4 pb-3" style="border: 0px; background-color: #16171a !important; ">
+          <div class="card p-3 p-md-4 pb-3" style="border: 0px; background-color: #16171a !important; ">
               <div >
                 <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
                 <div>

@@ -41,7 +41,7 @@ def get_range(chart_range, show_full = True) -> dict:
         rs = dict(
                             bgcolor="#212529",  # Background color
                             activecolor="#57585a",  # Active button color
-                            font=dict(color="white"),
+                            font=dict(color="white", size=10),
                             buttons=list([
                                 dict(count=1,
                                     label="1m",
@@ -276,10 +276,12 @@ def get_daily_chart(primaryDF: DataFrame,
             yaxis=dict( #price
                             title="" if show_full == False else primary_label ,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=False,
                             type="log",
@@ -761,7 +763,7 @@ def get_pie_chart(height, data, data_type):
                         legend=dict(
                                         x=0.5,            # Place the legend at the left edge (0 means the leftmost position)
                                         xanchor="center",  # Align the left side of the legend box to the x position
-                                        y=-0.2,          # Vertically center the legend (50% of the plot height)
+                                        y=-0.3,          # Vertically center the legend (50% of the plot height)
                                         yanchor="bottom", # Align the center of the legend box to the y position
                                         orientation="h"
                                     ),
