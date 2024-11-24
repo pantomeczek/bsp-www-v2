@@ -150,22 +150,20 @@
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link " aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
+            <a class="nav-link {% if content_type == 'institutions' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link " aria-current="page" href="/dashboard?type=institutions mobile-button"><i class="bi bi-buildings"></i></a>
+            <a class="nav-link {% if content_type == 'institutions' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=institutions mobile-button"><i class="bi bi-buildings"></i></a>
           </li>
 
         </ul>
       </div>
   </div>
-  <div class="px-2 px-lg-4">
+  <div class="px-2 px-lg-4 mt-3">
     <div style="padding-left: 7px;">
       <ul class="nav nav-pills">
         {% if content_type == 'addresses' %}
-        <li class="d-none d-md-block">
-          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
-        </li>
+       
 
         <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=counts">
@@ -174,7 +172,7 @@
           </a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=counts">
+          <a class="nav-link nav-link-light {% if metric == 'counts' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=addresses&metric=counts">
             <i class="bi bi-body-text"></i>
           </a>
         </li>
@@ -183,21 +181,21 @@
           <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i>Balance of Addresses Holding X BTC</a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i></a>
+          <a class="nav-link nav-link-light {% if metric == 'balances' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=addresses&metric=balances"><i class="bi bi-piggy-bank"></i></a>
         </li>
 
         <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i>Activity of Addresses Holding X BTC</a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i></a>
+          <a class="nav-link nav-link-light {% if metric == 'activity' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=addresses&metric=activity"><i class="bi bi-activity"></i></a>
         </li>
 
         <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'distribution' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=distribution"><i class="bi bi-signpost-split"></i>Distribution Across Address Types</a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'distribution' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses&metric=distribution"><i class="bi bi-signpost-split"></i></a>
+          <a class="nav-link nav-link-light {% if metric == 'distribution' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=addresses&metric=distribution"><i class="bi bi-signpost-split"></i></a>
         </li>
 
         {% endif %}

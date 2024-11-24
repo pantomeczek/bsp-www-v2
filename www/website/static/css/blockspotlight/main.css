@@ -115,11 +115,21 @@ p, a, div, span {
 
 a.mobile-button {
   font-size: 20px !important;
-  padding: 0px 5px !important;
+  padding: 0px 12px !important;
 }
 
 a.mobile-button.active {
   font-size: 20px !important;
+  padding: 0px 5px !important;
+}
+
+a.mobile-button-small {
+  font-size: 15px !important;
+  padding: 0px 5px !important;
+}
+
+a.mobile-button-small.active {
+  font-size: 15px !important;
   padding: 0px 5px !important;
 }
 

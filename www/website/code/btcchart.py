@@ -358,7 +358,7 @@ def get_special_comparison_chart(primaryDF,
             margin=dict(l=0, r=0, t=50, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict(
-                            title= "" if show_full == False else secondary_chart_name,
+                            title= "",
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -370,7 +370,7 @@ def get_special_comparison_chart(primaryDF,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
-                            title= "" if show_full == False else primary_label ,
+                            title= "",
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
