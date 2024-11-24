@@ -19,6 +19,7 @@ DEFAULT_METRICS = {
     "institutions": "etfs"
 }
 
+NUM_OF_BLOCKS = 7
 
 PIE_CHART_CONFIG = {
     "addresses_activity": {
@@ -116,7 +117,7 @@ PIE_CHART_CONFIG = {
 
     }
 }
-BLKS = get_last_blocks(7)
+
 
 
 views = Blueprint('views', __name__)
@@ -349,7 +350,7 @@ def dashboard():
 
     charts = get_dashboard()
 
-    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=BLKS, charts=charts)
+    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
 
 
 @views.route('/dashboard')
@@ -374,7 +375,7 @@ def dashboards():
 
     charts = get_charts(content_type, content_metric, date_of_dashboard)
                  
-    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=BLKS, charts=charts)
+    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
 
 
 @views.route('/chart')
@@ -469,5 +470,5 @@ def chart():
                                              currency_selector_enabled = obj.is_currency_selector_enabled(),
                                              precision = obj.get_active_precision(),
                                              currency = obj.get_active_currency(),
-                                             blocks = BLKS,
+                                             blocks = get_last_blocks(NUM_OF_BLOCKS),
                                              description_label = description_file_name)
