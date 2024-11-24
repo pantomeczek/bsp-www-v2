@@ -154,7 +154,7 @@
             <a class="nav-link {% if content_type == 'institutions' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-1">
-            <a class="nav-link {% if content_type == 'institutions' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=institutions mobile-button"><i class="bi bi-buildings"></i></a>
+            <a class="nav-link {% if content_type == 'institutions' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i></a>
           </li>
 
         </ul>
@@ -201,51 +201,85 @@
 
         {% endif %}
         {% if content_type == 'mining' %}
-        <li>
-          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'rewards' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=rewards"><i class="bi bi-body-text"></i>Miners Revenue</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'rewards' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=mining&metric=rewards"><i class="bi bi-body-text"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'volumes' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=volumes"><i class="bi bi-piggy-bank"></i>Blocks and Transactions Volumes</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'volumes' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=mining&metric=volumes"><i class="bi bi-piggy-bank"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'transfervolume' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining&metric=transfervolume"><i class="bi bi-activity"></i>Transfer Volume</a>
         </li>
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'transfervolume' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=mining&metric=transfervolume"><i class="bi bi-activity"></i></a>
+        </li>
+
         {% endif %}
         {% if content_type == 'onchain' %}
-        <li>
-          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'sopr' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=sopr"><i class="bi bi-body-text"></i>Spent Output Profit Ratio</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'sopr' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=onchain&metric=sopr"><i class="bi bi-body-text"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=supply"><i class="bi bi-piggy-bank"></i>STH/LTH Supply</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'supply' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=onchain&metric=supply"><i class="bi bi-piggy-bank"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'realizedprice' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=realizedprice"><i class="bi bi-activity"></i>Realized Price</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'realizedprice' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=onchain&metric=realizedprice"><i class="bi bi-activity"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'profitloss' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=profitloss"><i class="bi bi-activity"></i>Addresses in Profit/Loss</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'profitloss' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=onchain&metric=profitloss"><i class="bi bi-activity"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain&metric=other"><i class="bi bi-activity"></i>Other Indicators</a>
         </li>
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=onchain&metric=other"><i class="bi bi-activity"></i></a>
+        </li>
+
         {% endif %}
         {% if content_type == 'institutions' %}
-        <li>
-          <i class="bi bi-caret-right-fill faded-text" style="padding-left: 5px;"></i>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-body-text"></i>ETFs</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-body-text"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-piggy-bank"></i>Exchanges</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-piggy-bank"></i></a>
+        </li>
+
+        <li class="nav-item d-none d-md-block mx-1">
           <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=other"><i class="bi bi-activity"></i>Other</a>
+        </li>
+        <li class="nav-item d-block d-md-none mx-1">
+          <a class="nav-link nav-link-light {% if metric == 'other' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=institutions&metric=other"><i class="bi bi-activity"></i></a>
         </li>
         {% endif %}
       </ul>
