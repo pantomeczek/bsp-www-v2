@@ -14,10 +14,6 @@ p, a, div, span {
     -webkit-font-smoothing: antialiased;
 }
 
-.logo-band {
-    padding: 10px;
-}
-
 .logo-band img {
     height: 35px;
     margin: 5px;
