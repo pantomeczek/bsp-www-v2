@@ -46,7 +46,7 @@
                   <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{ "{:,.2f}".format(j['day_30_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_30'] == "-"  %}
-                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{ "{:,.2f}".format(j['day_30_perc']) }}%</span>
+                  <span class="change_minus"><i class="bi bi-arrow-down-short change_minus"></i> {{ "{:,.2f}".format(j['day_30_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_30'] == "="  %} {{ "{:,.2f}".format(j['day_30_perc']) }}% {% endif  %}
 
@@ -56,7 +56,7 @@
                   <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{ "{:.2f}".format(j['day_60_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_60'] == "-"  %}
-                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{ "{:,.2f}".format(j['day_60_perc']) }}%</span>
+                  <span class="change_minus"><i class="bi bi-arrow-down-short change_minus"></i> {{ "{:,.2f}".format(j['day_60_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_60'] == "="  %} {{ "{:,.2f}".format(j['day_60_perc']) }}% {% endif  %}
                 </td>
