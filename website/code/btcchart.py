@@ -274,7 +274,7 @@ def get_daily_chart(primaryDF: DataFrame,
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict( #price
-                            title=primary_label,
+                            title="" if show_full == False else primary_label ,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -290,7 +290,7 @@ def get_daily_chart(primaryDF: DataFrame,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict( ##chart
-                            title=secondary_label,
+                            title="" if show_full == False else secondary_label,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -356,7 +356,7 @@ def get_special_comparison_chart(primaryDF,
             margin=dict(l=0, r=0, t=50, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict(
-                            title=secondary_chart_name,
+                            title= "" if show_full == False else secondary_chart_name,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -368,7 +368,7 @@ def get_special_comparison_chart(primaryDF,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
-                            title=primary_label,
+                            title= "" if show_full == False else primary_label ,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -502,7 +502,7 @@ def get_sopr_chart(primaryDF: DataFrame,
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict(
-                            title=primary_label,
+                            title="" if show_full == False else primary_label,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -516,7 +516,7 @@ def get_sopr_chart(primaryDF: DataFrame,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
-                            title=secondary_label,
+                            title="" if show_full == False else secondary_label,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -579,7 +579,7 @@ def get_nupl_chart(primaryDF,
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict(
-                            title=primary_label,
+                            title="" if show_full == False else primary_label,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -594,7 +594,7 @@ def get_nupl_chart(primaryDF,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
-                            title=secondary_label,
+                            title="" if show_full == False else secondary_label,
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -664,7 +664,7 @@ def get_mvrv_chart(primaryDF,
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
             yaxis=dict(
-                            title="Price of BTC (USD)",
+                            title="" if show_full == False else "Price of BTC (USD)",
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -678,7 +678,7 @@ def get_mvrv_chart(primaryDF,
                             gridcolor="#1e1f22"
                         ),
             yaxis2=dict(
-                            title="MVRV Z-Score",
+                            title="" if show_full == False else "MVRV Z-Score",
                             titlefont=dict(
                                 color=PROPERTY_CHART_SIDE_TITLE_COLOR
                             ),
@@ -701,3 +701,73 @@ def get_mvrv_chart(primaryDF,
 
 
         return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+
+def get_pie_chart(height, data, data_type):
+    labels = data['headers']
+    values = data['data']
+
+    if data_type == 'percent':
+        textinfo = 'value'
+        hoverinfo='label+value'
+    
+    else:
+        textinfo = 'percent'
+        hoverinfo='label+value+percent'
+    
+
+    fig = get_main_chart()
+    show_full = False
+    chart_range = get_range(None, show_full) 
+
+    fig = go.Figure(
+        data=[go.Pie(labels=labels, 
+                     values=values, 
+                     hole=0.6,
+                     textinfo=textinfo,  # Show labels and raw percentage values
+                     hoverinfo=hoverinfo,
+                     textposition='inside', 
+                     textfont=dict(
+                        family=PROPERTY_CHART_DEFAULT_FONT,        # Font family
+                        size=12,               # Font size
+                        color='white',         # Font color
+                        weight='bold'          # Bold text
+                     ),
+                     marker=dict(
+                                  colors=['rgba(247, 148, 51,  .85)', 
+                                          'rgba(169, 76, 104,  .85)', 
+                                          'rgba(226, 133, 113, .85)', 
+                                          'rgba(248, 204, 146, .85)', 
+                                          'rgba(170, 214, 184, .85)', 
+                                          'rgba(133, 188, 190, .85)',
+                                          'rgba(109, 151, 195, .85)',
+                                          'rgba(124, 117, 178, .85)'
+                                          ],
+                                  line=dict(color='#16171a', width=3)
+                                )
+                    )]  # hole=0.0 creates a regular pie chart
+    )
+
+    # Update layout (optional)
+    
+
+    fig.update_layout(
+                        font_family=PROPERTY_CHART_DEFAULT_FONT,
+                        template=PROPERTY_CHART_DEFAULT_STYLE,
+                        plot_bgcolor='#16171a',
+                        paper_bgcolor='#16171a',
+                        height=height,
+                        showlegend=True,
+                        legend=dict(
+                                        x=0.5,            # Place the legend at the left edge (0 means the leftmost position)
+                                        xanchor="center",  # Align the left side of the legend box to the x position
+                                        y=-0.2,          # Vertically center the legend (50% of the plot height)
+                                        yanchor="bottom", # Align the center of the legend box to the y position
+                                        orientation="h"
+                                    ),
+                        margin=dict(l=0, r=0, t=40, b=10),
+                    )
+
+    return json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+     

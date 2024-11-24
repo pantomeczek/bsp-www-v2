@@ -35,6 +35,8 @@ p, a, div, span {
     --bs-text-size-medium: 14px;
     --bs-bitcoin-color: #f7931a;
     --bs-nav-link-color: #adb1b8;
+    --bs-color-green: rgba(32, 178, 108);
+    --bs-color-red: #e04040;
 }
 
 .grey-bottom-border {
@@ -201,11 +203,11 @@ p, a, div, span {
 }
 
 .change_plus {
-    color: #329239 !important;
+    color: var(--bs-color-green) !important;
 }
 
 .change_minus {
-    color: #c34733 !important;
+    color: var(--bs-color-red) !important;
 }
 
 .change_none {
@@ -253,7 +255,7 @@ p, a, div, span {
 
 .stats-table td {
   color: var(--bs-muted-text-color);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .stats-table .main-stat-name {

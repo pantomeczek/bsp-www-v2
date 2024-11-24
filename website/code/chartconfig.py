@@ -555,7 +555,7 @@ class Chartconfig:
                                             "avg_fee_per_transaction":{
                                                                     "label": "Average Fees Paid Per Bitcoin Transaction",
                                                                     "value_label": "Avarege fee",
-                                                                    "value_unit": "",
+                                                                    "value_unit": "BTC",
                                                                     "default_precision": "7dma",
                                                                     "default_currency": "btc",
                                                                     "precision_selector": True,
@@ -572,7 +572,7 @@ class Chartconfig:
                                             "avg_fee_per_block":{
                                                                     "label": "Average Fees Paid Per Bitcoin Block",
                                                                     "value_label": "Avg fee for block",
-                                                                    "value_unit": "",
+                                                                    "value_unit": "BTC",
                                                                     "default_precision": "7dma",
                                                                     "default_currency": "btc",
                                                                     "precision_selector": True,

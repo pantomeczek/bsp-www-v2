@@ -16,7 +16,7 @@ def get_change_sign(current_val, past_val):
 
 def get_stats_from_df(df):
 
-     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=30)
      thirty_days_ago = today - timedelta(days=30)
      sixty_days_ago = today - timedelta(days=60)
 
@@ -425,10 +425,19 @@ def get_profit_vs_loss_chart():
      return graph
 
 
-def get_activity_stats():
+def get_activity_stats(indicators):
+
+     inds = ""
+
+     for i in indicators:
+          inds += f"select '{i['indicator_name']}' as indicator_name, '{i['indicator_label']}' indicator_label union all "
+
+
+     inds = inds.strip('union all ')
+     
      sql_query = """
 WITH v_days AS (
-    SELECT 0 AS days
+    SELECT 1 AS days
     UNION ALL 
     SELECT 30 AS days
     UNION ALL
@@ -436,46 +445,52 @@ WITH v_days AS (
 ),
 v_indicators as
 (
-   select 'plankton_activity' as indicator_name, 'Plankton' indicator_label
-   union all
-   select 'shrimps_activity' as indicator_name, 'Shrimps' indicator_label
-   union all
-   select 'crabs_activity' as indicator_name, 'Crabs' indicator_label
-   union all
-   select 'fish_activity' as indicator_name, 'Fish' indicator_label
-   union all
-   select 'sharks_activity' as indicator_name, 'Sharks' indicator_label
-   union all
-   select 'whales_activity' as indicator_name, 'Whales' indicator_label
-   union all
-   select 'humpbacks_activity' as indicator_name, 'Humpbacks' indicator_label
+   """ + inds + """
+),
+v_agg_data AS
+(
+	SELECT 
+	    vi.indicator_label as indicator_name,
+	    SUM(CASE WHEN d.days = 1 THEN i.calculated_value ELSE 0 END) AS day_0,
+	    SUM(CASE WHEN d.days = 30 THEN i.calculated_value ELSE 0 END) AS day_30,
+	    SUM(CASE WHEN d.days = 60 THEN i.calculated_value ELSE 0 END) AS day_60,
+		1 as total
+	FROM general_indicator AS i
+	JOIN v_indicators vi
+	  ON i.indicator_name = vi.indicator_name
+	JOIN v_days AS d
+	ON i.day = current_date - d.days
+	GROUP BY vi.indicator_label
 )
-SELECT 
-    vi.indicator_label as indicator_name,
-    SUM(CASE WHEN d.days = 0 THEN i.calculated_value ELSE 0 END) AS day_0,
-    SUM(CASE WHEN d.days = 30 THEN i.calculated_value ELSE 0 END) AS day_30,
-    SUM(CASE WHEN d.days = 60 THEN i.calculated_value ELSE 0 END) AS day_60
-FROM general_indicator AS i
-JOIN v_indicators vi
-  ON i.indicator_name = vi.indicator_name
-JOIN v_days AS d
-ON i.day = current_date - d.days
-GROUP BY vi.indicator_label
+select indicator_name,
+        day_0 as day_0_raw,
+        day_30 as day_30_raw,
+        day_60 as day_60_raw,
+	   (day_0/sum(day_0) over())*100 as day_0_perc,
+	   (day_30/sum(day_0) over())*100 as day_30_perc,
+	   (day_60/sum(day_0) over())*100 as day_60_perc
+  from v_agg_data
+  order by 2 desc
      """
 
+     print(sql_query)
+
      cn = PostgresConn() 
-     sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0", "day_30", "day_60"], cn)
+     sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0_raw", "day_30_raw", "day_60_raw", "day_0_perc", "day_30_perc", "day_60_perc"], cn)
      cn.close_connection()     
      
      dct = sqlDf.to_dict(orient='records')
 
      for inner_dict in dct:
-          inner_dict["change_30"] = get_change_sign(inner_dict['day_0'], inner_dict['day_30'])
-          inner_dict["change_60"] = get_change_sign(inner_dict['day_0'], inner_dict['day_60'])
-          inner_dict["change_0"] = get_change_sign(inner_dict['day_30'], inner_dict['day_0'])
+          inner_dict["change_30"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_30_raw'])
+          inner_dict["change_60"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_60_raw'])
+          inner_dict["change_0"] = get_change_sign(inner_dict['day_30_raw'], inner_dict['day_0_raw'])
      
 
      return dct         
+
+def get_pie_chart(height, data, data_type):
+     return btcchart.get_pie_chart(height, data, data_type)
 
 def get_addresses_perc_details(days_back):
 

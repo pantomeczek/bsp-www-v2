@@ -32,26 +32,26 @@
                   {% if j['change_0'] == "-"  %}
                   <i class="bi bi-arrow-down-short change_minus"></i>
                   {% endif  %}
-                  {{j['day_0']}}
+                  {{ "{:.2f}".format(j['day_0_perc']) }}%
                 </td>
                 <td class="main-stat-values">
                   {% if j['change_30'] == "+"  %}
-                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{j['day_30']}}</span>
+                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{ "{:.2f}".format(j['day_30_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_30'] == "-"  %}
-                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{j['day_30']}}</span>
+                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{ "{:.2f}".format(j['day_30_perc']) }}%</span>
                   {% endif  %}
-                  {% if j['change_30'] == "="  %} {{j['day_30']}} {% endif  %}
+                  {% if j['change_30'] == "="  %} {{ "{:.2f}".format(j['day_30_perc']) }}% {% endif  %}
 
                 </td>
                 <td class="main-stat-values">
                   {% if j['change_60'] == "+"  %}
-                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{j['day_60']}}</span>
+                  <span class="change_plus"><i class="bi bi-arrow-up-short change_plus"></i> {{ "{:.2f}".format(j['day_60_perc']) }}%</span>
                   {% endif  %}
                   {% if j['change_60'] == "-"  %}
-                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{j['day_60']}}</span>
+                  <span class="change_minus"><i class="bi bi-arrow-up-short change_minus"></i> {{ "{:.2f}".format(j['day_60_perc']) }}%</span>
                   {% endif  %}
-                  {% if j['change_60'] == "="  %} {{j['day_60']}} {% endif  %}
+                  {% if j['change_60'] == "="  %} {{ "{:.2f}".format(j['day_60_perc']) }}% {% endif  %}
                 </td>
               </tr>
               {%endfor%}
@@ -61,73 +61,78 @@
         </div>
       </div>
       {% endif %}
-      {% if i.type == 'chart' %}
-      <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 w-50">
-          <div class="card p-4 pb-3" style="border: 0px; background-color: #16171a !important;">
-              <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
-              <div>
-                  <div class="col-md" style="text-align: right;">
-                    {% if i.stats  %}
-                        <ul class="list-group list-group-horizontal price-diff-module price-diff-module-small">
-                            <li class="list-group-item ms-auto " style="background-color: transparent; border: none;">
-                                <div class="price-diff-header">Now</div>
-                                <div class="price-diff-value">
-                                    {% if i.stats['today']['diff'] == "+"  %}
-                                    <i class="bi bi-arrow-up-short change_plus"></i>
-                                    {% endif  %}
-                                    {% if i.stats['today']['diff'] == "-"  %}
-                                    <i class="bi bi-arrow-down-short change_minus"></i>
-                                    {% endif  %}
-                                    {{i.stats['today']['value']}}
-                                </div>
-                            </li>
-                            <li class="list-group-item" style="background-color: transparent; border: none;">
-                                <div class="price-diff-header">-30 Days</div>
-                                
-                                {% if i.stats['30']['diff'] == "+"  %}
-                                <div class="price-diff-value change_plus">
-                                    <i class="bi bi-arrow-up-short"></i>{{i.stats['30']['value']}}
-                                </div>
-                                {% endif  %}
-                                {% if i.stats['30']['diff'] == "-"  %}
-                                <div class="price-diff-value change_minus">
-                                    <i class="bi bi-arrow-down-short"></i>{{i.stats['30']['value']}}
-                                </div>
-                                {% endif  %}
-                                {% if i.stats['30']['diff'] == "="  %}
-                                <div class="price-diff-value">
-                                    {{i.stats['30']['value']}}
-                                </div>
-                                {% endif  %}
-                                
-                            </li>
-                            <li class="list-group-item" style="background-color: transparent; border: none;">
-                                <div class="price-diff-header">-60 Days</div>
+      {% if i.type in ['chart', 'piechart'] %}
+      <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 w-50" style="{% if i.type == 'piechart' %} max-width: 750px; {% endif %}">
+          <div class="card p-4 pb-3" style="border: 0px; background-color: #16171a !important; ">
+              <div >
+                <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
+                <div>
+                    <div class="col-md" style="text-align: right;">
+                      {% if i.stats  %}
+                          <ul class="list-group list-group-horizontal price-diff-module price-diff-module-small">
+                              <li class="list-group-item ms-auto " style="background-color: transparent; border: none;">
+                                  <div class="price-diff-header">Now</div>
+                                  <div class="price-diff-value">
+                                      {% if i.stats['today']['diff'] == "+"  %}
+                                      <i class="bi bi-arrow-up-short change_plus"></i>
+                                      {% endif  %}
+                                      {% if i.stats['today']['diff'] == "-"  %}
+                                      <i class="bi bi-arrow-down-short change_minus"></i>
+                                      {% endif  %}
+                                      {{i.stats['today']['value']}}
+                                  </div>
+                              </li>
+                              <li class="list-group-item" style="background-color: transparent; border: none;">
+                                  <div class="price-diff-header">-30 Days</div>
+                                  
+                                  {% if i.stats['30']['diff'] == "+"  %}
+                                  <div class="price-diff-value change_plus">
+                                      <i class="bi bi-arrow-up-short"></i>{{i.stats['30']['value']}}
+                                  </div>
+                                  {% endif  %}
+                                  {% if i.stats['30']['diff'] == "-"  %}
+                                  <div class="price-diff-value change_minus">
+                                      <i class="bi bi-arrow-down-short"></i>{{i.stats['30']['value']}}
+                                  </div>
+                                  {% endif  %}
+                                  {% if i.stats['30']['diff'] == "="  %}
+                                  <div class="price-diff-value">
+                                      {{i.stats['30']['value']}}
+                                  </div>
+                                  {% endif  %}
+                                  
+                              </li>
+                              <li class="list-group-item" style="background-color: transparent; border: none;">
+                                  <div class="price-diff-header">-60 Days</div>
 
-                                {% if i.stats['60']['diff'] == "+"  %}
-                                <div class="price-diff-value change_plus">
-                                    <i class="bi bi-arrow-up-short"></i>{{i.stats['60']['value']}}
-                                </div>
-                                {% endif  %}
-                                {% if i.stats['60']['diff'] == "-"  %}
-                                <div class="price-diff-value change_minus">
-                                    <i class="bi bi-arrow-down-short"></i>{{i.stats['60']['value']}}
-                                </div>
-                                {% endif  %}
-                                {% if i.stats['60']['diff'] == "="  %}
-                                <div class="price-diff-value">
-                                    {{i.stats['60']['value']}}
-                                </div>
-                                {% endif  %}
-                            </li>
-                        </ul>
-                    {% endif  %}
+                                  {% if i.stats['60']['diff'] == "+"  %}
+                                  <div class="price-diff-value change_plus">
+                                      <i class="bi bi-arrow-up-short"></i>{{i.stats['60']['value']}}
+                                  </div>
+                                  {% endif  %}
+                                  {% if i.stats['60']['diff'] == "-"  %}
+                                  <div class="price-diff-value change_minus">
+                                      <i class="bi bi-arrow-down-short"></i>{{i.stats['60']['value']}}
+                                  </div>
+                                  {% endif  %}
+                                  {% if i.stats['60']['diff'] == "="  %}
+                                  <div class="price-diff-value">
+                                      {{i.stats['60']['value']}}
+                                  </div>
+                                  {% endif  %}
+                              </li>
+                          </ul>
+                      {% endif  %}
+                  </div>
                 </div>
+              
+                <div id='{{i.id}}' class='chart mb-3' style="padding-top: 0px;"></div>
               </div>
-              <div id='{{i.id}}' class='chart mb-3' style="padding-top: 0px;"></div>
+              {% if i.href %}
               <div class="text-end mt-3">
                   <a class="link-primary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;">Explore full chart <i class="bi bi-graph-up"></i></a>
               </div>
+              {% endif %}
           </div>
       </div>
       {% endif %}
