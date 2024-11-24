@@ -25,7 +25,7 @@
           
           <!-- Right Aligned Element -->
           <div class="ms-auto">
-            <a class="navbar-brand" href="#">About</a>
+            <a class="navbar-brand" href="#"></a>
           </div>
         </div>
 
@@ -36,20 +36,51 @@
     <nav class="navbar navbar-expand-lg">
 
       <div class="container-fluid" style="margin-top: 20px;">
-        <div class="d-flex w-100">
-          <div class="me-auto">
+        <div class="d-flex">
+          <div class="me-auto pt-2" style="padding-right: 10px;">
             <div class="btc_bg">
-              <div class="small-dark-label" style="line-height: 13px;">Bitcoin price</div>
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px;">Bitcoin price</div>
               <div id="btc-price"><i class="bi bi-currency-dollar"></i><span id="btc-price-value"></span></div>
             </div>
           </div>
 
           <!-- Right Aligned Element -->
           
-          <div class="mx-auto">
-            
+          <div class="mx-auto px-2">
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Market Cap</div>
+              <div class="small-white-labe" id="market-cap-usd" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Blocks</div>
+              <div class="small-white-labe" id="btc-block-height" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
           </div>
+
+          <div class="mx-auto px-2 d-none d-md-block">
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Blocks per 24h</div>
+              <div class="small-white-labe" id="blocks-per-24" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Transactions per 24h</div>
+              <div class="small-white-labe" id="transactions-per-24" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
+          </div>
+
+          <div class="mx-auto px-2 d-none d-md-block">
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Difficulty</div>
+              <div class="small-white-labe" id="bitcoin-difficulty" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
+            <div class="py-1">
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Mempool transactions</div>
+              <div class="small-white-labe" id="mempool-transactions" style="line-height: 13px; padding-left: 5px; font-size: 12px;"></div>
+            </div>
+          </div>
+          
         </div>
+        
 
       </div>
 
@@ -250,6 +281,41 @@
     // Fetch the price every 10 seconds
     setInterval(fetchBitcoinPrice, 20000);
     fetchBitcoinPrice(); // Initial fetch on page load
+  </script>
+  <script>
+    // Function to fetch Bitcoin block height
+    async function fetchBitcoinBlockHeight() {
+        try {
+            const response = await fetch('https://api.blockchair.com/bitcoin/stats');
+            const data = await response.json();
+
+            // Extract block height
+            const blockHeight = data.data.blocks;
+            const marketCap = data.data.market_cap_usd;
+            const blocks24h = data.data.blocks_24h;
+            const transactions24h = data.data.transactions_24h;
+            const difficulty = data.data.difficulty;
+            const mempool_transactions = data.data.mempool_transactions;
+
+
+            // Update the div with the fetched data
+            document.getElementById('btc-block-height').textContent = blockHeight.toLocaleString('en-US');
+            document.getElementById('market-cap-usd').textContent = marketCap.toLocaleString('en-US') + " $";
+
+            document.getElementById('blocks-per-24').textContent = blocks24h.toLocaleString('en-US');
+            document.getElementById('transactions-per-24').textContent = transactions24h.toLocaleString('en-US');
+
+            document.getElementById('bitcoin-difficulty').textContent = difficulty.toLocaleString('en-US');
+            document.getElementById('mempool-transactions').textContent = mempool_transactions.toLocaleString('en-US');
+
+        } catch (error) {
+            console.error('Error fetching Bitcoin block height:', error);
+        }
+    }
+
+    // Fetch data every 10 seconds
+    fetchBitcoinBlockHeight(); // Initial fetch
+    setInterval(fetchBitcoinBlockHeight, 120000); // Fetch every 10 seconds
   </script>
   <footer class="pt-2 pb-5">
     <div style="font-size: 35px; color: var(--bs-faded-text-color); text-align: center;" class="pb-5">
