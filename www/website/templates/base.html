@@ -52,7 +52,7 @@
               <div class="small-white-label bitcoin-meta-value" id="market-cap-usd" ></div>
             </div>
             <div class="py-1">
-              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Blocks</div>
+              <div class="small-dark-label" style="line-height: 13px; padding-left: 5px; font-size: 10px;">Last mined block</div>
               <div class="small-white-label bitcoin-meta-value" id="btc-block-height" ></div>
             </div>
           </div>
@@ -93,9 +93,10 @@
           {% for i in blocks %}
               <div  class="card card_animated_dark mined-block text-dark p-4 m-2 {% if i[7] == 1 %} d-block highlighted-block pulse-div {% endif %} {% if i[7] in [2,3] %} d-none d-md-block {% endif %} {% if i[7] in [4,5] %} d-none d-lg-block {% endif %} {% if i[7] >= 6  %} d-none d-xxl-block {% endif %}" >
                   <a class="card-title link-secondary link-underline-dark link-underline link-underline-opacity-0 block_url"  href="https://mempool.space/block/{{i[1]}}" target="_blank">
-                      <i class="bi bi-box-fill"></i> <br/>{{i[0]}} 
+                      <i class="bi bi-box-fill"></i> <br/><span {% if i[7] == 1 %} id="last-processed-block" {% endif %}>{{i[0]}}</span>
                   </a>
-                  <p class="card-text ">
+                  <div class="block-info-box" {% if i[7] == 1 %} id="last-processed-block-info" {% endif %}></div>
+                  <div class="card-text ">
                       
                       <span class="main-text ">{{ moment(i[2]).format('LLL') }}</span>
                       <br/>
@@ -104,7 +105,7 @@
                       <small class="muted-text ">
                       {{'{:,}'.format(i[5])}} TRX • Avg. Fee {{i[6]}} BTC
                       </small>
-                  </p>
+                    </div>
               </div>
           
           {%endfor%}
@@ -297,14 +298,19 @@
 
 
             // Update the div with the fetched data
-            document.getElementById('btc-block-height').textContent = blockHeight.toLocaleString('en-US');
+            document.getElementById('btc-block-height').textContent = blockHeight;
             document.getElementById('market-cap-usd').textContent = marketCap.toLocaleString('en-US') + " $";
-
             document.getElementById('blocks-per-24').textContent = blocks24h.toLocaleString('en-US');
             document.getElementById('transactions-per-24').textContent = transactions24h.toLocaleString('en-US');
-
             document.getElementById('bitcoin-difficulty').textContent = difficulty.toLocaleString('en-US');
             document.getElementById('mempool-transactions').textContent = mempool_transactions.toLocaleString('en-US');
+
+            const lastProcessed = parseInt(document.getElementById('last-processed-block').textContent, 10);
+            const lastMined = parseInt(blockHeight, 10);
+
+            const diffVal = lastMined - lastProcessed
+
+            document.getElementById('last-processed-block-info').textContent = "(" + diffVal + " blocks behind)";
 
         } catch (error) {
             console.error('Error fetching Bitcoin block height:', error);

@@ -19,6 +19,10 @@ p, a, div, span {
     margin: 5px;
 }
 
+.block-info-box {
+  font-size: 10px;
+}
+
 
 
 :root {
