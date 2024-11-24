@@ -108,12 +108,19 @@ p, a, div, span {
   font-size: 13px;
 }
 
+.bitcoin-price-value {
+  line-height: 13px; padding-left: 5px;
+}
+
+
+
 .btc_bg {
   padding-left: 80px;
   background-image: url('/static/img/Bitcoin-Logo.png'); /* Path to your image */
   background-size: 90px; /* Ensures the image covers the entire div */
   background-position: top left; /* Centers the image */
   background-repeat: no-repeat; 
+  height: 55px;
 }
 
 .nav-link {
@@ -341,6 +348,15 @@ p, a, div, span {
     }
 
     .price-diff-module .price-diff-value {
+      font-size: 10px !important;
+    }
+    
+    #btc-price {
+      font-size: 20px !important;
+
+    }
+
+    .bitcoin-meta-value {
       font-size: 10px !important;
     }
   }
