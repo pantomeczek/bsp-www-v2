@@ -16,7 +16,7 @@ def get_change_sign(current_val, past_val):
 
 def get_stats_from_df(df):
 
-     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=30)
+     today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=1)
      thirty_days_ago = today - timedelta(days=30)
      sixty_days_ago = today - timedelta(days=60)
 

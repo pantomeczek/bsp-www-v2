@@ -44,7 +44,7 @@
                                         {% if stats['today']['diff'] == "-"  %}
                                         <i class="bi bi-arrow-down-short change_minus"></i>
                                         {% endif  %}
-                                        {{stats['today']['value']}}
+                                        {{"{:,.2f}".format(stats['today']['value'])}}
                                     </div>
                                     
                                 </li>
@@ -53,17 +53,17 @@
                                     
                                     {% if stats['30']['diff'] == "+"  %}
                                     <div class="price-diff-value change_plus">
-                                        <i class="bi bi-arrow-up-short"></i>{{stats['30']['value']}}
+                                        <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
                                     </div>
                                     {% endif  %}
                                     {% if stats['30']['diff'] == "-"  %}
                                     <div class="price-diff-value change_minus">
-                                        <i class="bi bi-arrow-down-short"></i>{{stats['30']['value']}}
+                                        <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
                                     </div>
                                     {% endif  %}
                                     {% if stats['30']['diff'] == "="  %}
                                     <div class="price-diff-value">
-                                        {{stats['30']['value']}}
+                                        {{"{:,.2f}".format(stats['30']['value'])}}
                                     </div>
                                     {% endif  %}
                                     
@@ -73,17 +73,17 @@
 
                                     {% if stats['60']['diff'] == "+"  %}
                                     <div class="price-diff-value change_plus">
-                                        <i class="bi bi-arrow-up-short"></i>{{stats['60']['value']}}
+                                        <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
                                     </div>
                                     {% endif  %}
                                     {% if stats['60']['diff'] == "-"  %}
                                     <div class="price-diff-value change_minus">
-                                        <i class="bi bi-arrow-down-short"></i>{{stats['60']['value']}}
+                                        <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
                                     </div>
                                     {% endif  %}
                                     {% if stats['60']['diff'] == "="  %}
                                     <div class="price-diff-value">
-                                        {{stats['60']['value']}}
+                                        {{"{:,.2f}".format(stats['60']['value'])}}
                                     </div>
                                     {% endif  %}
                                 </li>

@@ -135,6 +135,11 @@ a.mobile-button-small.active {
   padding: 0px 7px !important;
 }
 
+.main-menu-items .nav-link {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
 .btc_bg {
   padding-left: 80px;
   background-image: url('/static/img/Bitcoin-Logo.png'); /* Path to your image */
