@@ -22,7 +22,7 @@ DEFAULT_METRICS = {
 
 PIE_CHART_CONFIG = {
     "addresses_activity": {
-        "name": "Wallet Activity Distribution",
+        "name": "Bitcoin Address Activity Breakdown",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "plankton_activity", "indicator_label": "Plankton"},
@@ -36,7 +36,7 @@ PIE_CHART_CONFIG = {
 
     },
     "addresses_counts": {
-        "name": "Wallets by holding size",
+        "name": "Distribution of Addresses",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "plankton_count", "indicator_label": "Plankton"},
@@ -50,7 +50,7 @@ PIE_CHART_CONFIG = {
 
     },
     "addresses_balances": {
-        "name": "Wallets Balance Distribution",
+        "name": "Distribution of BTC Holdings",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "plankton_balance", "indicator_label": "Plankton"},
@@ -64,7 +64,7 @@ PIE_CHART_CONFIG = {
 
     },
     "mining_rewards": {
-        "name": "Miner's Revenue from Blocks and Fees",
+        "name": "Miner's Revenue from Blocks vs Fees",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "miners_revenue_total_rewards", "indicator_label": "Block Rewards"},
@@ -73,7 +73,7 @@ PIE_CHART_CONFIG = {
 
     },
     "onchain_supply": {
-        "name": "Supply from STH and LTH",
+        "name": "Supply from STH vs LTH",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "sth_balance", "indicator_label": "Short-Term Hodler Bitcoin Supply"},
@@ -82,7 +82,7 @@ PIE_CHART_CONFIG = {
 
     },
     "onchain_profitloss": {
-        "name": "Percentage of Addresses in Profit / Loss",
+        "name": "Percentage of Addresses in Profit vs Loss",
         "valus_type": "percent",
         "indicators": [
             {"indicator_name": "perc_of_addr_in_profit", "indicator_label": "Percentage of Addresses in Profit"},
@@ -91,7 +91,7 @@ PIE_CHART_CONFIG = {
 
     },
     "institutions_etfs": {
-        "name": "Balance of BTC on ETF accounts",
+        "name": "BTC Holdings on ETF Addresses",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "wallettracker_blackrock", "indicator_label": "iShares Bitcoin Trust (IBIT)"},
@@ -104,7 +104,7 @@ PIE_CHART_CONFIG = {
 
     },
     "institutions_exchanges": {
-        "name": "Balance of BTC on Exchanges",
+        "name": "BTC Holdings on Exchanges",
         "valus_type": "value",
         "indicators": [
             {"indicator_name": "wallettracker_mtgox", "indicator_label": "Mt. Gox Trustee"},
