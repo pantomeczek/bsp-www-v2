@@ -116,10 +116,10 @@ PIE_CHART_CONFIG = {
 
     }
 }
+BLKS = get_last_blocks(7)
 
 
 views = Blueprint('views', __name__)
-
 
 
 def get_stats_element(chart_type, metric):
@@ -228,15 +228,132 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
     return address_charts
 
 def get_charts(chart_type: str, metric: str, date_of_chart):
-
     return get_charts_for_addresses(chart_type, metric, date_of_chart)
+
+def get_charts_for_dashboard(indicators, date_of_chart):
+    dashboard_items = []
+
+    for i in indicators:
+        chart_type = i.get('chart_type')
+        metric = i.get('metric')
+        submetric = i.get('submetric')
+
         
 
-BLKS = get_last_blocks(7)
+        if chart_type == 'onchain' and metric == 'sopr':
+            inObj = Chartconfig(chart_type, metric, metric, None, None)
+            chartResult = charts.get_sopr_chart(inObj.get_indicator(inObj.get_precision()), 
+                                                inObj.get_label_with_dma(), 
+                                                inObj.get_value_label(), 
+                                                inObj.get_value_unit(), 
+                                                date_of_chart, 
+                                                340, 
+                                                False)
+        else:          
+            inObj = Chartconfig(chart_type, metric, submetric, None, None)                              
+            chartResult = charts.get_standard_price_chart(indicator_name = inObj.get_indicator(inObj.get_precision()), 
+                                                            indicator_title = inObj.get_label_with_dma(), 
+                                                            indicator_value_label = inObj.get_value_label(), 
+                                                            indicator_value_unit = inObj.get_value_unit(),
+                                                            filled = inObj.is_fillunder(),
+                                                            chart_date_from = date_of_chart,
+                                                            chart_currency = inObj.get_value_unit(),
+                                                            limited_range = None,
+                                                            chart_height = 340,
+                                                            chart_width = None,
+                                                            show_all_tools = False,
+                                                            secondary_chart_type = inObj.get_chart_type())
+        url = f"/chart?type={chart_type}&metric={metric}&size={submetric}" if metric is not None else f"/chart?type={chart_type}&metric={submetric}"
+        el = {
+                "id": f"chart_{chart_type}_{metric}_{submetric}",
+                "type": "chart",
+                "title": inObj.get_label(),
+                "href": url,
+                "chart": chartResult['chart'],
+                "stats": chartResult['stats']
+            }
+        
+        dashboard_items.append(el)
+    
+    return dashboard_items
+
+def get_dashboard():
+
+    date_of_chart = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
+    dashboard_items = []
+    
+
+    dashboard_items = dashboard_items + get_stats_element("addresses", "balances")
+
+
+    dashboard_items =  dashboard_items + get_charts_for_dashboard([
+                                                                    {
+                                                                        "chart_type": "addresses",
+                                                                        "metric": "balances",
+                                                                        "submetric": "whales"
+                                                                    },
+                                                                    {
+                                                                        "chart_type": "institutions",
+                                                                        "metric": "etfs",
+                                                                        "submetric": "totaletf"
+                                                                    }
+                                                                ], date_of_chart)
+
+
+    dashboard_items.append({
+                            "id": "txt",
+                            "type": "textfield",
+                            "template": "whatisbitcoin",
+                            "maxwidth": "400px"
+                            })
+
+    
+
+    dashboard_items = dashboard_items + get_stats_element("institutions", "etfs")
+
+    dashboard_items =  dashboard_items + get_charts_for_dashboard([
+                                                                        {
+                                                                            "chart_type": "onchain",
+                                                                            "metric": "realizedprice",
+                                                                            "submetric": "sth_realizedprice"
+                                                                        },
+                                                                        {
+                                                                            "chart_type": "onchain",
+                                                                            "metric": "profitloss",
+                                                                            "submetric": "addresses_in_profit"
+                                                                        },
+                                                                        {
+                                                                            "chart_type": "onchain",
+                                                                            "metric": "sopr",
+                                                                            "submetric": None
+                                                                        }
+                                                                    ], date_of_chart)
+
+    dashboard_items.append({
+                            "id": "txt",
+                            "type": "textfield",
+                            "template": "addressgroups",
+                            "maxwidth": "1300px"
+                            })
+
+    dashboard_items = dashboard_items + get_stats_element("institutions", "exchanges")
+
+    return dashboard_items
+
+@views.route('/')
+def dashboard():
+    date_of_dashboard = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
+
+    content_type = "dashboard"
+    content_metric = None
+
+    charts = get_dashboard()
+
+    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=BLKS, charts=charts)
+
 
 @views.route('/dashboard')
-@views.route('/')
-def addresses():
+def dashboards():
 
     
     date_of_dashboard = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
