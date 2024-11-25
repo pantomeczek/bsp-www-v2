@@ -92,7 +92,7 @@
           <!-- Horizontal scrollable container -->
           <div class="d-flex overflow-auto hide-scrollbar" style="gap: 0px;">
                 {% for i in blocks %}
-                <div class="flex-shrink-0 bg-info text-white text-center p-3 card_animated_dark mined-block text-dark p-4 m-2 {% if i[7] == 1 %} d-block highlighted-block pulse-div {% endif %}" style="width: 320px; height: 190px;">
+                <div class="flex-shrink-0 bg-info text-white text-center p-3 card_animated_dark mined-block text-dark p-4 m-2 {% if i[7] == 1 %} d-block highlighted-block pulse-div {% endif %}" style="width: 280px; height: 190px;">
                   
                     <a class="card-title link-secondary link-underline-dark link-underline link-underline-opacity-0 block_url"  href="https://mempool.space/block/{{i[1]}}" target="_blank">
                       <i class="bi bi-box-fill"></i> <br/><span {% if i[7] == 1 %} id="last-processed-block" {% endif %}>{{i[0]}}</span>
