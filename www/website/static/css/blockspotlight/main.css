@@ -334,14 +334,14 @@ a.mobile-button-small.active {
 }
 
 .powered-by li {
-  margin: 10px;
-  border-radius: 10px;
+  margin: 7px;
+  border-radius: 5px;
   background-color: #e0e2e7;
 }
 
 .powered-by img {
-  height: 70px;
-  padding: 10px;
+  height: 50px;
+  padding: 8px;
 }
 
 .blockspotlight-story p {
@@ -350,7 +350,8 @@ a.mobile-button-small.active {
 }
 
 .blockspotlight-story h4 span {
-  font-size: 14px;
+  font-size: 13px;
+  color: #bdbfc0;
 }
 
 .hide-scrollbar {
@@ -403,6 +404,21 @@ a.mobile-button-small.active {
     font-size: 40px;
   }
 }
+
+@media (max-width: 991px) {
+  .powered-by img {
+    height: 30px;
+    padding: 5px;
+  }
+
+  .powered-by li {
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #e0e2e7;
+  }
+
+}
+
 
 
 
@@ -486,6 +502,8 @@ a.mobile-button-small.active {
     .bitcoin-meta-value {
       font-size: 10px !important;
     }
+
+
   }
 
   @media (max-width: 992px) {
@@ -511,6 +529,8 @@ a.mobile-button-small.active {
     .dropdown-item > ul > li, .dropdown-item > ul > li > a {
       padding-left: 5px !important;
     }
+
+
   }
 
 
