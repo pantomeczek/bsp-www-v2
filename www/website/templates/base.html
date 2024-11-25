@@ -97,7 +97,7 @@
                     <a class="card-title link-secondary link-underline-dark link-underline link-underline-opacity-0 block_url"  href="https://mempool.space/block/{{i[1]}}" target="_blank">
                       <i class="bi bi-box-fill"></i> <br/><span {% if i[7] == 1 %} id="last-processed-block" {% endif %}>{{i[0]}}</span>
                     </a>
-                    <div class="block-info-box" {% if i[7] == 1 %} id="last-processed-block-info" {% endif %}></div>
+                    <div class="block-info-box" style="color: var(--bs-border-grey);" {% if i[7] == 1 %} id="last-processed-block-info" {% endif %}></div>
                     <div class="card-text ">
                         
                         <span class="main-text ">{{ moment(i[2]).format('LLL') }}</span>
