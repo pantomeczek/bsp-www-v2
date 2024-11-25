@@ -294,10 +294,12 @@ def get_daily_chart(primaryDF: DataFrame,
             yaxis2=dict( ##chart
                             title="" if show_full == False else secondary_label,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             type=secondary_type,
                             showgrid=True,
@@ -360,10 +362,12 @@ def get_special_comparison_chart(primaryDF,
             yaxis=dict(
                             title= "",
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             range=[0,100],
                             fixedrange=False,
@@ -372,10 +376,12 @@ def get_special_comparison_chart(primaryDF,
             yaxis2=dict(
                             title= "",
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=True,
                             type="log",
@@ -506,10 +512,12 @@ def get_sopr_chart(primaryDF: DataFrame,
             yaxis=dict(
                             title="" if show_full == False else primary_label,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=False,
                             type="log",
@@ -520,10 +528,12 @@ def get_sopr_chart(primaryDF: DataFrame,
             yaxis2=dict(
                             title="" if show_full == False else secondary_label,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             fixedrange = False,
                             showgrid=True,
@@ -583,10 +593,12 @@ def get_nupl_chart(primaryDF,
             yaxis=dict(
                             title="" if show_full == False else primary_label,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=True,
                             type="log",
@@ -598,10 +610,12 @@ def get_nupl_chart(primaryDF,
             yaxis2=dict(
                             title="" if show_full == False else secondary_label,
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             type=secondary_chart_type,
                             fixedrange = False,
@@ -668,10 +682,12 @@ def get_mvrv_chart(primaryDF,
             yaxis=dict(
                             title="" if show_full == False else "Price of BTC (USD)",
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=False,
                             type="log",
@@ -682,10 +698,12 @@ def get_mvrv_chart(primaryDF,
             yaxis2=dict(
                             title="" if show_full == False else "MVRV Z-Score",
                             titlefont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             tickfont=dict(
-                                color=PROPERTY_CHART_SIDE_TITLE_COLOR
+                                color=PROPERTY_CHART_SIDE_TITLE_COLOR,
+                                size=10
                             ),
                             showgrid=True,
                             fixedrange = False,
@@ -732,8 +750,7 @@ def get_pie_chart(height, data, data_type):
                      textfont=dict(
                         family=PROPERTY_CHART_DEFAULT_FONT,        # Font family
                         size=12,               # Font size
-                        color='white',         # Font color
-                        weight='bold'          # Bold text
+                        color='white'
                      ),
                      marker=dict(
                                   colors=['rgba(247, 148, 51,  .85)', 

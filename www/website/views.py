@@ -19,7 +19,7 @@ DEFAULT_METRICS = {
     "institutions": "etfs"
 }
 
-NUM_OF_BLOCKS = 7
+NUM_OF_BLOCKS = 25
 
 PIE_CHART_CONFIG = {
     "addresses_activity": {
@@ -237,7 +237,7 @@ def get_charts_for_dashboard(indicators, date_of_chart):
     for i in indicators:
         chart_type = i.get('chart_type')
         metric = i.get('metric')
-        submetric = i.get('submetric')
+        submetric = i.get('submetric') if i.get('submetric') != "None" else None
 
         
 
@@ -264,7 +264,17 @@ def get_charts_for_dashboard(indicators, date_of_chart):
                                                             chart_width = None,
                                                             show_all_tools = False,
                                                             secondary_chart_type = inObj.get_chart_type())
-        url = f"/chart?type={chart_type}&metric={metric}&size={submetric}" if metric is not None else f"/chart?type={chart_type}&metric={submetric}"
+                                             
+        if metric is not None:
+            url = f"/chart?type={chart_type}&metric={metric}"
+
+            if submetric is not None:
+                url = url + f"&size={submetric}"
+
+        else:
+            url = f"/chart?type={chart_type}&metric={submetric}"
+
+
         el = {
                 "id": f"chart_{chart_type}_{metric}_{submetric}",
                 "type": "chart",
