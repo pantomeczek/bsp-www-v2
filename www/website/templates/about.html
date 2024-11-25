@@ -1,0 +1,141 @@
+{% extends "main.html" %}
+{% block title %}{{ title }} | Blockspotlight.com{% endblock %}
+
+{% block maincontent %}
+
+
+<div class="container-lg p-3 p-md-5"  >
+
+    <div class="standard-chart-panel">
+
+        <div class="p-3 p-md-5">
+    
+                <h3>{{ title }}</h3>
+                <div class="grey-bottom-border-light pb-3">
+            
+                    <div class="row">
+                        <div class="col-2" style="width: 130px; text-align: center;">
+                            <img src="/static/img/autohor_avatar_dark.png" alt="Logo" width="100%" style="margin: 3px 0px 0px 0px; width: 100px;">
+                        </div>
+                        <div class="col-8 pl-0 pt-3">
+                            <div >
+                                <h5>Tomasz Pelnikowski</h5>
+                            </div>
+                            <div class="small-dark-label">
+                                SOFTWARE ENGINEER
+                            </div>
+                            <div style="padding: 3px;">
+                                <a style="color: rgb(67, 67, 67);" href="https://www.linkedin.com/in/tomasz-pe%C5%82nikowski-a8418523/?originalSubdomain=ch" target="_blank"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                        </div>
+            
+                    </div>
+            
+                    <div class="row" bis_skin_checked="1">
+                        <div class="col-1 col-sm" bis_skin_checked="1">
+            
+            
+                        </div>
+                        <div class="col-6 col-md" bis_skin_checked="1">
+            
+                        </div>
+                        <div class="col-6 col-md" bis_skin_checked="1">
+            
+                        </div>
+                        <div class="col-6 col-md" bis_skin_checked="1">
+            
+                        </div>
+                    </div>
+            
+                </div>
+                <div class="py-4">
+                    <div class="muted-text text-center p-3" style="color: #535356;">Powered by:</div>
+                    <ul class="powered-by nav nav-pills">
+                        <li class="nav-item ">
+                            <a href="https://spark.apache.org/" target="blank"><img src="/static/img/tech/spark.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://hadoop.apache.org/" target="blank"><img src="/static/img/tech/hadoop.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://delta.io/" target="blank"><img src="/static/img/tech/deltalake.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://ollama.com/" target="blank"><img src="/static/img/tech/ollama.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://airflow.apache.org/" target="blank"><img src="/static/img/tech/airflow.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://kafka.apache.org/" target="blank"><img src="/static/img/tech/kafka.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://www.python.org/" target="blank"><img src="/static/img/tech/python.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://kubernetes.io/" target="blank"><img src="/static/img/tech/kubernetes.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://www.proxmox.com/en/" target="blank"><img src="/static/img/tech/proxmox.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://www.postgresql.org/" target="blank"><img src="/static/img/tech/postgres.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://www.docker.com/" target="blank"><img src="/static/img/tech/docker.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://flask.palletsprojects.com/en/stable/" target="blank"><img src="/static/img/tech/flask.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://livy.apache.org/" target="blank"><img src="/static/img/tech/livy.png"/></a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="https://ubuntu.com/" target="blank"><img src="/static/img/tech/ubuntu.png"/></a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="py-4 blockspotlight-story">
+                    <h3 style="font-size: 16px;" class="mb-4">The Journey of a Bitcoin Block: From Mining to Insight</h3>
+
+                    <h4><span>Chapter 1:</span><br/>The Birth of the Block</h4>
+                    <p>In the vast and decentralized Bitcoin network, a miner forges a new block, adding it to the blockchain. This block, containing transactions and cryptographic proofs, begins its journey—a tale of transformation and discovery.</p>
+
+                    <h4><span>Chapter 2:</span><br/>The Network's Call</h4>
+                    <p>The block is discovered by <strong>BitcoinCore</strong>, which synchronizes with the Bitcoin network to maintain a complete copy of the blockchain. Like a diligent archivist, BitcoinCore ensures every new block is added to its growing ledger.</p>
+
+                    <h4><span>Chapter 3:</span><br/>The Keeper's Analysis</h4>
+                    <p>Once safely downloaded, the block passes into the hands of the <strong>Bitcoin Blockchain Parser</strong>. Here, it is carefully deconstructed, with every transaction and detail meticulously organized and stored in a structured format. This transformation marks the block’s first step into a new life of purpose.</p>
+
+                    <h4><span>Chapter 4:</span><br/>The Great Transfer</h4>
+                    <p>The parsed data is then transported to the vast storage expanse of <strong>HDFS</strong>. This is where the block, now a refined collection of data, prepares for the next stage of its evolution.</p>
+
+                    <h4><span>Chapter 5:</span><br/>The Messenger's Call</h4>
+                    <p>As the block settles into HDFS, a signal is sent through <strong>Apache Kafka</strong>, a swift and reliable messenger. Kafka broadcasts the news, informing the computational layer that new data is ready for processing. The block, now a harbinger of change, awaits its transformation.</p>
+
+                    <h4><span>Chapter 6:</span><br/> The Orchestrator's Command</h4>
+                    <p>Hearing the call, <strong>Apache Airflow</strong> springs into action. With precision and coordination, it orchestrates a series of processes designed to cleanse and prepare the block’s data for deeper analysis. The block is now ready to be enriched with further context.</p>
+
+                    <h4><span>Chapter 7:</span><br/>The Enrichment of Knowledge</h4>
+                    <p>To unlock its full potential, the block’s data is enriched with external information. Market data, network statistics, and other relevant sources are integrated, adding new dimensions to the blockchain data. This enrichment process provides valuable context, transforming raw insights into a richer, more meaningful narrative.</p>
+
+                    <h4><span>Chapter 8:</span><br/>The Repository of Wisdom</h4>
+                    <p>The processed and enriched data, now brimming with insights, returns to <strong>HDFS</strong> for storage. Simultaneously, key findings are preserved in <strong>Postgres</strong>, ensuring accessibility for those who seek its knowledge. The block’s journey nears its end, transformed from raw data into actionable intelligence.</p>
+
+                    <h4><span>Chapter 9:</span><br/>The Chart of Discovery</h4>
+                    <p>Finally, the block’s data reaches its ultimate destination: the <strong>Web Application</strong>. Here, it takes its place on interactive charts, where users can explore and analyze the insights derived from its journey. Once a mere block in the Bitcoin network, it now tells a story of patterns, trends, and the evolving blockchain landscape.</p>
+
+                </div>
+                
+        </div>
+    
+    </div>
+
+    
+</div>
+
+
+{% endblock %}

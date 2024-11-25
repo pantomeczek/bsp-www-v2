@@ -31,6 +31,7 @@ p, a, div, span {
     --bs-muted-text-color: #adb1b8;
     --bs-faded-text-color: #57585a;
     --bs-border-grey: #191a1d;
+    --bs-border-grey-light: #272828;
     --bs-text-size-small: 12px;
     --bs-text-size-medium: 14px;
     --bs-bitcoin-color: #f7931a;
@@ -41,6 +42,10 @@ p, a, div, span {
 
 .grey-bottom-border {
     border-bottom: 1px solid var(--bs-border-grey);
+}
+
+.grey-bottom-border-light {
+  border-bottom: 1px solid var(--bs-border-grey-light);
 }
 
 .main-text {
@@ -320,6 +325,33 @@ a.mobile-button-small.active {
   text-align: right;
 }
 
+.powered-by {
+  
+  border-radius: 5px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.powered-by li {
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #e0e2e7;
+}
+
+.powered-by img {
+  height: 70px;
+  padding: 10px;
+}
+
+.blockspotlight-story p {
+  font-size: 14px;
+  padding: 0px 40px;
+}
+
+.blockspotlight-story h4 span {
+  font-size: 14px;
+}
 
 .hide-scrollbar {
   overflow: auto; /* Ensure content is scrollable */
@@ -330,6 +362,49 @@ a.mobile-button-small.active {
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
 }
+
+.footer-message {
+  font-size: 25px;
+}
+
+.blockspotlight-story p{
+  text-align: center;
+  margin-bottom: 20px;
+  color: #979a9f;
+}
+
+.blockspotlight-story h3, h4 {
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.blockspotlight-story h3 {
+  font-size: 22px;
+}
+
+.blockspotlight-story h4 {
+  font-size: 19px;
+}
+
+@media (min-width: 992px) {
+  .w-lg-40 {
+    width: 40% !important;
+  }
+  
+  .mw-lg-25 {
+    max-width: 25% !important;
+  }
+  
+  .mw-lg-50 {
+    max-width: 50% !important;
+  }
+
+  .footer-message {
+    font-size: 40px;
+  }
+}
+
+
 
   @keyframes glow {
     0%, 100% {

@@ -315,7 +315,7 @@ def get_dashboard():
                             "id": "txt",
                             "type": "textfield",
                             "template": "whatisbitcoin",
-                            "maxwidth": "400px"
+                            "class": "mw-lg-25"
                             })
 
     
@@ -340,14 +340,15 @@ def get_dashboard():
                                                                         }
                                                                     ], date_of_chart)
 
+    
+
+    dashboard_items = dashboard_items + get_stats_element("institutions", "exchanges")
     dashboard_items.append({
                             "id": "txt",
                             "type": "textfield",
                             "template": "addressgroups",
-                            "maxwidth": "1300px"
+                            "class": "mw-lg-50"
                             })
-
-    dashboard_items = dashboard_items + get_stats_element("institutions", "exchanges")
 
     return dashboard_items
 
@@ -482,3 +483,8 @@ def chart():
                                              currency = obj.get_active_currency(),
                                              blocks = get_last_blocks(NUM_OF_BLOCKS),
                                              description_label = description_file_name)
+
+
+@views.route('/about')
+def about():
+    return render_template('about.html')
