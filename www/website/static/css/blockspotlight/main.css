@@ -354,6 +354,8 @@ a.mobile-button-small.active {
   color: #bdbfc0;
 }
 
+
+
 .hide-scrollbar {
   overflow: auto; /* Ensure content is scrollable */
   scrollbar-width: none; /* Firefox */
@@ -403,6 +405,10 @@ a.mobile-button-small.active {
   .footer-message {
     font-size: 40px;
   }
+
+  .footer-logo {
+    font-size: 30px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -417,6 +423,9 @@ a.mobile-button-small.active {
     background-color: #e0e2e7;
   }
 
+  .footer-logo {
+    font-size: 20px;
+  }
 }
 
 
