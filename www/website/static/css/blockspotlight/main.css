@@ -389,6 +389,21 @@ a.mobile-button-small.active {
   font-size: 19px;
 }
 
+
+.scrollable-div {
+  height: 350px; /* Fixed height */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  width: auto; /* Adjustable width */
+  max-width: 100%; /* Optional: Prevent overflow */
+  padding: 0px; /* Optional: Inner spacing */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  scrollbar-width: none;
+}
+
+.scrollable-div::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
 @media (min-width: 992px) {
   .w-lg-40 {
     width: 40% !important;
@@ -401,6 +416,19 @@ a.mobile-button-small.active {
   .mw-lg-50 {
     max-width: 50% !important;
   }
+
+  .mw-lg-60 {
+    max-width: 60% !important;
+  }
+
+  .mw-lg-70 {
+    max-width: 70% !important;
+  }
+
+  .mw-lg-100 {
+    max-width: 100% !important;
+  }
+
 
   .footer-message {
     font-size: 40px;

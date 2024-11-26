@@ -4,6 +4,7 @@ from datetime import timedelta, datetime
 from .code.blocks import get_last_blocks
 from .code.chartconfig import Chartconfig
 from website.code import charts
+from .code.ai import get_ai_summary
 
 
 TYPE_KEY = 'type'
@@ -165,9 +166,37 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
 
     obj = Chartconfig(chart_type, metric, None, None, None).get_details_obj()
 
-    address_charts = get_stats_element(chart_type, metric)
-     
+    stats = get_stats_element(chart_type, metric)
 
+    address_charts = []
+    address_charts.append(stats[0])
+    
+
+    if chart_type == 'addresses' and metric == 'balances':
+        ai = get_ai_summary('addresses_balance_summary')
+        address_charts.append({
+                                "id": "ai_addresses_balance_summary",
+                                "title": "Overview of Bitcoin Wallet Balances Over the Last 30 Days",
+                                "type": "ai",
+                                "template": "whatisbitcoin",
+                                "class": "mw-lg-50",
+                                "aidate": ai['date'],
+                                "aicontent": ai['content']
+                                })
+
+    elif chart_type == 'institutions' and metric == 'etfs':
+        ai = get_ai_summary('etf_balance_summary')
+        address_charts.append({
+                                "id": "ai_etf_balance_summary",
+                                "title": "Overview of Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
+                                "type": "ai",
+                                "template": "whatisbitcoin",
+                                "class": "mw-lg-50",
+                                "aidate": ai['date'],
+                                "aicontent": ai['content']
+                                })
+    
+    address_charts.append(stats[1])
     for i in obj:
         if 'widget_active' in obj[i] and obj[i]['widget_active'] == True:
 
