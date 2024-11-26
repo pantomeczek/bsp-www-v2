@@ -322,9 +322,29 @@ def get_dashboard():
     date_of_chart = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
     dashboard_items = []
     
+    stats = get_stats_element("addresses", "balances")
 
-    dashboard_items = dashboard_items + get_stats_element("addresses", "balances")
+    dashboard_items.append(stats[0])
 
+    ai = get_ai_summary('addresses_balance_summary')
+    dashboard_items.append({
+                            "id": "ai_addresses_balance_summary",
+                            "title": "Overview of Bitcoin Wallet Balances Over the Last 30 Days",
+                            "type": "ai",
+                            "template": "whatisbitcoin",
+                            "class": "mw-lg-25",
+                            "aidate": ai['date'],
+                            "aicontent": ai['content']
+                            })
+
+    dashboard_items.append(stats[1])
+
+    dashboard_items.append({
+                            "id": "txt",
+                            "type": "textfield",
+                            "template": "whatisbitcoin",
+                            "class": "mw-lg-25"
+                            })
 
     dashboard_items =  dashboard_items + get_charts_for_dashboard([
                                                                     {
@@ -340,16 +360,25 @@ def get_dashboard():
                                                                 ], date_of_chart)
 
 
-    dashboard_items.append({
-                            "id": "txt",
-                            "type": "textfield",
-                            "template": "whatisbitcoin",
-                            "class": "mw-lg-25"
-                            })
+    
 
     
 
     dashboard_items = dashboard_items + get_stats_element("institutions", "etfs")
+
+    ai = get_ai_summary('etf_balance_summary')
+    dashboard_items.append({
+                            "id": "ai_etf_balance_summary",
+                            "title": "Overview of Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
+                            "type": "ai",
+                            "template": "whatisbitcoin",
+                            "class": "mw-lg-25",
+                            "aidate": ai['date'],
+                            "aicontent": ai['content']
+                            })
+
+
+        
 
     dashboard_items =  dashboard_items + get_charts_for_dashboard([
                                                                         {
