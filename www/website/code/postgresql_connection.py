@@ -9,8 +9,8 @@ class PostgresConn:
         self.connection = psycopg2.connect(database="bspotlight", 
                                            user='bspotlight', 
                                            password='motorolla', 
-                                           host='34.41.120.246', 
-                                           port= '5432'
+                                           host='192.168.10.170', 
+                                           port= '32001'
                                           )
         self.cursor = self.connection.cursor()
     
