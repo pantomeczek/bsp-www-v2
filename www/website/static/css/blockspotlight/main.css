@@ -390,19 +390,7 @@ a.mobile-button-small.active {
 }
 
 
-.scrollable-div {
-  height: 350px; /* Fixed height */
-  overflow-y: auto; /* Enable vertical scrollbar */
-  width: auto; /* Adjustable width */
-  max-width: 100%; /* Optional: Prevent overflow */
-  padding: 0px; /* Optional: Inner spacing */
-  box-sizing: border-box; /* Include padding in the width calculation */
-  scrollbar-width: none;
-}
 
-.scrollable-div::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar */
-}
 
 @media (min-width: 992px) {
   .w-lg-40 {
@@ -437,6 +425,21 @@ a.mobile-button-small.active {
   .footer-logo {
     height: 30px;
   }
+
+  .scrollable-div {
+    height: 350px; /* Fixed height */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    width: auto; /* Adjustable width */
+    max-width: 100%; /* Optional: Prevent overflow */
+    padding: 0px; /* Optional: Inner spacing */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    scrollbar-width: none;
+  }
+  
+  .scrollable-div::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+  }
+
 }
 
 @media (max-width: 991px) {
