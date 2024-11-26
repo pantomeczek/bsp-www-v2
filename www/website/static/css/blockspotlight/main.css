@@ -407,7 +407,7 @@ a.mobile-button-small.active {
   }
 
   .footer-logo {
-    font-size: 30px;
+    height: 30px;
   }
 }
 
@@ -424,7 +424,7 @@ a.mobile-button-small.active {
   }
 
   .footer-logo {
-    font-size: 20px;
+    height: 20px;
   }
 }
 
