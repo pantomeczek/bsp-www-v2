@@ -427,7 +427,7 @@ a.mobile-button-small.active {
   }
 
   .scrollable-div {
-    height: 350px; /* Fixed height */
+    height: 380px; /* Fixed height */
     overflow-y: auto; /* Enable vertical scrollbar */
     width: auto; /* Adjustable width */
     max-width: 100%; /* Optional: Prevent overflow */
@@ -501,13 +501,23 @@ a.mobile-button-small.active {
 @media (min-width: 1900px) {
   
     .dashboard-chart-panel {
-      width: 30% !important;
+      width: 40% !important;
       min-width: 400px;
     }
 
     .dashboard-info-panel {
       min-width: 400px;
       min-height: 500px;
+    }
+    
+    .dashboard-text-panel {
+      width: 15% !important;
+      min-width: 300px;
+    }
+
+    .dashboard-aitext-panel {
+      width: 30% !important;
+      min-width: 350px;
     }
 
   }
@@ -594,26 +604,24 @@ a.mobile-button-small.active {
       width: 100% !important;
     }
 
+    .dashboard-text-panel {
+      width: 100% !important;
+    }
+
+    .dashboard-aitext-panel {
+      width: 100% !important;
+    }
+
   }
 
   @media (min-width: 1400px) {
     .dashboard-chart-panel-v2 {
       width: 50% !important;
     }
+
+   
   }
   
   
 
-  @media (min-width: 1900px) {
-
-    .dashboard-chart-panel {
-      width: 40% !important;
-      min-width: 400px;
-    }
-
-    .dashboard-info-panel {
-      min-width: 400px;
-      min-height: 500px;
-    }
-
-  }
+ 

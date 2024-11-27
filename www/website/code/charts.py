@@ -7,12 +7,22 @@ from pandas.core.frame import DataFrame
 from datetime import timedelta, datetime
 
 def get_change_sign(current_val, past_val):
+     if current_val is None or past_val is None:
+          return ""
+
      if current_val == past_val:
           return "="
      elif current_val > past_val:
           return "-"
      else:
           return "+"
+
+def get_stat(input_df):
+     if not input_df.empty:
+          return round(input_df.iloc[0],2)
+     else:
+          return -99999
+
 
 def get_stats_from_df(df):
 
@@ -26,16 +36,16 @@ def get_stats_from_df(df):
 
      return {
               "today": {
-                         "value": round(today_value.iloc[0],2) if not today_value.empty else None,
-                         "diff": get_change_sign(round(thirty_days_value.iloc[0],2), round(today_value.iloc[0],2))
+                         "value": get_stat(today_value),
+                         "diff": get_change_sign(get_stat(thirty_days_value), get_stat(today_value))
                        }, 
                  "30": {
-                         "value": round(thirty_days_value.iloc[0],2) if not thirty_days_value.empty else None,
-                         "diff": get_change_sign(round(today_value.iloc[0],2), round(thirty_days_value.iloc[0],2))
+                         "value": get_stat(thirty_days_value),
+                         "diff": get_change_sign(get_stat(today_value), get_stat(thirty_days_value))
                        }, 
                  "60": {
-                         "value": round(sixty_days_value.iloc[0],2) if not sixty_days_value.empty else None,
-                         "diff": get_change_sign(round(today_value.iloc[0],2), round(sixty_days_value.iloc[0],2))
+                         "value": get_stat(sixty_days_value),
+                         "diff": get_change_sign(get_stat(today_value), get_stat(sixty_days_value))
                        }
              }
 
