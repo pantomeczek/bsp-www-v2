@@ -389,6 +389,10 @@ a.mobile-button-small.active {
   font-size: 19px;
 }
 
+.ai-box p {
+  padding: 10px 0px 0px !important; 
+  margin: 0px 0px !important;
+}
 
 
 
