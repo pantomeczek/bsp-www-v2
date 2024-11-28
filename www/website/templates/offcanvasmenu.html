@@ -1,0 +1,76 @@
+<!-- Offcanvas Menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasMenuLabel"><img src="/static/img/logo_small_wide.png" style="height: 25px;" alt="Blockspotlight.com"></img></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li>
+          <a href="/" class="nav-link">Home</a>
+        </li>
+       
+        <li>
+          <a class="nav-link" data-bs-toggle="collapse" href="#addressspecific" role="button" aria-expanded="false" aria-controls="addressspecific">
+            Address Specific
+          </a>
+          <div class="collapse ps-3 {% if content_type == 'addresses' %}show{% endif %}" id="addressspecific">
+            <ul class="list-unstyled">
+                <li><a href="/chart?type=addresses&metric=distribution" class="nav-link">Distribution of BTC across all wallets</a></li>
+                <li>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#addressspecificcounts" role="button" aria-expanded="false" aria-controls="addressspecificcounts">
+                        Number of Addresses Holding X BTC
+                    </a>
+                    <div class="collapse ps-3 {% if content_type == 'addresses' and metric == 'counts'%}show{% endif %}" id="addressspecificcounts">
+                        <ul class="list-unstyled">
+                            <li><a href="/chart?type=addresses&metric=counts&size=total" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'total'%}active{% endif %}">Addresses holding all BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=plankton" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'plankton'%}active{% endif %}">Addresses holding less then 0.01 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=shrimps" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'shrimps'%}active{% endif %}">Addresses holding between 0.01 BTC and 1 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=crabs" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'crabs'%}active{% endif %}">Addresses holding between 1 BTC and 10 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=fish" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'fish'%}active{% endif %}">Addresses holding between 10 BTC and 100 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=sharks" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'sharks'%}active{% endif %}">Addresses holding between 100 BTC and 1,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=whales" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'whales'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=counts&size=humpbacks" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'humpbacks'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#addressspecificbalances" role="button" aria-expanded="false" aria-controls="addressspecificbalances">
+                        Balance of Addresses Holding X BTC
+                    </a>
+                    <div class="collapse ps-3" id="addressspecificbalances">
+                        <ul class="list-unstyled">
+                            
+                            <li><a href="#" class="nav-link">Addresses Holding all BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 0.01 BTC and 1 BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 1 BTC and 10 BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 10 BTC and 100 BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 100 BTC and 1,000 BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                            <li><a href="#" class="nav-link">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link">Activity of Addresses Holding X BTC</a></li>
+            </ul>
+          </div>
+
+        </li>
+        <li>
+          <a class="nav-link" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">
+            Contact
+          </a>
+          <div class="collapse ps-3" id="submenu2">
+            <ul class="list-unstyled">
+              <li><a href="#" class="nav-link">Email</a></li>
+              <li><a href="#" class="nav-link">Phone</a></li>
+              <li><a href="#" class="nav-link">Address</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="/about" class="nav-link">About</a>
+        </li>
+      </ul>
+    </div>
+</div>

@@ -450,7 +450,7 @@ def dashboards():
 
     charts = get_charts(content_type, content_metric, date_of_dashboard)
                  
-    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
+    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, submetric=None, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
 
 
 @views.route('/chart')
@@ -540,6 +540,7 @@ def chart():
                                              metric = obj.get_metric(),
                                              module = "chart",
                                              content_type=content_type,
+                                             submetric=content_size,
                                              url = f"/chart?type={content_type}&metric={obj.get_metric()}&size={obj.get_submetric()}",
                                              precision_selector_enabled = obj.is_precision_selector_enabled(),
                                              currency_selector_enabled = obj.is_currency_selector_enabled(),
