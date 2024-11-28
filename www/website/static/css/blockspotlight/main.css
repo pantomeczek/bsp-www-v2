@@ -488,6 +488,17 @@ a.mobile-button-small.active {
   .footer-logo {
     height: 20px;
   }
+
+  .scrollable-div {
+    height: 380px; /* Fixed height */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    width: auto; /* Adjustable width */
+    max-width: 100%; /* Optional: Prevent overflow */
+    padding: 0px; /* Optional: Inner spacing */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    scrollbar-width: none;
+  }
+
 }
 
 
