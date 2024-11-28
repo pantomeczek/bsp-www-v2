@@ -446,43 +446,42 @@ def get_activity_stats(indicators):
      inds = inds.strip('union all ')
      
      sql_query = """
-WITH v_days AS (
-    SELECT 1 AS days
-    UNION ALL 
-    SELECT 30 AS days
-    UNION ALL
-    SELECT 60 AS days
-),
-v_indicators as
-(
-   """ + inds + """
-),
-v_agg_data AS
-(
-	SELECT 
-	    vi.indicator_label as indicator_name,
-	    SUM(CASE WHEN d.days = 1 THEN i.calculated_value ELSE 0 END) AS day_0,
-	    SUM(CASE WHEN d.days = 30 THEN i.calculated_value ELSE 0 END) AS day_30,
-	    SUM(CASE WHEN d.days = 60 THEN i.calculated_value ELSE 0 END) AS day_60,
-		1 as total
-	FROM general_indicator AS i
-	JOIN v_indicators vi
-	  ON i.indicator_name = vi.indicator_name
-	JOIN v_days AS d
-	ON i.day = current_date - d.days
-	GROUP BY vi.indicator_label
-)
-select indicator_name,
-        day_0 as day_0_raw,
-        day_30 as day_30_raw,
-        day_60 as day_60_raw,
-	   (day_0/sum(day_0) over())*100 as day_0_perc,
-	   (day_30/sum(day_0) over())*100 as day_30_perc,
-	   (day_60/sum(day_0) over())*100 as day_60_perc
-  from v_agg_data
-  order by 2 desc
-     """
-     print(sql_query)
+     WITH v_days AS (
+     SELECT 1 AS days
+     UNION ALL 
+     SELECT 30 AS days
+     UNION ALL
+     SELECT 60 AS days
+     ),
+     v_indicators as
+     (
+     """ + inds + """
+     ),
+     v_agg_data AS
+     (
+          SELECT 
+          vi.indicator_label as indicator_name,
+          SUM(CASE WHEN d.days = 1 THEN i.calculated_value ELSE 0 END) AS day_0,
+          SUM(CASE WHEN d.days = 30 THEN i.calculated_value ELSE 0 END) AS day_30,
+          SUM(CASE WHEN d.days = 60 THEN i.calculated_value ELSE 0 END) AS day_60,
+               1 as total
+          FROM general_indicator AS i
+          JOIN v_indicators vi
+          ON i.indicator_name = vi.indicator_name
+          JOIN v_days AS d
+          ON i.day = current_date - d.days
+          GROUP BY vi.indicator_label
+     )
+     select indicator_name,
+          day_0 as day_0_raw,
+          day_30 as day_30_raw,
+          day_60 as day_60_raw,
+          (day_0/sum(day_0) over())*100 as day_0_perc,
+          (day_30/sum(day_0) over())*100 as day_30_perc,
+          (day_60/sum(day_0) over())*100 as day_60_perc
+     from v_agg_data
+     order by 2 desc
+          """
      cn = PostgresConn() 
      sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0_raw", "day_30_raw", "day_60_raw", "day_0_perc", "day_30_perc", "day_60_perc"], cn)
      cn.close_connection()     
