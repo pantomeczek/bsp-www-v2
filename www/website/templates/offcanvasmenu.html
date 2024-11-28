@@ -4,25 +4,25 @@
       <h5 class="offcanvas-title" id="offcanvasMenuLabel"><img src="/static/img/logo_small_wide.png" style="height: 25px;" alt="Blockspotlight.com"></img></h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body list-menu-blockspotlight">
       <ul class="list-unstyled">
         <li>
-          <a href="/" class="nav-link">Home</a>
+          <a href="/" class="nav-link list-menu-blockspotlight-main {% if content_type == 'dashboard' %}active{% endif %}"><i class="bi bi-speedometer2"></i> Dashboard</a>
         </li>
        
         <li>
-          <a class="nav-link" data-bs-toggle="collapse" href="#addressspecific" role="button" aria-expanded="false" aria-controls="addressspecific">
-            Address Specific
+          <a class="nav-link list-menu-blockspotlight-main {% if content_type == 'addresses' %}active{% endif %}" data-bs-toggle="collapse" href="#addressspecific" role="button" aria-expanded="false" aria-controls="addressspecific">
+            <i class="bi bi-wallet2"></i>Address Specific
           </a>
           <div class="collapse ps-3 {% if content_type == 'addresses' %}show{% endif %}" id="addressspecific">
             <ul class="list-unstyled">
-                <li><a href="/chart?type=addresses&metric=distribution" class="nav-link">Distribution of BTC across all wallets</a></li>
+                <li><a href="/chart?type=addresses&metric=distribution" class="nav-link {% if content_type == 'addresses' and metric == 'distribution'%}active{% endif %}">Distribution of BTC across all wallets</a></li>
                 <li>
-                    <a class="nav-link" data-bs-toggle="collapse" href="#addressspecificcounts" role="button" aria-expanded="false" aria-controls="addressspecificcounts">
+                    <a class="nav-link {% if content_type == 'addresses' and metric == 'counts'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificcounts" role="button" aria-expanded="false" aria-controls="addressspecificcounts">
                         Number of Addresses Holding X BTC
                     </a>
                     <div class="collapse ps-3 {% if content_type == 'addresses' and metric == 'counts'%}show{% endif %}" id="addressspecificcounts">
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled list-menu-blockspotlight">
                             <li><a href="/chart?type=addresses&metric=counts&size=total" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'total'%}active{% endif %}">Addresses holding all BTC</a></li>
                             <li><a href="/chart?type=addresses&metric=counts&size=plankton" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'plankton'%}active{% endif %}">Addresses holding less then 0.01 BTC</a></li>
                             <li><a href="/chart?type=addresses&metric=counts&size=shrimps" class="nav-link {% if content_type == 'addresses' and metric == 'counts' and submetric == 'shrimps'%}active{% endif %}">Addresses holding between 0.01 BTC and 1 BTC</a></li>
@@ -35,26 +35,109 @@
                     </div>
                 </li>
                 <li>
-                    <a class="nav-link" data-bs-toggle="collapse" href="#addressspecificbalances" role="button" aria-expanded="false" aria-controls="addressspecificbalances">
-                        Balance of Addresses Holding X BTC
+                    <a class="nav-link {% if content_type == 'addresses' and metric == 'balances'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificbalances" role="button" aria-expanded="false" aria-controls="addressspecificbalances">
+                        Balance of Addresses Holding X BTC 
                     </a>
-                    <div class="collapse ps-3" id="addressspecificbalances">
-                        <ul class="list-unstyled">
+                    <div class="collapse ps-3 {% if content_type == 'addresses' and metric == 'balances'%} show {% endif %}" id="addressspecificbalances">
+                        <ul class="list-unstyled list-menu-blockspotlight">
                             
-                            <li><a href="#" class="nav-link">Addresses Holding all BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 0.01 BTC and 1 BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 1 BTC and 10 BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 10 BTC and 100 BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 100 BTC and 1,000 BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
-                            <li><a href="#" class="nav-link">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=total" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'total'%}active{% endif %}">Addresses Holding all BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=plankton" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'plankton'%}active{% endif %}">Addresses holding less then 0.01 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=shrimps" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'shrimps'%}active{% endif %}">Addresses holding between 0.01 BTC and 1 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=crabs" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'crabs'%}active{% endif %}">Addresses holding between 1 BTC and 10 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=fish" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'fish'%}active{% endif %}">Addresses holding between 10 BTC and 100 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=sharks" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'sharks'%}active{% endif %}">Addresses holding between 100 BTC and 1,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=whales" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'whales'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=balances&size=humpbacks" class="nav-link {% if content_type == 'addresses' and metric == 'balances' and submetric == 'humpbacks'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a href="#" class="nav-link">Activity of Addresses Holding X BTC</a></li>
+                <li>
+                    <a class="nav-link {% if content_type == 'addresses' and metric == 'activity'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificactivity" role="button" aria-expanded="false" aria-controls="addressspecificactivity">
+                        Activity of Addresses Holding X BTC
+                    </a>
+                    <div class="collapse ps-3  {% if content_type == 'addresses' and metric == 'activity'%}show{% endif %}" id="addressspecificactivity">
+                        <ul class="list-unstyled list-menu-blockspotlight">
+                            
+                            <li><a href="/chart?type=addresses&metric=activity&size=total" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'total'%}active{% endif %}">Addresses Holding all BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=plankton" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'plankton'%}active{% endif %}">Addresses holding less then 0.01 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=shrimps" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'shrimps'%}active{% endif %}">Addresses holding between 0.01 BTC and 1 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=crabs" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'crabs'%}active{% endif %}">Addresses holding between 1 BTC and 10 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=fish" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'fish'%}active{% endif %}">Addresses holding between 10 BTC and 100 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=sharks" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'sharks'%}active{% endif %}">Addresses holding between 100 BTC and 1,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=whales" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'whales'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                            <li><a href="/chart?type=addresses&metric=activity&size=humpbacks" class="nav-link {% if content_type == 'addresses' and metric == 'activity' and submetric == 'humpbacks'%}active{% endif %}">Addresses holding between 1,000 BTC and 10,000 BTC</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
           </div>
 
+        </li>
+        <li>
+            <a class="nav-link {% if content_type == 'mining'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenue" role="button" aria-expanded="false" aria-controls="minersrevenue">
+                <i class="bi bi-minecart-loaded"></i>Mining
+            </a>
+            <div class="collapse ps-3  {% if content_type == 'mining'%}show{% endif %}" id="minersrevenue">
+                <ul class="list-unstyled list-menu-blockspotlight">
+                    <li>
+                        <a class="nav-link {% if content_type == 'mining' and metric == 'rewards'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenuerewards" role="button" aria-expanded="false" aria-controls="minersrevenuerewards">
+                            Miners' Revenue
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'rewards'%}show{% endif %}" id="minersrevenuerewards">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=mining&metric=rewards&size=total_rewards" class="nav-link {% if content_type == 'mining' and metric == 'rewards' and submetric == 'total_rewards'%}active{% endif %}">Miners' Revenue from Block Rewards</a></li>
+                                <li><a href="/chart?type=mining&metric=rewards&size=total_fees" class="nav-link {% if content_type == 'mining' and metric == 'rewards' and submetric == 'total_fees'%}active{% endif %}">Miners' Revenue from Fees</a></li>
+                                <li><a href="/chart?type=mining&metric=rewards&size=total_revenue" class="nav-link {% if content_type == 'mining' and metric == 'rewards' and submetric == 'total_revenue'%}active{% endif %}">Total Miners' Revenue: Fees and Block Rewards</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'mining' and metric == 'volumes'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenuevolumes" role="button" aria-expanded="false" aria-controls="minersrevenuevolumes">
+                            Blocks and Transactions Volumes
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'volumes'%}show{% endif %}" id="minersrevenuevolumes">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=mining&metric=volumes&size=num_of_transactions" class="nav-link {% if content_type == 'mining' and metric == 'volumes' and submetric == 'num_of_transactions'%}active{% endif %}">Average Number of Bitcoin Transactions Per Day</a></li>
+                                <li><a href="/chart?type=mining&metric=volumes&size=num_of_blocks" class="nav-link {% if content_type == 'mining' and metric == 'volumes' and submetric == 'num_of_blocks'%}active{% endif %}">Average Number of Bitcoin Blocks Mined Per Day</a></li>
+                                <li><a href="/chart?type=mining&metric=volumes&size=avg_fee_per_transaction" class="nav-link {% if content_type == 'mining' and metric == 'volumes' and submetric == 'avg_fee_per_transaction'%}active{% endif %}">Average Fees Paid Per Bitcoin Transaction</a></li>
+                                <li><a href="/chart?type=mining&metric=volumes&size=avg_fee_per_block" class="nav-link {% if content_type == 'mining' and metric == 'volumes' and submetric == 'avg_fee_per_block'%}active{% endif %}">Average Fees Paid Per Bitcoin Block</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'mining' and metric == 'transfervolume'%}active{% endif %}" data-bs-toggle="collapse" href="#minerstransfervolume" role="button" aria-expanded="false" aria-controls="minerstransfervolume">
+                            Transfer Volume
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'transfervolume'%}show{% endif %}" id="minerstransfervolume">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/dashboard?type=mining&metric=transfervolume" class="nav-link {% if content_type == 'mining' and metric == 'transfervolume' %}active{% endif %}">Daily Transfer Volume of Bitcoin</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            
+        </li>
+        <li>
+            <a class="nav-link {% if content_type == 'supply'%}active{% endif %}" data-bs-toggle="collapse" href="#supply" role="button" aria-expanded="false" aria-controls="supply">
+                <i class="bi bi-database-fill"></i>Supply
+            </a>
+            <div class="collapse ps-3  {% if content_type == 'supply' %}show{% endif %}" id="supply">
+                <ul class="list-unstyled list-menu-blockspotlight">
+                    <li><a href="/chart?type=supply&metric=issuance" class="nav-link {% if content_type == 'supply' and metric == 'issuance' %}active{% endif %}">Bitcoin Issuance</a></li>
+                    <li><a href="/chart?type=supply&metric=circulating_supply" class="nav-link {% if content_type == 'supply' and metric == 'circulating_supply' %}active{% endif %}">Bitcoin Circulating Supply</a></li>
+                    <li><a href="/chart?type=supply&metric=daily_inflation" class="nav-link {% if content_type == 'supply' and metric == 'daily_inflation'%}active{% endif %}">Bitcoin's Daily Inflation Rate</a></li>
+                    <li><a href="/chart?type=supply&metric=annual_inflation" class="nav-link {% if content_type == 'supply' and metric == 'annual_inflation'%}active{% endif %}">Bitcoin's Annual Inflation Rate</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="nav-link list-menu-blockspotlight-main"><i class="bi bi-boxes"></i>Onchain</a>
+        </li>
+        <li>
+            <a href="/" class="nav-link list-menu-blockspotlight-main"><i class="bi bi-buildings"></i>Institutions</a>
         </li>
         <li>
           <a class="nav-link" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">

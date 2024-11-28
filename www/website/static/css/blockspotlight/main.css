@@ -394,7 +394,34 @@ a.mobile-button-small.active {
   margin: 0px 0px !important;
 }
 
+.list-menu-blockspotlight {
+  overflow-y: auto;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
 
+.list-menu-blockspotlight  .list-menu-blockspotlight-main {
+  padding: 5px;
+}
+
+.list-menu-blockspotlight  .list-menu-blockspotlight-main i {
+  margin-right: 3px;
+}
+
+.list-menu-blockspotlight ul {
+  margin-bottom: 15px !important;
+}
+
+.list-menu-blockspotlight li a {
+  text-transform: none !important;
+  font-size: 14px !important;
+  padding: 3px 3px;
+}
+
+.list-menu-blockspotlight li a.active {
+  border-bottom: 0px solid transparent !important;
+  color: #f7931a !important;
+}
 
 @media (min-width: 992px) {
   .w-lg-40 {
