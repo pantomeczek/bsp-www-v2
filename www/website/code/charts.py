@@ -482,7 +482,7 @@ select indicator_name,
   from v_agg_data
   order by 2 desc
      """
-
+     print(sql_query)
      cn = PostgresConn() 
      sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0_raw", "day_30_raw", "day_60_raw", "day_0_perc", "day_30_perc", "day_60_perc"], cn)
      cn.close_connection()     

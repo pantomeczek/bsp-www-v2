@@ -170,7 +170,7 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
 
     address_charts = []
 
-    if stats is not None and 0 in stats:
+    if stats is not None and len(stats) > 0:
         address_charts.append(stats[0])
     
 
@@ -197,7 +197,7 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
                                 "aidate": ai['date'],
                                 "aicontent": ai['content']
                                 })
-    if stats is not None and 1 in stats:
+    if stats is not None and len(stats) > 1:
         address_charts.append(stats[1])
     
     for i in obj:
@@ -327,7 +327,7 @@ def get_dashboard():
     
     stats = get_stats_element("addresses", "balances")
 
-    if stats is not None and 0 in stats:
+    if stats is not None and len(stats) > 0:
         dashboard_items.append(stats[0])
 
     ai = get_ai_summary('addresses_balance_summary')
@@ -341,7 +341,7 @@ def get_dashboard():
                                 "aidate": ai['date'],
                                 "aicontent": ai['content']
                                 })
-    if stats is not None and 1 in stats:
+    if stats is not None and len(stats) > 1:
         dashboard_items.append(stats[1])
 
     dashboard_items.append({
