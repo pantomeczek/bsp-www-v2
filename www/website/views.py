@@ -131,6 +131,8 @@ def get_stats_element(chart_type, metric):
     if label in PIE_CHART_CONFIG:
         el = PIE_CHART_CONFIG.get(label)
         crt = charts.get_activity_stats(el.get('indicators'))
+        if crt is None:
+            return []
         dt = get_pie_chart_data_from_df(crt, el.get('valus_type'))
         return [
                     {

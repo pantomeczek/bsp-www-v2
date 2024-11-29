@@ -1,7 +1,7 @@
 <!-- Offcanvas Menu -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasMenuLabel"><img src="/static/img/logo_small_wide.png" style="height: 25px;" alt="Blockspotlight.com"></img></h5>
+      <h5 class="offcanvas-title" id="offcanvasMenuLabel"><img src="/static/img/logo_small_wide.png" style="height: 30px;" alt="Blockspotlight.com"></img></h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body list-menu-blockspotlight">
@@ -16,10 +16,10 @@
           </a>
           <div class="collapse ps-3 {% if content_type == 'addresses' %}show{% endif %}" id="addressspecific">
             <ul class="list-unstyled">
-                <li><a href="/chart?type=addresses&metric=distribution" class="nav-link {% if content_type == 'addresses' and metric == 'distribution'%}active{% endif %}">Distribution of BTC across all wallets</a></li>
+                <li><a href="/chart?type=addresses&metric=distribution" class="nav-link {% if content_type == 'addresses' and metric == 'distribution'%}active{% endif %}"><i class="bi bi-signpost-split"></i>Distribution of BTC across all wallets</a></li>
                 <li>
                     <a class="nav-link {% if content_type == 'addresses' and metric == 'counts'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificcounts" role="button" aria-expanded="false" aria-controls="addressspecificcounts">
-                        Number of Addresses Holding X BTC
+                        <i class="bi bi-sort-numeric-up"></i>Number of Addresses Holding X BTC
                     </a>
                     <div class="collapse ps-3 {% if content_type == 'addresses' and metric == 'counts'%}show{% endif %}" id="addressspecificcounts">
                         <ul class="list-unstyled list-menu-blockspotlight">
@@ -36,7 +36,7 @@
                 </li>
                 <li>
                     <a class="nav-link {% if content_type == 'addresses' and metric == 'balances'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificbalances" role="button" aria-expanded="false" aria-controls="addressspecificbalances">
-                        Balance of Addresses Holding X BTC 
+                        <i class="bi bi-piggy-bank"></i>Balance of Addresses Holding X BTC 
                     </a>
                     <div class="collapse ps-3 {% if content_type == 'addresses' and metric == 'balances'%} show {% endif %}" id="addressspecificbalances">
                         <ul class="list-unstyled list-menu-blockspotlight">
@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <a class="nav-link {% if content_type == 'addresses' and metric == 'activity'%}active{% endif %}" data-bs-toggle="collapse" href="#addressspecificactivity" role="button" aria-expanded="false" aria-controls="addressspecificactivity">
-                        Activity of Addresses Holding X BTC
+                        <i class="bi bi-clipboard-pulse"></i>Activity of Addresses Holding X BTC
                     </a>
                     <div class="collapse ps-3  {% if content_type == 'addresses' and metric == 'activity'%}show{% endif %}" id="addressspecificactivity">
                         <ul class="list-unstyled list-menu-blockspotlight">
@@ -75,14 +75,14 @@
 
         </li>
         <li>
-            <a class="nav-link {% if content_type == 'mining'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenue" role="button" aria-expanded="false" aria-controls="minersrevenue">
+            <a class="nav-link list-menu-blockspotlight-main {% if content_type == 'mining'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenue" role="button" aria-expanded="false" aria-controls="minersrevenue">
                 <i class="bi bi-minecart-loaded"></i>Mining
             </a>
             <div class="collapse ps-3  {% if content_type == 'mining'%}show{% endif %}" id="minersrevenue">
                 <ul class="list-unstyled list-menu-blockspotlight">
                     <li>
                         <a class="nav-link {% if content_type == 'mining' and metric == 'rewards'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenuerewards" role="button" aria-expanded="false" aria-controls="minersrevenuerewards">
-                            Miners' Revenue
+                            <i class="bi bi-currency-bitcoin"></i>Miners' Revenue
                         </a>
                         <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'rewards'%}show{% endif %}" id="minersrevenuerewards">
                             <ul class="list-unstyled list-menu-blockspotlight">
@@ -94,7 +94,7 @@
                     </li>
                     <li>
                         <a class="nav-link {% if content_type == 'mining' and metric == 'volumes'%}active{% endif %}" data-bs-toggle="collapse" href="#minersrevenuevolumes" role="button" aria-expanded="false" aria-controls="minersrevenuevolumes">
-                            Blocks and Transactions Volumes
+                            <i class="bi bi-boxes"></i>Blocks and Transactions Volumes
                         </a>
                         <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'volumes'%}show{% endif %}" id="minersrevenuevolumes">
                             <ul class="list-unstyled list-menu-blockspotlight">
@@ -107,7 +107,7 @@
                     </li>
                     <li>
                         <a class="nav-link {% if content_type == 'mining' and metric == 'transfervolume'%}active{% endif %}" data-bs-toggle="collapse" href="#minerstransfervolume" role="button" aria-expanded="false" aria-controls="minerstransfervolume">
-                            Transfer Volume
+                            <i class="bi bi-file-bar-graph"></i>Transfer Volume
                         </a>
                         <div class="collapse ps-3  {% if content_type == 'mining' and metric == 'transfervolume'%}show{% endif %}" id="minerstransfervolume">
                             <ul class="list-unstyled list-menu-blockspotlight">
@@ -121,7 +121,7 @@
             
         </li>
         <li>
-            <a class="nav-link {% if content_type == 'supply'%}active{% endif %}" data-bs-toggle="collapse" href="#supply" role="button" aria-expanded="false" aria-controls="supply">
+            <a class="nav-link list-menu-blockspotlight-main {% if content_type == 'supply'%}active{% endif %}" data-bs-toggle="collapse" href="#supply" role="button" aria-expanded="false" aria-controls="supply">
                 <i class="bi bi-database-fill"></i>Supply
             </a>
             <div class="collapse ps-3  {% if content_type == 'supply' %}show{% endif %}" id="supply">
@@ -134,25 +134,127 @@
             </div>
         </li>
         <li>
-            <a href="/" class="nav-link list-menu-blockspotlight-main"><i class="bi bi-boxes"></i>Onchain</a>
+            <a class="nav-link list-menu-blockspotlight-main {% if content_type == 'onchain'%}active{% endif %}" data-bs-toggle="collapse" href="#onchaincharts" role="button" aria-expanded="false" aria-controls="onchaincharts">
+                <i class="bi bi-link-45deg"></i>Onchain charts
+            </a>
+            <div class="collapse ps-3  {% if content_type == 'onchain' %}show{% endif %}" id="onchaincharts">
+                <ul class="list-unstyled list-menu-blockspotlight">
+                    
+                    <li>
+                        <a class="nav-link {% if content_type == 'onchain' and metric == 'sopr' %}active{% endif %}" data-bs-toggle="collapse" href="#onchainchartsopr" role="button" aria-expanded="false" aria-controls="onchainchartsopr">
+                            <i class="bi bi-pie-chart-fill"></i>Spent Output Profit Ratio (SOPR)
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'onchain' and metric == 'sopr' %}show{% endif %}" id="onchainchartsopr">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=onchain&metric=sopr&size=sopr" class="nav-link {% if content_type == 'onchain' and metric == 'sopr' and submetric == 'sopr'%}active{% endif %}">Spent Output Profit Ratio (SOPR)</a></li>
+                                <li><a href="/chart?type=onchain&metric=sopr&size=sth_sopr" class="nav-link {% if content_type == 'onchain' and metric == 'sopr' and submetric == 'sth_sopr' %}active{% endif %}">Spent Output Profit Ratio (SOPR) - Short Term Hodler</a></li>
+                                <li><a href="/chart?type=onchain&metric=sopr&size=lth_sopr" class="nav-link {% if content_type == 'onchain' and metric == 'sopr' and submetric == 'lth_sopr' %}active{% endif %}">Spent Output Profit Ratio (SOPR) - Long Term Hodler</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'onchain' and metric == 'supply' %}active{% endif %}" data-bs-toggle="collapse" href="#onchainchartssupply" role="button" aria-expanded="false" aria-controls="onchainchartssupply">
+                            <i class="bi bi-piggy-bank-fill"></i>STH/LTH Supply
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'onchain' and metric == 'supply' %}show{% endif %}" id="onchainchartssupply">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=onchain&metric=supply&size=sth_supply" class="nav-link {% if content_type == 'onchain' and metric == 'supply' and submetric == 'sth_supply'%}active{% endif %}">Supply - Short Term Hodler</a></li>
+                                <li><a href="/chart?type=onchain&metric=supply&size=lth_supply" class="nav-link {% if content_type == 'onchain' and metric == 'supply' and submetric == 'lth_supply' %}active{% endif %}">Supply - Long Term Hodler</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'onchain' and metric == 'realizedprice'%}active{% endif %}" data-bs-toggle="collapse" href="#onchainchartsrealizedprice" role="button" aria-expanded="false" aria-controls="onchainchartsrealizedprice">
+                            <i class="bi bi-cash"></i>Realized Price
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'onchain' and metric == 'realizedprice' %}show{% endif %}" id="onchainchartsrealizedprice">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=onchain&metric=realizedprice&size=realizedprice" class="nav-link {% if content_type == 'onchain' and metric == 'realizedprice' and submetric == 'realizedprice'%}active{% endif %}">Realized Price</a></li>
+                                <li><a href="/chart?type=onchain&metric=realizedprice&size=sth_realizedprice" class="nav-link {% if content_type == 'onchain' and metric == 'realizedprice' and submetric == 'sth_realizedprice'%}active{% endif %}">Realized Price - Short Term Hodler</a></li>
+                                <li><a href="/chart?type=onchain&metric=realizedprice&size=lth_realizedprice" class="nav-link {% if content_type == 'onchain' and metric == 'realizedprice' and submetric == 'lth_realizedprice' %}active{% endif %}">Realized Price - Long Term Hodler</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'onchain' and metric == 'profitloss' %}active{% endif %}" data-bs-toggle="collapse" href="#onchainchartsprofitloss" role="button" aria-expanded="false" aria-controls="onchainchartsprofitloss">
+                            <i class="bi bi-plus-slash-minus"></i>Addresses in Profit/Loss
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'onchain' and metric == 'profitloss' %}show{% endif %}" id="onchainchartsprofitloss">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=onchain&metric=profitloss&size=addresses_in_profit" class="nav-link {% if content_type == 'onchain' and metric == 'profitloss' and submetric == 'addresses_in_profit'%}active{% endif %}">Percentage of Addresses in Profit</a></li>
+                                <li><a href="/chart?type=onchain&metric=profitloss&size=addresses_in_loss" class="nav-link {% if content_type == 'onchain' and metric == 'profitloss' and submetric == 'addresses_in_loss' %}active{% endif %}">Percentage of Addresses in Loss</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'onchain' and metric == 'other'%}active{% endif %}" data-bs-toggle="collapse" href="#onchainchartsother" role="button" aria-expanded="false" aria-controls="onchainchartsother">
+                            <i class="bi bi-bar-chart-fill"></i>Other Indicators
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'onchain' and metric == 'other' %}show{% endif %}" id="onchainchartsother">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=onchain&metric=other&size=cdd" class="nav-link {% if content_type == 'onchain' and metric == 'other' and submetric == 'cdd'%}active{% endif %}">Coin Days Destroyed (CDD)</a></li>
+                                <li><a href="/chart?type=onchain&metric=other&size=sacdd" class="nav-link {% if content_type == 'onchain' and metric == 'other' and submetric == 'sacdd'%}active{% endif %}">Supply Adjusted Coin Days Destroyed</a></li>
+                                <li><a href="/chart?type=onchain&metric=other&size=nupl" class="nav-link {% if content_type == 'onchain' and metric == 'other' and submetric == 'nupl' %}active{% endif %}">Net Unrealized Profit/Loss (NUPL)</a></li>
+                                <li><a href="/chart?type=onchain&metric=other&size=unrealized_profit_loss" class="nav-link {% if content_type == 'onchain' and metric == 'other' and submetric == 'unrealized_profit_loss'%}active{% endif %}">Unrealized Profit/Loss</a></li>
+                                <li><a href="/chart?type=onchain&metric=other&size=mvrvz" class="nav-link {% if content_type == 'onchain' and metric == 'other' and submetric == 'mvrvz' %}active{% endif %}">MVRV Z-Score</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li>
-            <a href="/" class="nav-link list-menu-blockspotlight-main"><i class="bi bi-buildings"></i>Institutions</a>
+            <a class="nav-link list-menu-blockspotlight-main {% if content_type == 'institutions' %}active{% endif %}" data-bs-toggle="collapse" href="#institutions" role="button" aria-expanded="false" aria-controls="institutions">
+                <i class="bi bi-buildings"></i>Institutions
+            </a>
+            <div class="collapse ps-3  {% if content_type == 'institutions'%}show{% endif %}" id="institutions">
+                <ul class="list-unstyled list-menu-blockspotlight">
+                    <li>
+                        <a class="nav-link {% if content_type == 'institutions' and metric == 'etfs'%}active{% endif %}" data-bs-toggle="collapse" href="#institutionsetfs" role="button" aria-expanded="false" aria-controls="institutionsetfs">
+                            <i class="bi bi-building-exclamation"></i> ETFs
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'institutions' and metric == 'etfs' %}show{% endif %}" id="institutionsetfs">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=institutions&metric=etfs&size=totaletf" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'totaletf'%}active{% endif %}">Bitcoin Holdings in Spot ETFs</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=blackrock" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'blackrock'%}active{% endif %}">Balance of BTC on iShares Bitcoin Trust (IBIT) Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=fidelity" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'fidelity' %}active{% endif %}">Balance of BTC on Fidelity Wise Origin Bitcoin Fund (FBTC) Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=bitwise" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'bitwise'%}active{% endif %}">Balance of BTC on Bitwise Bitcoin Fund (BITB) Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=ark" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'ark' %}active{% endif %}">Balance of BTC on 21Shares Bitcoin ETP (ARKB) Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=wisdomtree" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'widomtree'%}active{% endif %}">Balance of BTC on WisdomTree Bitcoin Fund (BTCW) Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=etfs&size=vaneck" class="nav-link {% if content_type == 'institutions' and metric == 'etfs' and submetric == 'vaneck' %}active{% endif %}">Balance of BTC on VanEck Bitcoin Trust (HODL) Addresses</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'institutions' and metric == 'exchanges'%}active{% endif %}" data-bs-toggle="collapse" href="#institutionsexchanges" role="button" aria-expanded="false" aria-controls="institutionsexchanges">
+                            <i class="bi bi-currency-exchange"></i>Exchanges
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'institutions' and metric == 'exchanges' %}show{% endif %}" id="institutionsexchanges">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=institutions&metric=exchanges&size=mtgox" class="nav-link {% if content_type == 'institutions' and metric == 'exchanges' and submetric == 'mtgox'%}active{% endif %}">Mt. Gox Trustee</a></li>
+                                <li><a href="/chart?type=institutions&metric=exchanges&size=coinbase" class="nav-link {% if content_type == 'institutions' and metric == 'exchanges' and submetric == 'coinbase'%}active{% endif %}">Balance of BTC on Coinbase Exchange</a></li>
+                                <li><a href="/chart?type=institutions&metric=exchanges&size=gemini" class="nav-link {% if content_type == 'institutions' and metric == 'exchanges' and submetric == 'gemini' %}active{% endif %}">Balance of BTC on Gemini Exchange</a></li>
+                                <li><a href="/chart?type=institutions&metric=exchanges&size=kraken" class="nav-link {% if content_type == 'institutions' and metric == 'exchanges' and submetric == 'kraken'%}active{% endif %}">Balance of BTC on Kraken Exchange</a></li>
+                                <li><a href="/chart?type=institutions&metric=exchanges&size=binance" class="nav-link {% if content_type == 'institutions' and metric == 'exchanges' and submetric == 'binance' %}active{% endif %}">Balance of BTC on Binance Exchange</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="nav-link {% if content_type == 'institutions' and metric == 'other'%}active{% endif %}" data-bs-toggle="collapse" href="#institutionsother" role="button" aria-expanded="false" aria-controls="institutionsother">
+                            <i class="bi bi-bar-chart-fill"></i>Other
+                        </a>
+                        <div class="collapse ps-3  {% if content_type == 'institutions' and metric == 'other' %}show{% endif %}" id="institutionsother">
+                            <ul class="list-unstyled list-menu-blockspotlight">
+                                <li><a href="/chart?type=institutions&metric=other&size=tesla" class="nav-link {% if content_type == 'institutions' and metric == 'other' and submetric == 'tesla'%}active{% endif %}">Balance of BTC on Tesla Addresses</a></li>
+                                <li><a href="/chart?type=institutions&metric=other&size=satoshi" class="nav-link {% if content_type == 'institutions' and metric == 'other' and submetric == 'satoshi'%}active{% endif %}">Balance of BTC on Satoshi Nakamoto's Addresses</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li>
-          <a class="nav-link" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">
-            Contact
-          </a>
-          <div class="collapse ps-3" id="submenu2">
-            <ul class="list-unstyled">
-              <li><a href="#" class="nav-link">Email</a></li>
-              <li><a href="#" class="nav-link">Phone</a></li>
-              <li><a href="#" class="nav-link">Address</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <a href="/about" class="nav-link">About</a>
+          <a href="/about" class="nav-link list-menu-blockspotlight-main"><i class="bi bi-info-circle"></i>About</a>
         </li>
       </ul>
     </div>

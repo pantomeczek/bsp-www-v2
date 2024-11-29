@@ -482,17 +482,20 @@ def get_activity_stats(indicators):
      from v_agg_data
      order by 2 desc
           """
-     cn = PostgresConn() 
-     sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0_raw", "day_30_raw", "day_60_raw", "day_0_perc", "day_30_perc", "day_60_perc"], cn)
-     cn.close_connection()     
-     
-     dct = sqlDf.to_dict(orient='records')
+     try:
+          cn = PostgresConn() 
+          sqlDf = get_df_from_query(sql_query, ["indicator_name", "day_0_raw", "day_30_raw", "day_60_raw", "day_0_perc", "day_30_perc", "day_60_perc"], cn)
+          cn.close_connection()     
+          
+          dct = sqlDf.to_dict(orient='records')
 
-     for inner_dict in dct:
-          inner_dict["change_30"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_30_raw'])
-          inner_dict["change_60"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_60_raw'])
-          inner_dict["change_0"] = get_change_sign(inner_dict['day_30_raw'], inner_dict['day_0_raw'])
-     
+          for inner_dict in dct:
+               inner_dict["change_30"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_30_raw'])
+               inner_dict["change_60"] = get_change_sign(inner_dict['day_0_raw'], inner_dict['day_60_raw'])
+               inner_dict["change_0"] = get_change_sign(inner_dict['day_30_raw'], inner_dict['day_0_raw'])
+          
+     except:
+          dct = None
 
      return dct         
 
