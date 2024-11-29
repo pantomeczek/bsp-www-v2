@@ -176,7 +176,7 @@ a.mobile-button-small.active {
 }
 
 .nav-link i {
-    padding-right: 3px !important;
+    padding-right: 0px !important;
     border-bottom: 2px solid transparent !important;
     border-radius: 0px !important;
 }
