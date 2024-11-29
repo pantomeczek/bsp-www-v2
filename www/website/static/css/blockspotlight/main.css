@@ -406,14 +406,17 @@ a.mobile-button-small.active {
 }
 
 .list-menu-blockspotlight  .list-menu-blockspotlight-main i {
-  margin-right: 3px;
+  margin-right: 2px;
 }
 
 
 .list-menu-blockspotlight > li > a > i {
-  margin-right: 4px;
+  margin-right: 0px;
 }
 
+.list-unstyled i {
+  padding-right: 5px !important; 
+}
 
 .list-menu-blockspotlight ul {
   margin-bottom: 15px !important;
