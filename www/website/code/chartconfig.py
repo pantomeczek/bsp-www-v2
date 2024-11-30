@@ -5,7 +5,7 @@ class Chartconfig:
                 "addresses": {
                                         "activity": {
                                                         "total":   {
-                                                                        "label": "Number of active addresses holding all BTC",
+                                                                        "label": "Number of active addresses holding all Bitcoins",
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "normal",
@@ -143,7 +143,7 @@ class Chartconfig:
                                                     },
                                        "balances":  {
                                                         "total":    {
-                                                                        "label": "Balance on addresses holding all BTC",
+                                                                        "label": "Balance on addresses holding all Bitcoins",
                                                                         "value_label": "Balance",
                                                                         "value_unit": "BTC",
                                                                         "default_precision": "normal",
@@ -281,7 +281,7 @@ class Chartconfig:
                                                     },
                                         "counts":   {
                                                         "total":    {
-                                                                        "label": "Number of addresses holding all BTC",
+                                                                        "label": "Number of addresses holding all Bitcoins",
                                                                         "value_label": "Number of addresses",
                                                                         "value_unit": "",
                                                                         "default_precision": "normal",
@@ -1198,7 +1198,7 @@ class Chartconfig:
                                                                             }  
                                                             },
                                    "unrealized_profit_loss":{
-                                                                "label": "Unrealized Profit/Loss",
+                                                                "label": "Unrealized Profit/Loss on Bitcoin Addresses",
                                                                 "value_label": "UPL",
                                                                 "value_unit": "",
                                                                 "default_precision": "normal",
@@ -1287,9 +1287,10 @@ class Chartconfig:
         det_obj = self.get_details_obj()
         return det_obj['label']
 
-    def get_label_with_dma(self):       
+    def get_label_with_dma(self, ignore_normal = False):       
         det_obj = self.get_details_obj()
-        return det_obj['label'] + " - " + self.get_active_precision().upper()
+        precision =  " - " + self.get_active_precision().upper() if ignore_normal == False or self.get_active_precision().upper() != "NORMAL" else ""
+        return det_obj['label'] + precision
 
     def get_default_precision(self):      
         det_obj = self.get_details_obj()

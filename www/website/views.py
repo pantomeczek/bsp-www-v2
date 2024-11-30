@@ -4,8 +4,8 @@ from datetime import timedelta, datetime
 from .code.blocks import get_last_blocks
 from .code.chartconfig import Chartconfig
 from website.code import charts
-from .code.ai import get_ai_summary
-
+from .code.ai import get_ai_summary, get_ai_element
+from .code.stats import get_stats_element
 
 TYPE_KEY = 'type'
 METRIC_KEY = 'metric'
@@ -22,152 +22,13 @@ DEFAULT_METRICS = {
 
 NUM_OF_BLOCKS = 25
 
-PIE_CHART_CONFIG = {
-    "addresses_activity": {
-        "name": "Bitcoin Address Activity Breakdown",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "plankton_activity", "indicator_label": "Plankton"},
-            {"indicator_name": "shrimps_activity", "indicator_label": "Shrimps"},
-            {"indicator_name": "crabs_activity", "indicator_label": "Crabs"},
-            {"indicator_name": "fish_activity", "indicator_label": "Fish"},
-            {"indicator_name": "sharks_activity", "indicator_label": "Sharks"},
-            {"indicator_name": "whales_activity", "indicator_label": "Whales"},
-            {"indicator_name": "humpbacks_activity", "indicator_label": "Humpbacks"}
-        ],
-
-    },
-    "addresses_counts": {
-        "name": "Distribution of Addresses",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "plankton_count", "indicator_label": "Plankton"},
-            {"indicator_name": "shrimps_count", "indicator_label": "Shrimps"},
-            {"indicator_name": "crabs_count", "indicator_label": "Crabs"},
-            {"indicator_name": "fish_count", "indicator_label": "Fish"},
-            {"indicator_name": "sharks_count", "indicator_label": "Sharks"},
-            {"indicator_name": "whales_count", "indicator_label": "Whales"},
-            {"indicator_name": "humpbacks_count", "indicator_label": "Humpbacks"}
-        ],
-
-    },
-    "addresses_balances": {
-        "name": "Distribution of BTC Holdings",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "plankton_balance", "indicator_label": "Plankton"},
-            {"indicator_name": "shrimps_balance", "indicator_label": "Shrimps"},
-            {"indicator_name": "crabs_balance", "indicator_label": "Crabs"},
-            {"indicator_name": "fish_balance", "indicator_label": "Fish"},
-            {"indicator_name": "sharks_balance", "indicator_label": "Sharks"},
-            {"indicator_name": "whales_balance", "indicator_label": "Whales"},
-            {"indicator_name": "humpbacks_balance", "indicator_label": "Humpbacks"}
-        ],
-
-    },
-    "mining_rewards": {
-        "name": "Miner's Revenue from Blocks vs Fees",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "miners_revenue_total_rewards", "indicator_label": "Block Rewards"},
-            {"indicator_name": "miners_revenue_total_fees", "indicator_label": "Fees"}
-        ],
-
-    },
-    "onchain_supply": {
-        "name": "Supply from STH vs LTH",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "sth_balance", "indicator_label": "Short-Term Hodler Bitcoin Supply"},
-            {"indicator_name": "lth_balance", "indicator_label": "Long-Term Hodler Bitcoin Supply"}
-        ],
-
-    },
-    "onchain_profitloss": {
-        "name": "Percentage of Addresses in Profit vs Loss",
-        "valus_type": "percent",
-        "indicators": [
-            {"indicator_name": "perc_of_addr_in_profit", "indicator_label": "Percentage of Addresses in Profit"},
-            {"indicator_name": "perc_of_addr_in_loss", "indicator_label": "Percentage of Addresses in Loss"}
-        ],
-
-    },
-    "institutions_etfs": {
-        "name": "BTC Holdings on ETF Addresses",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "wallettracker_blackrock", "indicator_label": "iShares Bitcoin Trust (IBIT)"},
-            {"indicator_name": "wallettracker_fidelitycustody", "indicator_label": "Fidelity Wise Origin Bitcoin Fund (FBTC)"},
-            {"indicator_name": "wallettracker_bitwise", "indicator_label": "Bitwise Bitcoin Fund (BITB) "},
-            {"indicator_name": "wallettracker_arkinvest", "indicator_label": "21Shares Bitcoin ETP (ARKB)"},
-            {"indicator_name": "wallettracker_wisdomtree", "indicator_label": "WisdomTree Bitcoin Fund (BTCW)"},
-            {"indicator_name": "wallettracker_vaneck", "indicator_label": "VanEck Bitcoin Trust (HODL)"}
-        ]
-
-    },
-    "institutions_exchanges": {
-        "name": "BTC Holdings on Exchanges",
-        "valus_type": "value",
-        "indicators": [
-            {"indicator_name": "wallettracker_mtgox", "indicator_label": "Mt. Gox Trustee"},
-            {"indicator_name": "wallettracker_coinbase", "indicator_label": "Coinbase Exchange"},
-            {"indicator_name": "wallettracker_gemini", "indicator_label": "Gemini Exchange"},
-            {"indicator_name": "wallettracker_kraken", "indicator_label": "Kraken Exchange"},
-            {"indicator_name": "wallettracker_binance", "indicator_label": "Binance Exchange"}
-        ]
-
-    }
-}
-
-
 
 views = Blueprint('views', __name__)
 
 
-def get_stats_element(chart_type, metric):
-
-    label = f"{chart_type}_{metric}"
-
-    if label in PIE_CHART_CONFIG:
-        el = PIE_CHART_CONFIG.get(label)
-        crt = charts.get_activity_stats(el.get('indicators'))
-        if crt is None:
-            return []
-        dt = get_pie_chart_data_from_df(crt, el.get('valus_type'))
-        return [
-                    {
-                        "type":"stats",
-                        "name": el.get('name'),
-                        "statobj": crt
-                    },
-                    {
-                        "id": f"chart_pie_{label}",
-                        "type": "piechart",
-                        "title": el.get('name'),
-                        "href": '',
-                        "chart": charts.get_pie_chart(height=427, data=dt, data_type=el.get('valus_type')),
-                        "stats": None,
-                    }
-
-                ]
-    else:
-        return []
-
-def get_pie_chart_data_from_df(crt, data_type):
-    headers = []
-    data = []
-
-    label = 'day_0_raw' if data_type == 'value' else 'day_0_perc'
-    for i in crt:
-        headers.append(i['indicator_name'])
-        data.append(round(i[label],2))
-
-    return {"headers":headers, "data":data}
-
 def get_charts_for_addresses(chart_type, metric, date_of_chart):
 
     obj = Chartconfig(chart_type, metric, None, None, None).get_details_obj()
-
     stats = get_stats_element(chart_type, metric)
 
     address_charts = []
@@ -176,29 +37,11 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
         address_charts.append(stats[0])
     
 
-    if chart_type == 'addresses' and metric == 'balances':
-        ai = get_ai_summary('addresses_balance_summary')
-        address_charts.append({
-                                "id": "ai_addresses_balance_summary",
-                                "title": "Overview of Bitcoin Wallet Balances Over the Last 30 Days",
-                                "type": "ai",
-                                "template": "whatisbitcoin",
-                                "class": "mw-lg-50",
-                                "aidate": ai['date'],
-                                "aicontent": ai['content']
-                                })
+    ai_el =  get_ai_element(chart_type, metric)
+    if ai_el is not None:
+        address_charts.append(ai_el)
 
-    elif chart_type == 'institutions' and metric == 'etfs':
-        ai = get_ai_summary('etf_balance_summary')
-        address_charts.append({
-                                "id": "ai_etf_balance_summary",
-                                "title": "Overview of Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
-                                "type": "ai",
-                                "template": "whatisbitcoin",
-                                "class": "mw-lg-50",
-                                "aidate": ai['date'],
-                                "aicontent": ai['content']
-                                })
+
     if stats is not None and len(stats) > 1:
         address_charts.append(stats[1])
     
@@ -251,7 +94,7 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
             el = {
                 "id": f"chart_{i}",
                 "type": "chart",
-                "title": obj[i]['label'],
+                "title": inObj.get_label_with_dma(True),
                 "href": url,
                 "chart": chartResult,
                 "stats": chartStats
@@ -312,7 +155,7 @@ def get_charts_for_dashboard(indicators, date_of_chart):
         el = {
                 "id": f"chart_{chart_type}_{metric}_{submetric}",
                 "type": "chart",
-                "title": inObj.get_label(),
+                "title": inObj.get_label_with_dma(True),
                 "href": url,
                 "chart": chartResult['chart'],
                 "stats": chartResult['stats']
@@ -332,17 +175,12 @@ def get_dashboard():
     if stats is not None and len(stats) > 0:
         dashboard_items.append(stats[0])
 
-    ai = get_ai_summary('addresses_balance_summary')
-    if ai is not None:
-        dashboard_items.append({
-                                "id": "ai_addresses_balance_summary",
-                                "title": "Overview of Bitcoin Wallet Balances Over the Last 30 Days",
-                                "type": "ai",
-                                "template": "whatisbitcoin",
-                                "class": "mw-lg-25",
-                                "aidate": ai['date'],
-                                "aicontent": ai['content']
-                                })
+
+    ai_el =  get_ai_element("addresses", "balances")
+    if ai_el is not None:
+        dashboard_items.append(ai_el)
+
+
     if stats is not None and len(stats) > 1:
         dashboard_items.append(stats[1])
 
@@ -373,17 +211,9 @@ def get_dashboard():
 
     dashboard_items = dashboard_items + get_stats_element("institutions", "etfs")
 
-    ai = get_ai_summary('etf_balance_summary')
-    if ai is not None:
-        dashboard_items.append({
-                                "id": "ai_etf_balance_summary",
-                                "title": "Overview of Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
-                                "type": "ai",
-                                "template": "whatisbitcoin",
-                                "class": "mw-lg-25",
-                                "aidate": ai['date'],
-                                "aicontent": ai['content']
-                                })
+    ai_el =  get_ai_element("institutions", "etfs")
+    if ai_el is not None:
+        dashboard_items.append(ai_el)
 
 
         
@@ -406,15 +236,23 @@ def get_dashboard():
                                                                         }
                                                                     ], date_of_chart)
 
-    
+    ai_el =  get_ai_element("onchain", "sopr")
+    if ai_el is not None:
+        dashboard_items.append(ai_el)
 
     dashboard_items = dashboard_items + get_stats_element("institutions", "exchanges")
-    dashboard_items.append({
-                            "id": "txt",
-                            "type": "textfield",
-                            "template": "addressgroups",
-                            "class": "mw-lg-50"
-                            })
+    
+
+
+    stats = get_stats_element("onchain", "profitloss")
+    if stats is not None and len(stats) > 0:
+        dashboard_items.append(stats[0])
+        dashboard_items.append(stats[1])
+
+    ai_el =  get_ai_element("onchain", "profitloss")
+    if ai_el is not None:
+        dashboard_items.append(ai_el)
+
 
     return dashboard_items
 

@@ -92,14 +92,14 @@
         <ul class="nav nav-pills main-menu-items px-0 px-lg-2">
 
           <li class="nav-item d-none d-md-block mx-1" style=" padding: 0px !important; ">
-            <a style="font-size: 20px !important; padding: 4px 0px 0px !important; padding: 0px !important; border-right: 1px solid rgb(54, 54, 54); border-radius: 0px !important; margin-top: 4px; padding-right: 5px !important;" href="#" class="nav-link nav-link-main" aria-current="page" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu"><i class="bi bi-list"></i></a>
+            <a style="font-size: 20px !important; padding: 4px 0px 0px !important; padding: 0px !important; border-right: 1px solid rgb(54, 54, 54); border-radius: 0px !important; margin-top: 4px; padding-right: 6px !important;" href="#" class="nav-link nav-link-main" aria-current="page" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu"><i class="bi bi-list"></i></a>
           </li>
           <li class="nav-item d-md-none mx-auto">
             <a style="font-size: 25px !important; padding-top: 2px;" href="#" class="nav-link mobile-button" aria-current="page" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu"><i class="bi bi-list"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'dashboard' %}active{% endif %}" aria-current="page" href="/"><i class="bi bi-speedometer2"></i>DASHBOARD</a>
+            <a class="nav-link nav-link-main {% if content_type == 'dashboard' %}active{% endif %} web-button" aria-current="page" href="/"><i class="bi bi-speedometer2"></i>DASHBOARD</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'dashboard' %}active{% endif %} mobile-button" aria-current="page" href="/"><i class="bi bi-speedometer2"></i></a>
@@ -107,7 +107,7 @@
 
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'addresses' %}active{% endif %}" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet2"></i>ADDRESSES</a>
+            <a class="nav-link nav-link-main {% if content_type == 'addresses' %}active{% endif %} web-button" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet2"></i>ADDRESSES</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'addresses' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=addresses"><i class="bi bi-wallet2"></i></a>
@@ -115,28 +115,28 @@
 
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'mining' %}active{% endif %}" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i>MINING</a>
+            <a class="nav-link nav-link-main {% if content_type == 'mining' %}active{% endif %} web-button" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i>MINING</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'mining' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=mining"><i class="bi bi-minecart-loaded"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'supply' %}active{% endif %}" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-database-fill"></i>SUPPLY</a>
+            <a class="nav-link nav-link-main {% if content_type == 'supply' %}active{% endif %} web-button" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-database-fill"></i>SUPPLY</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'supply' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=supply"><i class="bi bi-database-fill"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'onchain' %}active{% endif %}" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-link-45deg"></i>ONCHAIN CHARTS</a>
+            <a class="nav-link nav-link-main {% if content_type == 'onchain' %}active{% endif %} web-button" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-link-45deg"></i>ONCHAIN CHARTS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'onchain' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=onchain"><i class="bi bi-link-45deg"></i></a>
           </li>
 
           <li class="nav-item d-none d-md-block mx-1">
-            <a class="nav-link nav-link-main {% if content_type == 'institutions' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
+            <a class="nav-link nav-link-main {% if content_type == 'institutions' %}active{% endif %} web-button" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i>INSTITUTIONS</a>
           </li>
           <li class="nav-item d-block d-md-none mx-auto">
             <a class="nav-link {% if content_type == 'institutions' %}active{% endif %} mobile-button" aria-current="page" href="/dashboard?type=institutions"><i class="bi bi-buildings"></i></a>
@@ -147,7 +147,7 @@
   </div>
   {% if content_type in ['addresses', 'mining', 'onchain', 'institutions'] %}
   <div class="px-2 px-lg-4 mt-3">
-    <div style="padding-left: 7px;">
+    <div style="padding-left: 7px;" class="web-buttons">
       <ul class="nav nav-pills submenu-menu-items px-2 px-lg-0">
         {% if content_type == 'addresses' %}
        
@@ -248,14 +248,14 @@
         {% endif %}
         {% if content_type == 'institutions' %}
         <li class="nav-item d-none d-md-block mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-building-exclamation"></i>ETFs</a>
+          <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-building-exclamation"></i>Exchange-Traded Funds (ETFs)</a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
           <a class="nav-link nav-link-light {% if metric == 'etfs' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=institutions&institutions=etfs"><i class="bi bi-building-exclamation"></i></a>
         </li>
 
         <li class="nav-item d-none d-md-block mx-1">
-          <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-currency-exchange"></i>Exchanges</a>
+          <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %}" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-currency-exchange"></i>Cryptocurrency Exchanges</a>
         </li>
         <li class="nav-item d-block d-md-none mx-1">
           <a class="nav-link nav-link-light {% if metric == 'exchanges' %}active{% endif %} mobile-button-small" aria-current="page" href="/dashboard?type=institutions&metric=exchanges"><i class="bi bi-currency-exchange"></i></a>
@@ -274,12 +274,7 @@
   {% endif %}
   {% block content %} {% endblock %}
 
-  <div class="baner-creme pb-5 pt-4">
-    
-    <div class="container justify-content-center" style="text-align: center;">
-        <img src="/static/img/small_grey_btc.png" width="80"></img>
-    </div>
-</div>
+  
   {{ moment.include_moment() }}
 
   <script>
@@ -341,7 +336,7 @@
     fetchBitcoinBlockHeight(); // Initial fetch
     setInterval(fetchBitcoinBlockHeight, 120000); // Fetch every 10 seconds
   </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZTXCBGFR"></script>
+  
   
 
   {% endblock %}

@@ -33,7 +33,13 @@
   
       </nav>
      {% block maincontent %} {% endblock %}
-     <footer class="pt-2 pb-5">
+     <div class="baner-creme pb-3 pt-3">
+    
+      <div class="container justify-content-center" style="text-align: center;">
+          <img src="/static/img/small_grey_btc.png" width="80"></img>
+      </div>
+    </div>
+     <footer class="pt-2 pb-4">
         <div style=" color: var(--bs-faded-text-color); text-align: center;" class="pb-5 footer-message">
             Make Smarter Decisions </br>About Bitcoin
             <br/>
@@ -43,5 +49,13 @@
         </div>
         
      </footer>
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZTXCBGFR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EBZTXCBGFR');
+    </script>
 </body>
 </html>

@@ -118,6 +118,14 @@ p, a, div, span {
   line-height: 13px; padding-left: 5px;
 }
 
+a.web-button i{
+  padding-right: 5px !important;
+}
+
+.web-buttons i {
+  padding-right: 5px !important;
+}
+
 a.mobile-button {
   font-size: 22px !important;
   padding: 0px 5px !important;
@@ -176,7 +184,7 @@ a.mobile-button-small.active {
 }
 
 .nav-link i {
-    padding-right: 0px !important;
+    padding-right: 0px;
     border-bottom: 2px solid transparent !important;
     border-radius: 0px !important;
 }
@@ -390,7 +398,7 @@ a.mobile-button-small.active {
 }
 
 .ai-box p {
-  padding: 10px 0px 0px !important; 
+  padding: 0px 0px 10px 0px !important; 
   margin: 0px 0px !important;
 }
 
@@ -464,7 +472,7 @@ a.mobile-button-small.active {
   }
 
   .footer-logo {
-    height: 30px;
+    height: 25px;
   }
 
   .scrollable-div {
