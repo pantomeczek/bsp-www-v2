@@ -5,6 +5,7 @@ from .postgresql_connection import PostgresConn
 import pandas as pd
 from pandas.core.frame import DataFrame 
 from datetime import timedelta, datetime
+import traceback
 
 def get_change_sign(current_val, past_val):
      if current_val is None or past_val is None:
@@ -129,52 +130,82 @@ def get_standard_price_chart(indicator_name: str,
                              chart_height: int = 900, 
                              chart_width: int = None, 
                              show_all_tools: bool = True,
-                             secondary_chart_type: str = None):
-     
-     cn = PostgresConn() 
-     
-     priceDF = get_df_from_query(f"select day, calculated_value as value \
-                                     from public.general_indicator \
-                                    where indicator_name = 'bitcoin_price' \
-                                      and day >= to_date('{chart_date_from}', 'YYYY-MM-DD') \
-                                    order by day asc", 
-                                 ['day','value'], 
-                                 cn)
+                             secondary_chart_type: str = None,
+                             chart_mode: str = "daily"):
+     try:
+          cn = PostgresConn() 
+          
+                                        
+          if chart_mode == "realtime":
 
-     holdingsDF = get_df_from_query(f"select day, calculated_value \
-                                        from general_indicator \
-                                       where indicator_name='{indicator_name}' \
-                                         and day >= to_date('{chart_date_from}', 'YYYY-MM-DD') \
-                                       order by day asc", 
-                                    ['day','calculated_value'], 
-                                    cn)
+               priceDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
+                                               from v_current_hours as hours \
+                                               left join public.general_indicator ind \
+                                                 on hours.hour = ind.day and \
+                                                    indicator_name = 'bitcoin_price_realtime' \
+                                              order by day asc", 
+                                             ['day','value'], 
+                                             cn)
 
-     cn.close_connection()
+               holdingsDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
+                                               from v_current_hours as hours \
+                                               left join public.general_indicator_realtime ind \
+                                                 on hours.hour = ind.day and \
+                                                    indicator_name='{indicator_name}' \
+                                              order by day asc", 
+                                             ['day','calculated_value'], 
+                                             cn)
+               
 
-     chart_range = get_range(priceDF, holdingsDF) if limited_range else None   
-     holdingsDF  = get_values_in_usd(priceDF, holdingsDF) if chart_currency.upper() == PROPERTY_USD_CODE else holdingsDF   
-           
+          else:
+               priceDF = get_df_from_query(f"select day, calculated_value as value \
+                                             from public.general_indicator \
+                                             where indicator_name = 'bitcoin_price' \
+                                             and day >= to_date('{chart_date_from}', 'YYYY-MM-DD') \
+                                             and day < current_date \
+                                             order by day asc", 
+                                        ['day','value'], 
+                                        cn)
 
-     graph = btcchart.get_daily_chart(priceDF, 
-                                      holdingsDF, 
-                                      PROPERTY_PRICE_CHART_VALUE_COLUMN, 
-                                      PROPERTY_VALUE_CHART_VALUE_COLUMN, 
-                                      PROPERTY_PRICE_SIGN,
-                                      indicator_value_unit,
-                                      PROPERTY_PRICE_CHART_TITLE, 
-                                      indicator_title, 
-                                      PROPERTY_PRICE_CHART_LABEL, 
-                                      indicator_value_label, 
-                                      filled,
-                                      chart_currency,
-                                      chart_range,
-                                      chart_height,
-                                      chart_width,
-                                      show_all_tools,
-                                      secondary_chart_type)
+               holdingsDF = get_df_from_query(f"select day, calculated_value \
+                                                  from general_indicator \
+                                             where indicator_name='{indicator_name}' \
+                                                  and day >= to_date('{chart_date_from}', 'YYYY-MM-DD') \
+                                                  and day < current_date \
+                                             order by day asc", 
+                                             ['day','calculated_value'], 
+                                             cn)
+
+          cn.close_connection()
+
+          chart_range = get_range(priceDF, holdingsDF) if limited_range else None   
+          holdingsDF  = get_values_in_usd(priceDF, holdingsDF) if chart_currency.upper() == PROPERTY_USD_CODE else holdingsDF   
+
+
+          graph = btcchart.get_daily_chart(priceDF, 
+                                        holdingsDF, 
+                                        PROPERTY_PRICE_CHART_VALUE_COLUMN, 
+                                        PROPERTY_VALUE_CHART_VALUE_COLUMN, 
+                                        PROPERTY_PRICE_SIGN,
+                                        indicator_value_unit,
+                                        PROPERTY_PRICE_CHART_TITLE, 
+                                        indicator_title, 
+                                        PROPERTY_PRICE_CHART_LABEL, 
+                                        indicator_value_label, 
+                                        filled,
+                                        chart_currency,
+                                        chart_range,
+                                        chart_height,
+                                        chart_width,
+                                        show_all_tools,
+                                        secondary_chart_type,
+                                        chart_mode)
        
 
-
+     except Exception as e:
+        print(f"An error occurred: {e}")
+        traceback.print_exc()
+        return {"chart": None, "stats":None}
      
 
      return {"chart": graph, "stats":get_stats_from_df(holdingsDF)}
@@ -335,25 +366,66 @@ def get_mvrv_chart(date_from = '2010-08-01', width = None, height = 800, show_fu
      return {"chart": graph, "stats":None}
 
 
-def get_sopr_chart(indicator, label, metric_label, metric_unit, date_from = PROPERTY_CHARTS_DEFAULT_VALID_FROM, height = PROPERTY_CHART_DEFAULT_HEIGHT, show_full = True):
+def get_sopr_chart(indicator_name, label, metric_label, metric_unit, date_from = PROPERTY_CHARTS_DEFAULT_VALID_FROM, height = PROPERTY_CHART_DEFAULT_HEIGHT, show_full = True, chart_mode: str = "daily"):
 
 
      cn = PostgresConn() 
-     priceDF = get_df_from_query(f"select day, calculated_value as value \
-                                     from general_indicator \
-                                    where indicator_name = 'bitcoin_price' \
-                                      and day >= to_date('{date_from}', 'YYYY-MM-DD') \
-                                    order by day asc", 
-                                  ['day','value'], 
-                                  cn)
 
-     holdingsDF = get_df_from_query(f"select day, calculated_value \
-                                        from general_indicator \
-                                       where indicator_name='{indicator}' \
-                                         and day >= to_date('{date_from}', 'YYYY-MM-DD') \
-                                       order by day asc", 
-                                     ['day','calculated_value'], 
-                                     cn)
+     if chart_mode == "realtime":
+
+          priceDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
+                                             from v_current_hours as hours \
+                                             left join public.general_indicator ind \
+                                             on hours.hour = ind.day and \
+                                                  indicator_name = 'bitcoin_price_realtime' \
+                                             order by day asc", 
+                                        ['day','value'], 
+                                        cn)
+
+          holdingsDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
+                                             from v_current_hours as hours \
+                                             left join public.general_indicator_realtime ind \
+                                             on hours.hour = ind.day and \
+                                                  indicator_name='{indicator_name}' \
+                                             order by day asc", 
+                                        ['day','calculated_value'], 
+                                        cn)
+          
+
+     else:
+          priceDF = get_df_from_query(f"select day, calculated_value as value \
+                                          from public.general_indicator \
+                                         where indicator_name = 'bitcoin_price' \
+                                           and day < current_date \
+                                           and day >= to_date('{date_from}', 'YYYY-MM-DD') \
+                                         order by day asc", 
+                                   ['day','value'], 
+                                   cn)
+
+          holdingsDF = get_df_from_query(f"select day, calculated_value \
+                                             from general_indicator \
+                                            where indicator_name='{indicator_name}' \
+                                              and day < current_date \
+                                              and day >= to_date('{date_from}', 'YYYY-MM-DD') \
+                                            order by day asc", 
+                                        ['day','calculated_value'], 
+                                        cn)
+
+     # priceDF = get_df_from_query(f"select day, calculated_value as value \
+     #                                 from general_indicator \
+     #                                where indicator_name = 'bitcoin_price' \
+     #                                  and day >= to_date('{date_from}', 'YYYY-MM-DD') \
+     #                                order by day asc", 
+     #                              ['day','value'], 
+     #                              cn)
+
+     # holdingsDF = get_df_from_query(f"select day, calculated_value \
+     #                                    from general_indicator \
+     #                                   where indicator_name='{indicator}' \
+     #                                     and day >= to_date('{date_from}', 'YYYY-MM-DD') \
+     #                                   order by day asc", 
+     #                                 ['day','calculated_value'], 
+     #                                 cn)
      cn.close_connection()          
 
      graph = btcchart.get_sopr_chart(priceDF, 
@@ -367,7 +439,8 @@ def get_sopr_chart(indicator, label, metric_label, metric_unit, date_from = PROP
                                         PROPERTY_PRICE_CHART_LABEL, 
                                         metric_label, 
                                         height,
-                                        show_full)
+                                        show_full,
+                                        chart_mode)
     
           
      return {"chart": graph, "stats":get_stats_from_df(holdingsDF)}

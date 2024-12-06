@@ -10,99 +10,114 @@
         <div class="standard-chart-panel m-2">
             <div class="p-3 p-md-5">
                 <h3><i class="bi bi-graph-up"></i>{{ title }}</h3>
-                
-                {% if precision_selector_enabled  or currency_selector_enabled %}
-                <div class="row pb-2 pt-5 mb-1 mt-1">
-                    <div class="col-md">
-                        {% if precision_selector_enabled  %}
-                        <a class="btn btn-dark btn-sm {% if precision == 'normal' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=normal" role="button">Normal</a>
-                        <a class="btn btn-dark btn-sm {% if precision == '7dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=7dma" role="button">7DMA</a>
-                        <a class="btn btn-dark btn-sm {% if precision == '21dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=21dma" role="button">21DMA</a>
-                            {% if label in ['cdd','sacdd'] %}
-                            <a class="btn btn-dark btn-sm {% if precision == '30dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=30dma" role="button">30DMA</a>
-                            <a class="btn btn-dark btn-sm {% if precision == '90dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=90dma" role="button">90DMA</a>
+                {% if realtime_enabled %}
+                <div class="row pb-2 pt-1 mb-1 mt-1 ">
+                    <div class="col-md " style="text-align: right;">
+                        <a class="btn btn-dark btn-sm {% if mode == 'daily' %} active {% endif %}" href="{{url}}&mode=daily" role="button"><i class="bi bi-calendar-event p-0 m-0"></i> Full</a>
+                        <a class="btn btn-dark btn-sm {% if mode == 'realtime' %} active {% endif %}" href="{{url}}&mode=realtime" role="button"><i class="bi bi-clock-history p-0 m-0"></i> Realtime</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if graph  %}
+                    {% if (precision_selector_enabled or currency_selector_enabled) and mode == "daily" %}
+                    <div class="row pb-2 pt-5 mb-1 mt-1">
+                        <div class="col-md">
+                            {% if precision_selector_enabled  %}
+                            <a class="btn btn-dark btn-sm {% if precision == 'normal' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=normal" role="button">Normal</a>
+                            <a class="btn btn-dark btn-sm {% if precision == '7dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=7dma" role="button">7DMA</a>
+                            <a class="btn btn-dark btn-sm {% if precision == '21dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=21dma" role="button">21DMA</a>
+                                {% if label in ['cdd','sacdd'] %}
+                                <a class="btn btn-dark btn-sm {% if precision == '30dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=30dma" role="button">30DMA</a>
+                                <a class="btn btn-dark btn-sm {% if precision == '90dma' %} active {% endif %}" href="{{url}}&currency={{currency}}&precision=90dma" role="button">90DMA</a>
+                                {% endif  %}
+                            {% endif  %}            
+                            {% if precision_selector_enabled and currency_selector_enabled  %}
+                            <i class="bi bi-three-dots-vertical"></i>
                             {% endif  %}
-                        {% endif  %}            
-                        {% if precision_selector_enabled and currency_selector_enabled  %}
-                        <i class="bi bi-three-dots-vertical"></i>
-                        {% endif  %}
-    
-                        {% if currency_selector_enabled  %}
-                        <a class="btn btn-dark btn-sm {% if currency == 'btc' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=btc" role="button">BTC</a>
-                        <a class="btn btn-dark btn-sm {% if currency == 'usd' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=usd" role="button">USD</a>
-                        {% endif  %}
-                    </div>
-                    <div class="col-md" style="text-align: right;">
-                        {% if stats  %}
-                            <ul class="list-group list-group-horizontal price-diff-module">
-                                <li class="list-group-item ms-auto" style="background-color: transparent; border: none;">
-                                    <div class="price-diff-header">Now</div>
-                                    <div class="price-diff-value">
-                                        {% if stats['today']['diff'] == "+"  %}
-                                        <i class="bi bi-arrow-up-short change_plus"></i>
+        
+                            {% if currency_selector_enabled  %}
+                            <a class="btn btn-dark btn-sm {% if currency == 'btc' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=btc" role="button">BTC</a>
+                            <a class="btn btn-dark btn-sm {% if currency == 'usd' %} active {% endif %}" href="{{url}}&precision={{precision}}&currency=usd" role="button">USD</a>
+                            {% endif  %}
+                        </div>
+                        <div class="col-md" style="text-align: right;">
+                            {% if stats  %}
+                                <ul class="list-group list-group-horizontal price-diff-module">
+                                    <li class="list-group-item ms-auto" style="background-color: transparent; border: none;">
+                                        <div class="price-diff-header">Yesterday</div>
+                                        <div class="price-diff-value">
+                                            {% if stats['today']['diff'] == "+"  %}
+                                            <i class="bi bi-arrow-up-short change_plus"></i>
+                                            {% endif  %}
+                                            {% if stats['today']['diff'] == "-"  %}
+                                            <i class="bi bi-arrow-down-short change_minus"></i>
+                                            {% endif  %}
+                                            {{"{:,.2f}".format(stats['today']['value'])}}
+                                        </div>
+                                        
+                                    </li>
+                                    <li class="list-group-item" style="background-color: transparent; border: none;">
+                                        <div class="price-diff-header">-30 Days</div>
+                                        
+                                        {% if stats['30']['diff'] == "+"  %}
+                                        <div class="price-diff-value change_plus">
+                                            <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
+                                        </div>
                                         {% endif  %}
-                                        {% if stats['today']['diff'] == "-"  %}
-                                        <i class="bi bi-arrow-down-short change_minus"></i>
+                                        {% if stats['30']['diff'] == "-"  %}
+                                        <div class="price-diff-value change_minus">
+                                            <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
+                                        </div>
                                         {% endif  %}
-                                        {{"{:,.2f}".format(stats['today']['value'])}}
-                                    </div>
-                                    
-                                </li>
-                                <li class="list-group-item" style="background-color: transparent; border: none;">
-                                    <div class="price-diff-header">-30 Days</div>
-                                    
-                                    {% if stats['30']['diff'] == "+"  %}
-                                    <div class="price-diff-value change_plus">
-                                        <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                    {% if stats['30']['diff'] == "-"  %}
-                                    <div class="price-diff-value change_minus">
-                                        <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['30']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                    {% if stats['30']['diff'] == "="  %}
-                                    <div class="price-diff-value">
-                                        {{"{:,.2f}".format(stats['30']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                    
-                                </li>
-                                <li class="list-group-item" style="background-color: transparent; border: none;">
-                                    <div class="price-diff-header">-60 Days</div> 
+                                        {% if stats['30']['diff'] == "="  %}
+                                        <div class="price-diff-value">
+                                            {{"{:,.2f}".format(stats['30']['value'])}}
+                                        </div>
+                                        {% endif  %}
+                                        
+                                    </li>
+                                    <li class="list-group-item" style="background-color: transparent; border: none;">
+                                        <div class="price-diff-header">-60 Days</div> 
 
-                                    {% if stats['60']['diff'] == "+"  %}
-                                    <div class="price-diff-value change_plus">
-                                        <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                    {% if stats['60']['diff'] == "-"  %}
-                                    <div class="price-diff-value change_minus">
-                                        <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                    {% if stats['60']['diff'] == "="  %}
-                                    <div class="price-diff-value">
-                                        {{"{:,.2f}".format(stats['60']['value'])}}
-                                    </div>
-                                    {% endif  %}
-                                </li>
-                            </ul>
-                        {% endif  %}
-                    </div>
-                    
-                    
-                </div> 
-                {% endif  %}
+                                        {% if stats['60']['diff'] == "+"  %}
+                                        <div class="price-diff-value change_plus">
+                                            <i class="bi bi-arrow-up-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
+                                        </div>
+                                        {% endif  %}
+                                        {% if stats['60']['diff'] == "-"  %}
+                                        <div class="price-diff-value change_minus">
+                                            <i class="bi bi-arrow-down-short"></i>{{"{:,.2f}".format(stats['60']['value'])}}
+                                        </div>
+                                        {% endif  %}
+                                        {% if stats['60']['diff'] == "="  %}
+                                        <div class="price-diff-value">
+                                            {{"{:,.2f}".format(stats['60']['value'])}}
+                                        </div>
+                                        {% endif  %}
+                                    </li>
+                                </ul>
+                            {% endif  %}
+                        </div>
+                        
+                        
+                        
+                    </div> 
+                    {% endif  %}
 
-                <div id='graph'></div>
+                    <div id='graph'></div>
 
 
 
-                <script type='text/javascript'>
-                    var graphs = {{graph | safe}};
-                    Plotly.plot('graph',graphs,{});
-                </script>
+                    <script type='text/javascript'>
+                        var graphs = {{graph | safe}};
+                        Plotly.plot('graph',graphs,{});
+                    </script>
+                {% else %}
+                <div class="p-5" style="text-align: center; background-color: transparent !important;">
+                    <h5>Oops! Something went wrong with chart generation.</h5>
+                    <div>We're working on fixing it. Please refresh the page or try again later.</div>
+                </div>
+                {% endif %}
             </div>
             
             <div class="p-3 p-md-5 pt-5">

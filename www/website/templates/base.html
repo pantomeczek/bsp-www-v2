@@ -286,6 +286,12 @@
         const data = await response.json();
         const price = parseFloat(data.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); // Format to 2 decimal places
         btcPriceDiv.textContent = `${price}`;
+        
+        const siteTile = document.getElementById('site-title').textContent
+        
+        const titleContent = document.title;
+        document.title = `$${price} | ${siteTile} | Blockspotlight.com`
+
       } catch (error) {
         console.error('Error fetching Bitcoin price:', error);
         btcPriceDiv.textContent = 'Error fetching price';

@@ -6,10 +6,12 @@ from .code.chartconfig import Chartconfig
 from website.code import charts
 from .code.ai import get_ai_summary, get_ai_element
 from .code.stats import get_stats_element
+import traceback
 
 TYPE_KEY = 'type'
 METRIC_KEY = 'metric'
 SIZE_KEY = 'size'
+MODE_KEY = "mode"
 
 DEFAULT_TYPE = 'addresses'
 DEFAULT_METRICS = {
@@ -18,6 +20,15 @@ DEFAULT_METRICS = {
     "supply": None,
     "onchain": "sopr",
     "institutions": "etfs"
+}
+
+DEFAULT_TITLES = {
+    "dashboard": "Dashboard",
+    "addresses": "Addresses",
+    "mining": "Mining",
+    "supply": "Supply",
+    "onchain": "Onchain",
+    "institutions": "Institutions"
 }
 
 NUM_OF_BLOCKS = 25
@@ -97,7 +108,8 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
                 "title": inObj.get_label_with_dma(True),
                 "href": url,
                 "chart": chartResult,
-                "stats": chartStats
+                "stats": chartStats,
+                "realtime_enabled": inObj.is_realtime_enabled()
             }
 
             address_charts.append(el)
@@ -158,7 +170,8 @@ def get_charts_for_dashboard(indicators, date_of_chart):
                 "title": inObj.get_label_with_dma(True),
                 "href": url,
                 "chart": chartResult['chart'],
-                "stats": chartResult['stats']
+                "stats": chartResult['stats'],
+                "realtime_enabled": inObj.is_realtime_enabled()
             }
         
         dashboard_items.append(el)
@@ -265,130 +278,158 @@ def dashboard():
 
     charts = get_dashboard()
 
-    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
+    return render_template("content.html", 
+                            title="Dashboard",
+                            user=current_user, 
+                            content_type=content_type, 
+                            metric=content_metric, 
+                            blocks=get_last_blocks(NUM_OF_BLOCKS), 
+                            charts=charts)
 
 
 @views.route('/dashboard')
 def dashboards():
+    try:     
+        date_of_dashboard = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
 
+        if TYPE_KEY in request.args:
+            content_type = request.args.get(TYPE_KEY)
+        else:
+            content_type = DEFAULT_TYPE
+        
+        if METRIC_KEY in request.args:
+            content_metric = request.args.get(METRIC_KEY)
+        else:
+            content_metric = DEFAULT_METRICS[content_type]
+        
+
+        if content_type == 'addresses' and content_metric == 'distribution':
+            return redirect(url_for('views.chart', type='addresses', metric='distribution'))
+
+        charts = get_charts(content_type, content_metric, date_of_dashboard)
+                    
+        return render_template("content.html", 
+                            title=DEFAULT_TITLES[content_type],
+                            user=current_user, 
+                            content_type=content_type, 
+                            metric=content_metric, 
+                            submetric=None, 
+                            blocks=get_last_blocks(NUM_OF_BLOCKS), 
+                            charts=charts)
     
-    date_of_dashboard = (datetime.today().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days = 365)).strftime('%Y-%m-%d')
-
-    if TYPE_KEY in request.args:
-        content_type = request.args.get(TYPE_KEY)
-    else:
-        content_type = DEFAULT_TYPE
-    
-    if METRIC_KEY in request.args:
-        content_metric = request.args.get(METRIC_KEY)
-    else:
-        content_metric = DEFAULT_METRICS[content_type]
-    
-
-    if content_type == 'addresses' and content_metric == 'distribution':
-        return redirect(url_for('views.chart', type='addresses', metric='distribution'))
-
-    charts = get_charts(content_type, content_metric, date_of_dashboard)
-                 
-    return render_template("content.html", user=current_user, content_type=content_type, metric=content_metric, submetric=None, blocks=get_last_blocks(NUM_OF_BLOCKS), charts=charts)
-
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        traceback.print_exc()
+        return render_template('error.html')
 
 @views.route('/chart')
-def chart():
-
-    
-
-    if TYPE_KEY in request.args:
-        content_type = request.args.get(TYPE_KEY)
-    else:
-        content_type = DEFAULT_TYPE
-    
-    if METRIC_KEY in request.args:
-        content_metric = request.args.get(METRIC_KEY)
-    else:
-        content_metric = DEFAULT_METRICS[content_type]
-
-    if SIZE_KEY in request.args:
-        content_size = request.args.get(SIZE_KEY)
-    else:
-        content_size = DEFAULT_METRICS[content_type]
-
-    if content_type == 'addresses' and content_metric == 'distribution':
-        content_size = None
-
-    obj = Chartconfig(content_type, content_metric, content_size, request.args.get("precision"), request.args.get("currency"))
-    
-    print(f"content_type = {content_type}")
-    print(f"content_metric = {content_metric}")
-    print(f"content_size = {content_size}")
-
-    stats = None
-    limited_range= True if content_type == 'institutions' else False
-
-    if content_type == 'onchain' and content_metric == 'sopr':
-        chart = charts.get_sopr_chart(obj.get_indicator(obj.get_precision()), 
-                                      obj.get_label_with_dma(), 
-                                      "SOPR", 
-                                      "BTC", 
-                                      obj.get_value_chart_start_date(), 
-                                      800, 
-                                      True)
-
-    elif content_type == 'addresses' and content_metric == 'distribution':
-        chart = charts.get_special_address_price_chart()
-
-    elif content_type == 'onchain' and content_metric == 'other' and content_size == 'nupl':
-
-        chart = charts.get_nupl_chart(obj.get_indicator(obj.get_precision()), 
-                                      obj.get_label_with_dma(), 
-                                      obj.get_value_label(), 
-                                      obj.get_value_unit(),
-                                      obj.is_fillunder(),
-                                      obj.get_value_chart_start_date(),
-                                      chart_currency = obj.get_active_currency(),
-                                      limited_range = True,
-                                      secondary_chart_type = obj.get_chart_type())
-
-    elif content_type == 'onchain' and content_metric == 'other' and content_size == 'mvrvz':
-        chart = charts.get_mvrv_chart()                                      
-    else:
+def chart(): 
+    try:
+        if TYPE_KEY in request.args:
+            content_type = request.args.get(TYPE_KEY)
+        else:
+            content_type = DEFAULT_TYPE
         
-        chart = charts.get_standard_price_chart(indicator_name = obj.get_indicator(obj.get_precision()), 
-                                                indicator_title = obj.get_label_with_dma(), 
-                                                indicator_value_label = obj.get_value_label(), 
-                                                indicator_value_unit = obj.get_value_unit(),
-                                                filled = obj.is_fillunder(),
-                                                chart_date_from = obj.get_value_chart_start_date(),
-                                                chart_currency = obj.get_active_currency(),
-                                                secondary_chart_type = obj.get_chart_type(),
-                                                limited_range=True)
+        if METRIC_KEY in request.args:
+            content_metric = request.args.get(METRIC_KEY)
+        else:
+            content_metric = DEFAULT_METRICS[content_type]
+
+        if SIZE_KEY in request.args:
+            content_size = request.args.get(SIZE_KEY)
+        else:
+            content_size = DEFAULT_METRICS[content_type]
+
+        if MODE_KEY in request.args:
+            content_mode = request.args.get(MODE_KEY)
+        else:
+            content_mode = "daily"
+
+        if content_type == 'addresses' and content_metric == 'distribution':
+            content_size = None
+
+        obj = Chartconfig(content_type, content_metric, content_size, request.args.get("precision"), request.args.get("currency"))
+        
+        print(f"content_type = {content_type}")
+        print(f"content_metric = {content_metric}")
+        print(f"content_size = {content_size}")
+
+        stats = None
+        limited_range= True if content_type == 'institutions' else False
+
+        
+        if content_type == 'onchain' and content_metric == 'sopr':
+            chart = charts.get_sopr_chart(obj.get_indicator(obj.get_precision()), 
+                                        obj.get_label_with_dma(), 
+                                        "SOPR", 
+                                        "BTC", 
+                                        obj.get_value_chart_start_date(), 
+                                        800, 
+                                        True,
+                                        chart_mode=content_mode)
+
+        elif content_type == 'addresses' and content_metric == 'distribution':
+            chart = charts.get_special_address_price_chart()
+
+        elif content_type == 'onchain' and content_metric == 'other' and content_size == 'nupl':
+
+            chart = charts.get_nupl_chart(obj.get_indicator(obj.get_precision()), 
+                                        obj.get_label_with_dma(), 
+                                        obj.get_value_label(), 
+                                        obj.get_value_unit(),
+                                        obj.is_fillunder(),
+                                        obj.get_value_chart_start_date(),
+                                        chart_currency = obj.get_active_currency(),
+                                        limited_range = True,
+                                        secondary_chart_type = obj.get_chart_type())
+
+        elif content_type == 'onchain' and content_metric == 'other' and content_size == 'mvrvz':
+            chart = charts.get_mvrv_chart()                                      
+        else:
+            
+            chart = charts.get_standard_price_chart(indicator_name = obj.get_indicator(obj.get_precision()), 
+                                                    indicator_title = obj.get_label_with_dma(), 
+                                                    indicator_value_label = obj.get_value_label(), 
+                                                    indicator_value_unit = obj.get_value_unit(),
+                                                    filled = obj.is_fillunder(),
+                                                    chart_date_from = obj.get_value_chart_start_date(),
+                                                    chart_currency = obj.get_active_currency(),
+                                                    secondary_chart_type = obj.get_chart_type(),
+                                                    limited_range=True,
+                                                    chart_mode=content_mode)
         
 
-    result_stats = chart['stats']
-    result_chart = chart['chart']
+        result_stats = chart['stats']
+        result_chart = chart['chart']
 
-    description_file_name = f"{content_type}_{obj.get_metric()}"
-    
-    if content_size is not None and content_type not in ['addresses']:
-        description_file_name = f"{description_file_name}_{content_size}"
+        description_file_name = f"{content_type}_{obj.get_metric()}"
+        
+        if content_size is not None and content_type not in ['addresses']:
+            description_file_name = f"{description_file_name}_{content_size}"
 
-    return render_template('charts.html',    graph = result_chart,
-                                             stats = result_stats,
-                                             user = current_user,
-                                             title = obj.get_label(),
-                                             label = obj.get_submetric(),
-                                             metric = obj.get_metric(),
-                                             module = "chart",
-                                             content_type=content_type,
-                                             submetric=content_size,
-                                             url = f"/chart?type={content_type}&metric={obj.get_metric()}&size={obj.get_submetric()}",
-                                             precision_selector_enabled = obj.is_precision_selector_enabled(),
-                                             currency_selector_enabled = obj.is_currency_selector_enabled(),
-                                             precision = obj.get_active_precision(),
-                                             currency = obj.get_active_currency(),
-                                             blocks = get_last_blocks(NUM_OF_BLOCKS),
-                                             description_label = description_file_name)
+        return render_template('charts.html',    graph = result_chart,
+                                                stats = result_stats,
+                                                user = current_user,
+                                                title = obj.get_label(),
+                                                label = obj.get_submetric(),
+                                                metric = obj.get_metric(),
+                                                module = "chart",
+                                                content_type=content_type,
+                                                submetric=content_size,
+                                                mode = content_mode,
+                                                url = f"/chart?type={content_type}&metric={obj.get_metric()}&size={obj.get_submetric()}",
+                                                precision_selector_enabled = obj.is_precision_selector_enabled(),
+                                                currency_selector_enabled = obj.is_currency_selector_enabled(),
+                                                precision = obj.get_active_precision(),
+                                                currency = obj.get_active_currency(),
+                                                blocks = get_last_blocks(NUM_OF_BLOCKS),
+                                                realtime_enabled = obj.is_realtime_enabled(),
+                                                description_label = description_file_name)
 
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        traceback.print_exc()
+        return render_template('error.html')
 
 @views.route('/about')
 def about():

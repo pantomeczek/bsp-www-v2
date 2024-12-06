@@ -19,12 +19,16 @@ def get_string_as_date(str):
     return  datetime.strptime(str,'%Y-%m-%d')
 
 
-def get_price_chart_desc(primary_label: str, primary_value_description: str, primary_val_unit: str):
-    return '<br><b>' + primary_label + '</b></br>Day: %{x|%Y-%m-%d}<br>' + primary_value_description + ': %{y:,.2f} ' + primary_val_unit +'<extra></extra>'
+def get_price_chart_desc(primary_label: str, primary_value_description: str, primary_val_unit: str, chart_mode: str = "daily"):
 
-def get_value_chart_desc(primary_label: DataFrame, secondary_value_description: str, seconday_val_unit: str, currency: str):
+    time_template = '%{x|%Y-%m-%d %H:%M:%S}' if chart_mode == "realtime" else '%{x|%Y-%m-%d}'
 
-    
+    return '<br><b>' + primary_label + '</b></br>Day: ' + time_template + '<br>' + primary_value_description + ': %{y:,.2f} ' + primary_val_unit +'<extra></extra>'
+
+def get_value_chart_desc(primary_label: DataFrame, secondary_value_description: str, seconday_val_unit: str, currency: str, chart_mode: str = "daily"):
+
+    time_template = '%{x|%Y-%m-%d %H:%M:%S}' if chart_mode == "realtime" else '%{x|%Y-%m-%d}'
+
     if currency.upper() == 'BTC':
         prec = ': %{y:,.8f} '
     elif currency == '%':
@@ -32,10 +36,10 @@ def get_value_chart_desc(primary_label: DataFrame, secondary_value_description: 
     else:
         prec = currency + ': %{y:,.2f} '
 
-    return '<br><b>' + primary_label + '</b></br>Day: %{x|%Y-%m-%d}<br>' + secondary_value_description + prec + seconday_val_unit + '<extra></extra>'
+    return '<br><b>' + primary_label + '</b></br>Day: ' + time_template + '<br>' + secondary_value_description + prec + seconday_val_unit + '<extra></extra>'
 
 
-def get_range(chart_range, show_full = True) -> dict:
+def get_range(chart_range, show_full = True, chart_mode = "daily") -> dict:
 
     if show_full:
         rs = dict(
@@ -73,7 +77,7 @@ def get_range(chart_range, show_full = True) -> dict:
         "legend": False if show_full == False else True,
         "scales": dict(
                         rangeselector=rs,
-                        rangeslider=dict(visible=False if show_full == False else True, thickness=0.1, bgcolor="#191a1d"),
+                        rangeslider=dict(visible=False if show_full == False or chart_mode == "realtime" else True, thickness=0.1, bgcolor="#191a1d"),
                         showgrid=False if show_full == False else True,
                         tickfont=dict(
                                         color=PROPERTY_CHART_SIDE_TITLE_COLOR
@@ -82,40 +86,75 @@ def get_range(chart_range, show_full = True) -> dict:
                         rangeslider_thickness = 0.06,
                         type="date",
                         fixedrange=False,
+                        dtick= "3600000" if chart_mode == "realtime" else None,
                         range=chart_range
                       )
     } 
 
 
-def get_chart_params(chart_type: str, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full = False) -> dict:
-    if chart_type == 'log':
-        ctick=1
-        frange=[min(primaryDF[primary_val_label])*1.13/10000, max(primaryDF[primary_val_label])*0.5/10000]
-        srange=[min(primaryDF[primary_val_label])*1.13/10000, max(primaryDF[primary_val_label])*0.5/10000]
-        #crange=None
-    else:
-        ctick=None
-        frange=None
-        srange=[min(secondaryDF[seconday_val_label]), max(secondaryDF[seconday_val_label])] if show_full == False else None
+def get_chart_params(chart_type: str, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full = False, chart_mode = "daily") -> dict:
+    ctick = 1
+    frange = None
+    srange = None
+    if chart_mode == "daily":
+        if chart_type == 'log':
+            ctick=1
+            
+            min_val = min([min(primaryDF[primary_val_label]),min(secondaryDF[seconday_val_label])])
+            max_val = max([max(primaryDF[primary_val_label]),max(secondaryDF[seconday_val_label])])
+            
+            if show_full:
+                adj_min_val = -1.4
+                adj_max_val = 5
+            else:
+                adj_min_val = 4.2
+                adj_max_val = 5
 
-        if seconday_val_unit == '%':
-            ctick=10
-            srange=[0,max(secondaryDF[seconday_val_label]) * 1.01]
-    
+            frange=[adj_min_val, adj_max_val]
+            srange=[adj_min_val, adj_max_val]
+            #crange=None
+        else:
+            ctick=None
+            frange=None
+            srange=[min(secondaryDF[seconday_val_label]), max(secondaryDF[seconday_val_label])] if show_full == False else None
+
+            if seconday_val_unit == '%':
+                ctick=10
+                srange=[0,max(secondaryDF[seconday_val_label]) * 1.01]
+    elif chart_mode == "realtime":
+        if chart_type == 'log':
+            ctick=1
+
+            min_val = min([min(primaryDF[primary_val_label]),min(secondaryDF[seconday_val_label])])
+            max_val = max([max(primaryDF[primary_val_label]),max(secondaryDF[seconday_val_label])])
+
+            print(min_val)
+            print(max_val)
+
+            adj_min_val = 4.3
+            adj_max_val = 5
+
+            frange=[adj_min_val, adj_max_val]
+            srange=[adj_min_val, adj_max_val]
+        else:
+            ctick = None
+            frange = None
+            srange=[min(secondaryDF[seconday_val_label]), max(secondaryDF[seconday_val_label])]
+
     return {'ctick': ctick, 'srange': srange, 'frange': frange}
 
 
 def get_main_chart():
     return make_subplots(specs=[[{"secondary_y": True}]])
 
-def add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, is_secondary = False, price_color = PRICE_CHART_PROPERTIES['COLOR']):
+def add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, is_secondary = False, price_color = PRICE_CHART_PROPERTIES['COLOR'], chart_mode = "daily"):
     fig.add_trace(
                         go.Scattergl(x = primaryDF['day'], 
                                      y = primaryDF[primary_val_label], 
                                      name = primary_label,
                                      line = dict(color=price_color),
-                                     line_width = PRICE_CHART_PROPERTIES['LINE_WEIGHT'],
-                                     hovertemplate = get_price_chart_desc(primary_label, primary_value_description, primary_val_unit),
+                                     line_width = PRICE_CHART_PROPERTIES['LINE_WEIGHT'] if chart_mode == "daily" else PRICE_CHART_PROPERTIES['LINE_WEIGHT']*3,
+                                     hovertemplate = get_price_chart_desc(primary_label, primary_value_description, primary_val_unit, chart_mode),
                                      hoverlabel=dict(
                                                         bgcolor=PRICE_CHART_PROPERTIES['COLOR'],  # Background color
                                                         bordercolor=PRICE_CHART_PROPERTIES['COLOR'],    # Border color
@@ -131,7 +170,7 @@ def add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary
 
     return fig
 
-def add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, secondary_value_description, seconday_val_unit, currency, fill_label, is_secondary = True):
+def add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, secondary_value_description, seconday_val_unit, currency, fill_label, is_secondary = True, chart_mode = "daily"):
     fig.add_trace(
                         go.Scatter(
                                     x = secondaryDF['day'], 
@@ -139,9 +178,9 @@ def add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, se
                                     name = secondary_label,
                                     line = dict(color = VALUE_CHART_PROPERTIES[currency][fill_label]['line']),
                                     fillcolor = VALUE_CHART_PROPERTIES[currency][fill_label]['fill'],
-                                    line_width = VALUE_CHART_PROPERTIES[currency][fill_label]['weight'],
+                                    line_width = VALUE_CHART_PROPERTIES[currency][fill_label]['weight'] if chart_mode == "daily" else VALUE_CHART_PROPERTIES[currency][fill_label]['weight']*2,
                                     fill = VALUE_CHART_PROPERTIES[currency][fill_label]['fill_mode'],
-                                    hovertemplate = get_value_chart_desc(secondary_label, secondary_value_description, seconday_val_unit, currency),
+                                    hovertemplate = get_value_chart_desc(secondary_label, secondary_value_description, seconday_val_unit, currency, chart_mode),
                                     hoverlabel=dict(
                                                         bgcolor=VALUE_CHART_PROPERTIES[currency][fill_label]['line'],  # Background color
                                                         bordercolor=VALUE_CHART_PROPERTIES[currency][fill_label]['line'],    # Border color
@@ -157,7 +196,6 @@ def add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, se
 
 def add_image_to_chart(fig):
     fig.add_layout_image(dict(
-                                source="/static/img/background_logo.png",
                                 xref="paper", 
                                 yref="paper",
                                 x=0, 
@@ -237,20 +275,24 @@ def get_daily_chart(primaryDF: DataFrame,
                     height: int,
                     width: int,
                     show_full: bool,
-                    secondary_type: str):
+                    secondary_type: str,
+                    chart_mode):
 
+
+   
         
         fill_label = "FILL" if fillunder else "LINE"
         currency = currency.upper() if currency != None and currency != "" else ""
-        chart_range = get_range(range, show_full) 
-        chart_params = get_chart_params(secondary_type, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full)
+        chart_range = get_range(range, show_full, chart_mode) 
+        chart_params = get_chart_params(secondary_type, primaryDF, secondaryDF, primary_val_label, seconday_val_label, seconday_val_unit, show_full, chart_mode)
 
         
+        fig = get_main_chart()        
 
-        fig = get_main_chart()
-        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit)
-        fig = add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, secondary_value_description, seconday_val_unit, currency, fill_label)
-        fig = add_image_to_chart(fig)
+        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, chart_mode = chart_mode)
+        fig = add_value_to_chart(fig, secondaryDF, secondary_label, seconday_val_label, secondary_value_description, seconday_val_unit, currency, fill_label, chart_mode = chart_mode)
+
+        #fig = add_image_to_chart(fig)
         fig = add_cross_pointer_to_chart(fig)
 
 
@@ -258,7 +300,7 @@ def get_daily_chart(primaryDF: DataFrame,
 
         #chart_params = {'ctick': 1, 'srange': [4, 7.949131939431674], 'frange': [4, 7.949131939431674]}
 
-        if show_full:
+        if show_full and chart_mode == "daily":
             fig = add_halvings_to_chart(fig, primaryDF)
 
         fig.update_layout(
@@ -266,13 +308,14 @@ def get_daily_chart(primaryDF: DataFrame,
             template=PROPERTY_CHART_DEFAULT_STYLE,
             plot_bgcolor='#16171a',
             paper_bgcolor='#16171a',
-            height=height,
+            height= height if chart_mode == "daily" else height/2,
             width=width,
             dragmode=False if show_full == False else "zoom",
             showlegend=chart_range['legend'],
             legend=dict(yanchor="bottom", y=-0.25, xanchor="center", x=0.46, orientation="h"),
             margin=dict(l=0, r=0, t=40, b=10),
             xaxis=chart_range['scales'],
+            xaxis2=None,
             yaxis=dict( #price
                             title="" if show_full == False else primary_label ,
                             titlefont=dict(
@@ -408,13 +451,14 @@ def get_sopr_chart(primaryDF: DataFrame,
                    primary_value_description: str,
                    secondary_value_description: str,
                    height: int,
-                   show_full: bool):
+                   show_full: bool,
+                   chart_mode: str):
 
 
-        chart_range = get_range(None, show_full) 
+        chart_range = get_range(None, show_full, chart_mode) 
         
         fig = get_main_chart()
-        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, False)
+        fig = add_price_to_chart(fig, primaryDF, primary_label, primary_val_label, primary_value_description, primary_val_unit, False, chart_mode = chart_mode)
         if show_full:
             fig = add_halvings_to_chart(fig, primaryDF)
         fig = add_image_to_chart(fig)
@@ -440,7 +484,8 @@ def get_sopr_chart(primaryDF: DataFrame,
         tmp_df, valsList = [], []
         last_val, last_day = None, None;
         last_color = "grey"
-    
+
+        line_width = 5 if chart_mode == "realtime" else 1
 
         for index, row in secondaryDF.iterrows():
             
@@ -475,6 +520,7 @@ def get_sopr_chart(primaryDF: DataFrame,
                                         y=tmpPdDF['calculated_value'], 
                                         mode='lines', 
                                         line={'color': get_color_for_value(last_val)},
+                                        line_width = line_width,
                                         hovertemplate = get_value_chart_desc(secondary_label, "SOPR Value", "", "")
                                     ),secondary_y=True
                                  )
@@ -493,6 +539,7 @@ def get_sopr_chart(primaryDF: DataFrame,
                                 y=tmpPdDF['calculated_value'], 
                                 mode='lines', 
                                 line={'color': get_color_for_value(last_val)},
+                                line_width = line_width,
                                 hovertemplate = get_value_chart_desc(secondary_label, "SOPR Value", "", "")
                             ),secondary_y=True
                             )   
@@ -504,7 +551,7 @@ def get_sopr_chart(primaryDF: DataFrame,
             template=PROPERTY_CHART_DEFAULT_STYLE,
             plot_bgcolor='#16171a',
             paper_bgcolor='#16171a',
-            height=height,
+            height=height if chart_mode == "daily" else height/2,
             showlegend=False,
             legend=dict(yanchor="bottom", y=-0.25, xanchor="center", x=0.46, orientation="h"),
             margin=dict(l=0, r=0, t=40, b=10),

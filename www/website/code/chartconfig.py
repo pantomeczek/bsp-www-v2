@@ -15,6 +15,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "total_activity",
                                                                                         "7dma":   "total_activity_7dma",
@@ -32,6 +33,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "plankton_activity",
                                                                                         "7dma":   "plankton_activity_7dma",
@@ -49,6 +51,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "shrimps_activity",
                                                                                         "7dma":   "shrimps_activity_7dma",
@@ -66,6 +69,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "crabs_activity",
                                                                                         "7dma":   "crabs_activity_7dma",
@@ -83,6 +87,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "fish_activity",
                                                                                         "7dma":   "fish_activity_7dma",
@@ -100,6 +105,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "sharks_activity",
                                                                                         "7dma":   "sharks_activity_7dma",
@@ -117,6 +123,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "whales_activity",
                                                                                         "7dma":   "whales_activity_7dma",
@@ -134,6 +141,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "humpbacks_activity",
                                                                                         "7dma":   "humpbacks_activity_7dma",
@@ -153,6 +161,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "total_balance",
                                                                                         "7dma":   "total_balance_7dma",
@@ -170,6 +179,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "plankton_balance",
                                                                                         "7dma":   "plankton_balance_7dma",
@@ -187,6 +197,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "shrimps_balance",
                                                                                         "7dma":   "shrimps_balance_7dma",
@@ -204,6 +215,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "crabs_balance",
                                                                                         "7dma":   "crabs_balance_7dma",
@@ -221,6 +233,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "fish_balance",
                                                                                         "7dma":   "fish_balance_7dma",
@@ -238,6 +251,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "sharks_balance",
                                                                                         "7dma":   "sharks_balance_7dma",
@@ -255,6 +269,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "whales_balance",
                                                                                         "7dma":   "whales_balance_7dma",
@@ -272,6 +287,7 @@ class Chartconfig:
                                                                         "fillunder": True,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "humpbacks_balance",
                                                                                         "7dma":   "humpbacks_balance_7dma",
@@ -291,6 +307,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "total_count",
                                                                                         "7dma":   "total_count_7dma",
@@ -308,6 +325,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "plankton_count",
                                                                                         "7dma":   "plankton_count_7dma",
@@ -325,6 +343,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "shrimps_count",
                                                                                         "7dma":   "shrimps_count_7dma",
@@ -342,6 +361,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "crabs_count",
                                                                                         "7dma":   "crabs_count_7dma",
@@ -359,6 +379,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "fish_count",
                                                                                         "7dma":   "fish_count_7dma",
@@ -376,6 +397,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "sharks_count",
                                                                                         "7dma":   "sharks_count_7dma",
@@ -393,6 +415,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "whales_count",
                                                                                         "7dma":   "whales_count_7dma",
@@ -410,6 +433,7 @@ class Chartconfig:
                                                                         "fillunder": False,
                                                                         "chart_date_from": "2010-07-01",
                                                                         "widget_active": True,
+                                                                        "realtime_enabled": True,
                                                                         "indicators": {
                                                                                         "normal": "humpbacks_count",
                                                                                         "7dma":   "humpbacks_count_7dma",
@@ -690,6 +714,7 @@ class Chartconfig:
                                                                     "fillunder": True,
                                                                     "chart_date_from": "2010-07-01",
                                                                     "widget_active": True,
+                                                                    "realtime_enabled": True,
                                                                     "indicators": {
                                                                                     "normal": "wallettracker_mtgox",
                                                                                     "7dma":   "wallettracker_mtgox_7dma",
@@ -707,6 +732,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_coinbase",
                                                                                 "7dma":   "wallettracker_coinbase_7dma",
@@ -724,6 +750,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_gemini",
                                                                                 "7dma":   "wallettracker_gemini_7dma",
@@ -741,6 +768,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_kraken",
                                                                                 "7dma":   "wallettracker_kraken_7dma",
@@ -758,6 +786,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_binance",
                                                                                 "7dma":   "wallettracker_binance_7dma",
@@ -775,6 +804,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": False,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_bitstamp",
                                                                                 "7dma":   "wallettracker_bitstamp_7dma",
@@ -794,6 +824,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_blackrock",
                                                                                 "7dma":   "wallettracker_blackrock_7dma",
@@ -811,6 +842,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_fidelitycustody",
                                                                                 "7dma":   "wallettracker_fidelitycustody_7dma",
@@ -828,6 +860,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_bitwise",
                                                                                 "7dma":   "wallettracker_bitwise_7dma",
@@ -845,6 +878,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_arkinvest",
                                                                                 "7dma":   "wallettracker_arkinvest_7dma",
@@ -862,6 +896,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_wisdomtree",
                                                                                 "7dma":   "wallettracker_wisdomtree_7dma",
@@ -879,6 +914,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_vaneck",
                                                                                 "7dma":   "wallettracker_vaneck_7dma",
@@ -896,6 +932,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_totaletf_total_balance",
                                                                                 "7dma":   "wallettracker_totaletf_total_balance_7dma",
@@ -915,6 +952,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_tesla",
                                                                                 "7dma":   "wallettracker_tesla_7dma",
@@ -932,6 +970,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-07-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "wallettracker_satoshinakamoto",
                                                                                 "7dma":   "wallettracker_satoshinakamoto_7dma",
@@ -954,6 +993,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "sopr_value",
                                                                                 "7dma":   "sopr_value_7dma",
@@ -971,6 +1011,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "sth_sopr_value",
                                                                                 "7dma":   "sth_sopr_value_7dma",
@@ -988,6 +1029,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2012-01-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "lth_sopr_value",
                                                                                 "7dma":   "lth_sopr_value_7dma",
@@ -1008,6 +1050,7 @@ class Chartconfig:
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_price",
                                                                                 "7dma":   "realized_price_7dma",
@@ -1026,6 +1069,7 @@ class Chartconfig:
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_sth_price",
                                                                                 "7dma":   "realized_sth_price_7dma",
@@ -1044,6 +1088,7 @@ class Chartconfig:
                                                                 "chart_type": "log",
                                                                 "chart_date_from": "2010-09-30",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "realized_lth_price",
                                                                                 "7dma":   "realized_lth_price_7dma",
@@ -1063,6 +1108,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-05-30",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "sth_balance",
                                                                                 "7dma":   "sth_balance_7dma",
@@ -1080,6 +1126,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-05-30",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "lth_balance",
                                                                                 "7dma":   "lth_balance_7dma",
@@ -1099,6 +1146,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "perc_of_addr_in_profit",
                                                                                 "7dma":   "perc_of_addr_in_profit_7dma",
@@ -1116,6 +1164,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "perc_of_addr_in_loss",
                                                                                 "7dma":   "perc_of_addr_in_loss_7dma",
@@ -1153,6 +1202,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "cdd",
                                                                                 "7dma":   "cdd_7dma",
@@ -1172,6 +1222,7 @@ class Chartconfig:
                                                                 "fillunder": True,
                                                                 "chart_date_from": "2010-11-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "adj_cdd",
                                                                                 "7dma":   "adj_cdd_7dma",
@@ -1208,6 +1259,7 @@ class Chartconfig:
                                                                 "fillunder": False,
                                                                 "chart_date_from": "2010-11-01",
                                                                 "widget_active": True,
+                                                                "realtime_enabled": True,
                                                                 "indicators": {
                                                                                 "normal": "unrealized_profit_loss",
                                                                                 "7dma":   "unrealized_profit_loss_7dma",
@@ -1372,6 +1424,10 @@ class Chartconfig:
     def is_fillunder(self):  
         det_obj = self.get_details_obj()
         return det_obj['fillunder']
+
+    def is_realtime_enabled(self):  
+        det_obj = self.get_details_obj()
+        return det_obj['realtime_enabled'] if 'realtime_enabled' in det_obj else False
 
 
         

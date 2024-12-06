@@ -38,7 +38,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col dashboard-element-label">Now</th>
+                  <th scope="col dashboard-element-label">Yesterday</th>
                   <th scope="col dashboard-element-label">-30 Days</th>
                   <th scope="col dashboard-element-label">-60 Days</th>
                 </tr>
@@ -93,7 +93,7 @@
                       {% if i.stats  %}
                           <ul class="list-group list-group-horizontal price-diff-module price-diff-module-small">
                               <li class="list-group-item ms-auto " style="background-color: transparent; border: none;">
-                                  <div class="price-diff-header">Now</div>
+                                  <div class="price-diff-header">Yesterday</div>
                                   <div class="price-diff-value">
                                       {% if i.stats['today']['diff'] == "+"  %}
                                       <i class="bi bi-arrow-up-short change_plus"></i>
@@ -152,7 +152,10 @@
               </div>
               {% if i.href %}
               <div class="text-end mt-3">
-                  <a class="link-primary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;">Explore full chart <i class="bi bi-graph-up"></i></a>
+                  {% if i.realtime_enabled %}
+                  <a class="link-primary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}&mode=realtime" style="font-size: 14px; margin-right: 10px;"><i class="bi bi-clock-history"></i> Realtime chart </a>
+                  {% endif %}
+                  <a class="link-primary link-underline-light link-underline link-underline-opacity-0" href="{{i.href}}" style="font-size: 14px;"><i class="bi bi-calendar-event"></i> Full chart</a>
               </div>
               {% endif %}
           </div>
