@@ -219,6 +219,10 @@ a.mobile-button-small.active {
     transition: transform 1s, box-shadow 1s;
 }
 
+.mined-block span {
+  font-size: 14px;
+}
+
 .mined-block a.block_url {
     color: #f7931a !important;
 }
@@ -236,6 +240,7 @@ a.mobile-button-small.active {
     background-color: #f7931a !important;
     color: var(--bs-main-text-color);
 }
+
 
 .highlighted-block a.block_url {
     color: var(--bs-border-color) !important;

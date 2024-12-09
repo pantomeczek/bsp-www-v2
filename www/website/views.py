@@ -43,6 +43,8 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
     stats = get_stats_element(chart_type, metric)
 
     address_charts = []
+    
+    chart_mode="daily"
 
     if stats is not None and len(stats) > 0:
         address_charts.append(stats[0])
@@ -86,6 +88,7 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
             elif chart_type == 'onchain' and metric == 'other' and i == 'mvrvz':
                 chartRes = charts.get_mvrv_chart(date_of_chart, None,340, False)
             else:
+                print(chart_mode)
                 chartRes = charts.get_standard_price_chart(indicator_name = inObj.get_indicator(inObj.get_precision()), 
                                                            indicator_title = inObj.get_label_with_dma(), 
                                                            indicator_value_label = inObj.get_value_label(), 
@@ -97,7 +100,8 @@ def get_charts_for_addresses(chart_type, metric, date_of_chart):
                                                            chart_height = 340,
                                                            chart_width = None,
                                                            show_all_tools = False,
-                                                           secondary_chart_type = inObj.get_chart_type())
+                                                           secondary_chart_type = inObj.get_chart_type(),
+                                                           chart_mode=chart_mode)
                                 
             chartResult = chartRes['chart']
             chartStats = chartRes['stats']
@@ -122,14 +126,15 @@ def get_charts(chart_type: str, metric: str, date_of_chart):
 
 def get_charts_for_dashboard(indicators, date_of_chart):
     dashboard_items = []
-
+    
     for i in indicators:
         chart_type = i.get('chart_type')
         metric = i.get('metric')
         submetric = i.get('submetric') if i.get('submetric') != "None" else None
 
-        
-
+       
+        chart_mode = "realtime" if "chartmode" in i and i.get('chartmode') == "realtime" else "daily"
+       
         if chart_type == 'onchain' and metric == 'sopr':
             inObj = Chartconfig(chart_type, metric, metric, None, None)
             chartResult = charts.get_sopr_chart(inObj.get_indicator(inObj.get_precision()), 
@@ -140,7 +145,9 @@ def get_charts_for_dashboard(indicators, date_of_chart):
                                                 340, 
                                                 False)
         else:          
-            inObj = Chartconfig(chart_type, metric, submetric, None, None)                              
+            prec = i.get('precision') if "precision" in i else None
+            inObj = Chartconfig(chart_type, metric, submetric, prec, None)             
+                      
             chartResult = charts.get_standard_price_chart(indicator_name = inObj.get_indicator(inObj.get_precision()), 
                                                             indicator_title = inObj.get_label_with_dma(), 
                                                             indicator_value_label = inObj.get_value_label(), 
@@ -152,7 +159,8 @@ def get_charts_for_dashboard(indicators, date_of_chart):
                                                             chart_height = 340,
                                                             chart_width = None,
                                                             show_all_tools = False,
-                                                            secondary_chart_type = inObj.get_chart_type())
+                                                            secondary_chart_type = inObj.get_chart_type(),
+                                                            chart_mode=chart_mode)
                                              
         if metric is not None:
             url = f"/chart?type={chart_type}&metric={metric}"
@@ -171,7 +179,8 @@ def get_charts_for_dashboard(indicators, date_of_chart):
                 "href": url,
                 "chart": chartResult['chart'],
                 "stats": chartResult['stats'],
-                "realtime_enabled": inObj.is_realtime_enabled()
+                "realtime_enabled": inObj.is_realtime_enabled(),
+                "chart_mode": chart_mode
             }
         
         dashboard_items.append(el)
@@ -208,12 +217,16 @@ def get_dashboard():
                                                                     {
                                                                         "chart_type": "addresses",
                                                                         "metric": "balances",
-                                                                        "submetric": "whales"
+                                                                        "submetric": "whales",
+                                                                        "precision": "normal",
+                                                                        "chartmode": "realtime"
                                                                     },
                                                                     {
                                                                         "chart_type": "institutions",
                                                                         "metric": "etfs",
-                                                                        "submetric": "totaletf"
+                                                                        "submetric": "totaletf",
+                                                                        "precision": "normal",
+                                                                        "chartmode": "daily"
                                                                     }
                                                                 ], date_of_chart)
 

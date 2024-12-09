@@ -90,7 +90,7 @@
                 <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
                 <div>
                     <div class="col-md" style="text-align: right;">
-                      {% if i.stats  %}
+                      {% if i.stats and i.chart_mode != "realtime" %}
                           <ul class="list-group list-group-horizontal price-diff-module price-diff-module-small">
                               <li class="list-group-item ms-auto " style="background-color: transparent; border: none;">
                                   <div class="price-diff-header">Yesterday</div>
@@ -144,6 +144,12 @@
                                   {% endif  %}
                               </li>
                           </ul>
+                      {% else %}
+                          {% if i.chart_mode == "realtime" %}
+                            <div style="height: 47px; color: var(--bs-faded-text-color);">
+                              <i class="bi bi-clock-history"></i> Realtime
+                            </div>
+                          {% endif %}
                       {% endif  %}
                   </div>
                 </div>

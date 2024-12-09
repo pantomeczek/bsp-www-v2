@@ -140,7 +140,7 @@ def get_standard_price_chart(indicator_name: str,
 
                priceDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
                                                from v_current_hours as hours \
-                                               left join public.general_indicator ind \
+                                               left join public.general_indicator_realtime ind \
                                                  on hours.hour = ind.day and \
                                                     indicator_name = 'bitcoin_price_realtime' \
                                               order by day asc", 
@@ -375,7 +375,7 @@ def get_sopr_chart(indicator_name, label, metric_label, metric_unit, date_from =
 
           priceDF = get_df_from_query(f"select hours.hour as day, calculated_value as value \
                                              from v_current_hours as hours \
-                                             left join public.general_indicator ind \
+                                             left join public.general_indicator_realtime ind \
                                              on hours.hour = ind.day and \
                                                   indicator_name = 'bitcoin_price_realtime' \
                                              order by day asc", 
