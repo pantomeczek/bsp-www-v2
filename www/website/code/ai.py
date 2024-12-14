@@ -11,7 +11,7 @@ select analysis_date, analysis_content
 AI_SUMMARY = {
     "addresses_balances": {
                                 "id": "ai_addresses_balance_summary",
-                                "title": "Overview of Bitcoin Wallet Balances Over the Last 30 Days",
+                                "title": "Bitcoin Wallet Balances Over the Last 30 Days",
                                 "type": "ai",
                                 "indicator": "addresses_balance_summary",
                                 "class": "mw-lg-50",
@@ -20,7 +20,7 @@ AI_SUMMARY = {
     },
     "institutions_etfs": {
                                     "id": "ai_etf_balance_summary",
-                                    "title": "Overview of Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
+                                    "title": "Bitcoin Addresses Associated with ETFs Over the Last 30 Days",
                                     "type": "ai",
                                     "indicator": "etf_balance_summary",
                                     "class": "mw-lg-50",
@@ -29,7 +29,7 @@ AI_SUMMARY = {
     },
     "onchain_sopr": {
                                 "id": "ai_onchain_sopr_summary",
-                                "title": "SOPR Overview Over the Last 30 Days",
+                                "title": "SOPR Over the Last 30 Days",
                                 "type": "ai",
                                 "indicator": "onchain_sopr_summary",
                                 "class": "mw-lg-50",
@@ -38,7 +38,7 @@ AI_SUMMARY = {
     },
     "onchain_profitloss": {
                                 "id": "ai_onchain_profitloss_summary",
-                                "title": "Addresses in Profit and Loss Overview Over the Last 30 Days",
+                                "title": "Addresses in Profit and Loss Over the Last 30 Days",
                                 "type": "ai",
                                 "indicator": "onchain_profitloss_summary",
                                 "class": "mw-lg-50",

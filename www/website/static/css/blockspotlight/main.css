@@ -534,7 +534,7 @@ a.mobile-button-small.active {
     }
     50% {
       box-shadow: 0 0 10px #f7931a;
-      opacity: 0.6;
+      opacity: 0.85;
     }
   }
 
@@ -550,15 +550,15 @@ a.mobile-button-small.active {
   }
 
   /* Keyframes for the pulsing effect */
-  @keyframes pulse {
+  @keyframes pulse-div {
     0% {
-      opacity: 0.9;
+      opacity: 1;
     }
     50% { /* Slightly enlarges the div */
-      opacity: 0.85; /* Reduces the opacity */
+      opacity: 1; /* Reduces the opacity */
     }
     100% {
-      opacity: 0.9;
+      opacity: 1;
     }
   }
 

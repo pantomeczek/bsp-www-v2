@@ -20,7 +20,7 @@
       {% if i.type == 'ai' %}
       <div class="p-2 bd-highlight dashboard-aitext-panel dashboard-list flex-grow-1 w-25">
         <div class="card p-3 p-md-4 pb-3 dashboard-list h-100 " style="border: 0px; background-color: #16171a !important; min-height: 533px;">
-          <h5 style="text-align: left;" class="mb-2"><i class="bi bi-blockquote-left" style="margin-right: 5px;"></i>AI - {{i.title}}</h5>
+          <h5 style="text-align: left;" class="mb-2"><i class="bi bi-cpu" style="margin-right: 5px;"></i>AI Overview - {{i.title}}</h5>
           <div class="py-3 fst-italic muted-text scrollable-div ai-box" style="font-size:14px;">
             {{ i.aicontent|safe }}
           </div>
@@ -33,7 +33,7 @@
       {% if i.type == 'stats' %}
       <div class="p-2 bd-highlight align-self-stretch dashboard-info-panel mw-lg-25">
         <div class="card p-3 p-md-4 pb-3 dashboard-list h-100" style="border: 0px; background-color: #16171a !important;">
-            <h5 style="text-align: left;" class="mb-2"><i class="bi bi-list-columns" style="margin-right: 5px;"></i>{{i.name}}</h5>
+            <h5 style="text-align: left;" class="mb-2"><i class="bi bi-calculator" style="margin-right: 5px;"></i>{{i.name}}</h5>
             <table class="table stats-table" style="margin-top: 20px;">
               <thead>
                 <tr>
@@ -87,7 +87,15 @@
       <div class="p-2 bd-highlight dashboard-chart-panel dashboard-list flex-grow-1 {% if i.type == 'piechart' %} mw-lg-25 {% endif %} {% if i.type != 'piechart' %} w-50 {% endif %}">
           <div class="card p-3 p-md-4 pb-3" style="border: 0px; background-color: #16171a !important; ">
               <div >
-                <h5 style="text-align: left; padding: 5px;"><i class="bi bi-graph-up"></i> {{ i.title  }}</h5>
+                <h5 style="text-align: left; padding: 5px;">
+                  {% if i.type == 'chart' %}
+                  <i class="bi bi-graph-up"></i> 
+                  {% endif %}
+                  {% if i.type == 'piechart' %}
+                  <i class="bi bi-bar-chart-line"></i>
+                  {% endif %}
+                  {{ i.title  }}
+                </h5>
                 <div>
                     <div class="col-md" style="text-align: right;">
                       {% if i.stats and i.chart_mode != "realtime" %}
